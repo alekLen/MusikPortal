@@ -1,0 +1,39 @@
+﻿@model MusikPortal.Models.RegisterModel
+@using Microsoft.AspNetCore.Http
+
+<form id="registrationForm" action="Registration" method="post">
+    @Html.AntiForgeryToken()
+    <div class="card">
+        @Html.ValidationSummary(true, "")
+        <div>
+            @Html.DisplayNameFor(model => model.Login)
+            <div>
+                @Html.EditorFor(model => model.Login)
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div>
+            @Html.DisplayNameFor(model => model.Password)
+            <div>
+                @Html.PasswordFor(model => model.Password, new { id = "Password" })
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div>
+            @Html.DisplayNameFor(model => model.PasswordConfirm)
+
+            <div>
+                @Html.PasswordFor(model => model.PasswordConfirm)
+                <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div>
+            <div>
+                <button type="submit">Зарегистрироваться</button>
+            </div>
+        </div>
+    </div>
+</form>
