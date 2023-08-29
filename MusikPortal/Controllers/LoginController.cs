@@ -23,7 +23,12 @@ namespace MusikPortal.Controllers
         public async Task<IActionResult> Registration(RegisterModel user)
         {
             if (ModelState.IsValid)
-            {
+            {             
+                if (await rep.GetUser(user.Login) != null)
+                {
+                    ModelState.AddModelError("", "this login already exists");
+                    return View(user);
+                }
                 User u = new();
                 u.Name = user.Login;
                 byte[] saltbuf = new byte[16];
@@ -39,6 +44,7 @@ namespace MusikPortal.Controllers
                 string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
                 //bool passwordsMatch = BCrypt.Net.BCrypt.Verify(enteredPassword, hashedPasswordFromDatabase); для проверки совпадения           
                 u.Password = hashedPassword;
+                u.Level = 0;
                 try
                 {
                     await rep.AddUser(u);

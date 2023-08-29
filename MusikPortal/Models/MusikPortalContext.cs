@@ -23,7 +23,7 @@ namespace MusikPortal.Models
                 s.salt = salt;
                 string password = salt + pass;
                 string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
-                User u = new User { Name = "Vitaliy", Password = hashedPassword, Level = 2 };
+                User u = new User { Name = "Elena", Password = hashedPassword, Level = 2 };
                 Users.Add(u);
                 SaveChanges();
                 s.user = u;
