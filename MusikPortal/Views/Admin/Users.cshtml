@@ -1,0 +1,18 @@
+﻿@using Microsoft.AspNetCore.Http
+@model MusikPortal.Models.User
+
+<div class="c3">
+   <table>
+      @foreach (var s in ViewBag.Users)
+      {
+          <form asp-action="EditUser"  asp-controller="Admin" method="post">
+              <input asp-for="Id" type="hidden" value=@s.Id>
+          <tr>
+                <td>   <input asp-for="Name" class="form-control" value=@s.Name readonly="readonly" /></td>
+                <td> <input asp-for="Level" class="form-control" type="number"  min="0" max="2" value=@s.Level /></td>
+                <td>&nbsp;&nbsp;&nbsp;<input type="submit" value="confirm registration" /></td>
+            </tr></form>
+      }
+    </table>
+</div>
+
