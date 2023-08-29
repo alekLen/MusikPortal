@@ -183,6 +183,19 @@ namespace MusikPortal.Controllers
                     return View("Users");
                 }
            
+        }      
+        public async Task<IActionResult> DeleteSong(int id)
+        {
+            try
+            {
+                await rep.DeleteSong(id);
+                await rep.Save();
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                return View("Index", "Home");
+            }
         }
     }
 }
