@@ -19,18 +19,19 @@
         @if (Context.Session.GetString("admin") != null)
         {
             <div class="navbar-collapse collapse d-sm-inline-flex c c1">
-                @using (Html.BeginForm("EditSong", "Admin", FormMethod.Get))
+                <div>
+                @using (Html.BeginForm("EditSong", "Admin", FormMethod.Post))
                 {
+                        <div>
+                            <input type="hidden" value=@s.Id />&nbsp;
+                        </div>
                     <div>
                         <input type="submit" value="Edit Song" />&nbsp;
-                    </div><br />
-                }
-                @using (Html.BeginForm("DeleteSong", "Admin", FormMethod.Get))
-                {
-                    <div>
-                        <input type="submit" value="Delete Song" />&nbsp;
                     </div>
                 }
+                </div><br /><div>
+                    <a asp-controller="Admin" asp-action="DeleteSong" asp-route-id="@s.Id">Delete Song</a>
+                </div>
             </div>
         }
   
