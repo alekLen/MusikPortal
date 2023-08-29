@@ -15,11 +15,13 @@ namespace MusikPortal.Repository
         Task<List<Style>> GetStylesList();
         Task<List<Artist>> GetArtistsList();
         Task<List<Song>> GetSongs();
+        Task<List<User>> GetUsers(string n);
         Task AddStyle(Style s);
         Task DeleteStyle(int id);
         Task EditStyle(int id, string s);
         Task DeleteArtist(int id);
         Task EditArtist(int id, string s);
+        Task EditUser(int id, int l);
         Task Save();
     }
 }

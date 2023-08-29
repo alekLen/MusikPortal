@@ -40,6 +40,10 @@ namespace MusikPortal.Repository
         {
             return await db.Songs.Include((p) => p.artist ).Include((p) => p.style).ToListAsync();
         }
+        public async Task<List<User>> GetUsers(string n)
+        {
+            return await db.Users.Where(user => user.Name != n).ToListAsync();
+        }
         public async Task AddUser(User user)
         {
             await db.AddAsync(user);
@@ -95,6 +99,16 @@ namespace MusikPortal.Repository
             {
                 f.Name = s;
                 db.Artists.Update(f);
+
+            }
+        }
+        public async Task EditUser(int id, int l)
+        {
+            var f = await db.Users.FindAsync(id);
+            if (f != null)
+            {
+                f.Level = l;
+                db.Users.Update(f);
 
             }
         }
