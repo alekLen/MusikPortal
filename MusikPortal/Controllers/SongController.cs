@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MusikPortal.Repository;
 using MusikPortal.Models;
-using System.IO;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
+
 
 namespace MusikPortal.Controllers
 {
@@ -14,30 +17,41 @@ namespace MusikPortal.Controllers
             rep = context;
             _appEnvironment = appEnvironment;
         }
-
+        public async Task<IActionResult> Create()
+        {
+            List<Style> s= await rep.GetStylesList();        
+            List<Artist> a = await rep.GetArtistsList();                
+            ViewData["StyleId"] = new SelectList(s, "Id", "Name");
+            ViewData["ArtistId"] = new SelectList(a, "Id", "Name");
+            return View("AddSong");
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,style,artist,Year,file")] Song song, IFormFile f)
-        {
-            if (f == null)
+        public async Task<IActionResult> Create( AddSong song, IFormFile uploadedFile)
+        {            
+            if (uploadedFile == null)
                 ModelState.AddModelError("", "вы не добавили файл");
             DateTime today = DateTime.Today;
             int currentYear = today.Year;
-            if (Convert.ToInt32(song.Year) < 1895 || Convert.ToInt32(song.Year) > currentYear)
+            if (Convert.ToInt32(song.Year) < 0 || Convert.ToInt32(song.Year) > currentYear)
                 ModelState.AddModelError("", "не корректный год");
-            if (f != null)
+            if (uploadedFile != null)
             {
+                string str= uploadedFile.FileName.Replace(" ", "_");
+                string str1 = str.Replace("-", "_");
                 // Путь к папке Files
-                string path = "/MusikFiles/" + f.FileName; // имя файла
+                string path = "/MusicFiles/" + str1; // имя файла
 
                 using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                 {
-                    await f.CopyToAsync(fileStream); // копируем файл в поток
+                    await uploadedFile.CopyToAsync(fileStream); // копируем файл в поток
                 }
                 Song s = new();
+                Style sStyle = await rep.GetStyle(song.StyleId);
+                Artist aArtist = await rep.GetArtist(song.ArtistId);
                 s.Name = song.Name;
-                s.style = song.style;
-                s.artist = song.artist;
+                s.style =sStyle;
+                s.artist = aArtist;
                 s.Year = song.Year;
                 s.text = song.text;
                 s.file = path;
@@ -45,19 +59,31 @@ namespace MusikPortal.Controllers
                 {
                     try
                     {
-                       await rep.AddSong(s);
-                       await rep.Save();
-                        return RedirectToAction(nameof(Index));
+                        await rep.AddSong(s);
+                        await rep.Save();
+                        return RedirectToAction("Index", "Home");
                     }
                     catch
                     {
-                        return View(song);
+                        putStylesArtists();
+                        return View("AddSong", song);
                     }
                 }
                 else
-                    return View(song);
+                {
+                    putStylesArtists();
+                    return View("AddSong", song);
+                }
             }
-            return View(song);
+            putStylesArtists();
+            return View("AddSong", song);
+        }
+        public async void putStylesArtists()
+        {
+            List<Style> s = await rep.GetStylesList();
+            List<Artist> a = await rep.GetArtistsList();
+            ViewData["StyleId"] = new SelectList(s, "Id", "Name");
+            ViewData["ArtistId"] = new SelectList(a, "Id", "Name");
         }
 
     }

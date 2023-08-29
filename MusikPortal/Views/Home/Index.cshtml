@@ -1,8 +1,39 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using Microsoft.AspNetCore.Http
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+ @foreach (var s in ViewBag.Songs)
+ {   <div class="c3">
+       <div>
+        <h3 class="c4">@s.artist.Name</h3> 
+             <div class="card">
+             <h4>@s.Name</h4>
+            <div class="c c2">@s.Year</div>
+      <div class="text-center">
+            <video controls autoplay="autoplay" loop="loop" muted="muted" width="600" height="400">
+            <source src=@s.file type="video/mp4">
+           </video>
+         </div>
+
+                <div class="c c2">@s.style.Name</div>
+            </div>
+        </div>
+        @if (Context.Session.GetString("admin") != null)
+        {
+            <div class="navbar-collapse collapse d-sm-inline-flex c c1">
+                @using (Html.BeginForm("EditSong", "Admin", FormMethod.Get))
+                {
+                    <div>
+                        <input type="submit" value="Edit Song" />&nbsp;
+                    </div><br />
+                }
+                @using (Html.BeginForm("DeleteSong", "Admin", FormMethod.Get))
+                {
+                    <div>
+                        <input type="submit" value="Delete Song" />&nbsp;
+                    </div>
+                }
+            </div>
+        }
+  
+    </div>
+    <br />
+ }

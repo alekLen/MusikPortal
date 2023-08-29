@@ -78,7 +78,9 @@ namespace MusikPortal.Controllers
                         if (BCrypt.Net.BCrypt.Verify(conf, u.Password))
                         {
                             HttpContext.Session.SetString("login", user.Login);
-                            if(u.Level==2)
+                            if (u.Level == 1)
+                                HttpContext.Session.SetString("level", "level");
+                            if (u.Level==2)
                               HttpContext.Session.SetString("admin", "admin");// создание сессионной переменной
                             return RedirectToAction("Index", "Home");
                         }

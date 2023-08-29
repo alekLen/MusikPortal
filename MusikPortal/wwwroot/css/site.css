@@ -81,3 +81,12 @@ body {
 .c1 {
     width: 500px;
 }
+.c2{
+    padding-right:100px;
+}
+.c3{
+    display:flex;
+}
+.c4{
+    align-self:center;
+}

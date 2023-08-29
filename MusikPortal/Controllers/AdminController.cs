@@ -1,12 +1,162 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using MusikPortal.Models;
+using MusikPortal.Repository;
 
 namespace MusikPortal.Controllers
 {
     public class AdminController : Controller
     {
-        public IActionResult Index()
+        IRepository rep;
+        public AdminController(IRepository context)
         {
-            return View();
+            rep = context;
+        }
+        public async Task<IActionResult> Styles()
+        {
+            List<Style> s = await rep.GetStylesList();
+            ViewData["StyleId"] = new SelectList(s, "Id", "Name");
+            return View("Styles");
+        }
+        public async Task<IActionResult> Artists()
+        {
+            List<Artist> a = await rep.GetArtistsList();
+            ViewData["ArtistId"] = new SelectList(a, "Id", "Name");
+            return View("Artists");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateStyle(Style s)
+        {
+            Style style = new Style();
+            style.Name = s.Name;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await rep.AddStyle(style);
+                    await rep.Save();
+                    return RedirectToAction("Index", "Home");                   
+                }
+                catch
+                {
+                    putStyles(); 
+                    return View("Styles", s);
+                }
+
+            }
+            putStyles();
+            return View("Styles", s);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CreateArtist(Artist s)
+        {
+           Artist art = new Artist();
+            art.Name = s.Name;
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await rep.AddArtist(art);
+                    await rep.Save();
+                    return RedirectToAction("Index", "Home");
+                }
+                catch
+                {
+                    putArtists();
+                    return View("Artists", s);
+                }
+
+            }
+            putArtists();
+            return View("Artists", s);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteStyle(Style s)
+        {                  
+                try
+                {
+                    await rep.DeleteStyle(s.Id);
+                    await rep.Save();
+                    return RedirectToAction("Index", "Home");
+                }
+                catch
+                {
+                putStyles(); 
+                return View("Styles");
+                }           
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteArtist(Artist s)
+        {
+            try
+            {
+                await rep.DeleteArtist(s.Id);
+                await rep.Save();
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                putArtists();
+                return View("Artists");
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditStyle(Style s)
+        {
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        await rep.EditStyle(s.Id,s.Name);
+                        await rep.Save();
+                        return RedirectToAction("Index", "Home");
+                    }
+                    catch
+                    {
+                        putStyles();
+                        return View("Styles");
+                    }
+
+                }
+            putStyles();
+            return View("Styles");
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditArtist(Artist s)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    await rep.EditArtist(s.Id, s.Name);
+                    await rep.Save();
+                    return RedirectToAction("Index", "Home");
+                }
+                catch
+                {
+                    putArtists();
+                    return View("Artists");
+                }
+
+            }
+            putArtists();
+            return View("Artists");
+        }
+        public async void putStyles()
+        {
+            List<Style> s = await rep.GetStylesList();
+            ViewData["StyleId"] = new SelectList(s, "Id", "Name");          
+        }
+        public async void putArtists()
+        {
+            List<Artist> a = await rep.GetArtistsList();
+            ViewData["ArtistId"] = new SelectList(a, "Id", "Name");
         }
     }
 }
