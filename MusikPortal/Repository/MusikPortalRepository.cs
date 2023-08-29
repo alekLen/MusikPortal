@@ -112,6 +112,15 @@ namespace MusikPortal.Repository
 
             }
         }
+        public async Task DeleteSong(int id)
+        {
+            var f = await db.Songs.FindAsync(id);
+            if (f != null)
+            {
+                db.Songs.Remove(f);
+
+            }
+        }
         public async Task Save()
         {
             await db.SaveChangesAsync();

@@ -22,6 +22,7 @@ namespace MusikPortal.Repository
         Task DeleteArtist(int id);
         Task EditArtist(int id, string s);
         Task EditUser(int id, int l);
+        Task DeleteSong(int id);
         Task Save();
     }
 }
