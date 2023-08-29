@@ -8,6 +8,7 @@ namespace MusikPortal.Repository
         Task<User> GetUser(string name);
         Task AddUser(User user);
         Task AddSalt(Salt s);
+        Task AddSong(Song s);
         Task Save();
     }
 }

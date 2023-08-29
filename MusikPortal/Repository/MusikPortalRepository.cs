@@ -27,7 +27,11 @@ namespace MusikPortal.Repository
         {
             await db.AddAsync(s);
         }
-     
+        public async Task AddSong(Song s)
+        {
+            await db.AddAsync(s);
+        }
+
         public async Task Save()
         {
             await db.SaveChangesAsync();
