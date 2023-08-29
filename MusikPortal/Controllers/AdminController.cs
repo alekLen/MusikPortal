@@ -158,5 +158,31 @@ namespace MusikPortal.Controllers
             List<Artist> a = await rep.GetArtistsList();
             ViewData["ArtistId"] = new SelectList(a, "Id", "Name");
         }
+        public async void putUsers()
+        {
+            IEnumerable<User> s = await rep.GetUsers(HttpContext.Session.GetString("login"));
+            ViewBag.Users = s;
+        }
+        public async Task<IActionResult> Users()
+        {
+            IEnumerable<User> s = await rep.GetUsers(HttpContext.Session.GetString("login"));
+            ViewBag.Users = s;
+            return View();
+        }
+        public async Task<IActionResult> EditUser(User u)
+        {            
+                try
+                {
+                    await rep.EditUser(u.Id, u.Level.Value);
+                    await rep.Save();
+                    return RedirectToAction("Index", "Home");
+                }
+                catch
+                {
+                    putUsers();
+                    return View("Users");
+                }
+           
+        }
     }
 }
