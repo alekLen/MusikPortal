@@ -21,8 +21,14 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     @using Microsoft.AspNetCore.Http
                     @if (Context.Session.GetString("admin") != null)
-                    {
+                    {                        
                         <div class="navbar-collapse collapse d-sm-inline-flex c c1">
+                            @using (Html.BeginForm("Create", "Song", FormMethod.Get))
+                            {
+                                <div>
+                                    <input type="submit" value="Add Songs" />&nbsp;&nbsp;&nbsp;
+                                </div>
+                            }
                         @using (Html.BeginForm("Styles", "Admin", FormMethod.Get))
                         {
                                 <div >
@@ -34,13 +40,7 @@
                             <div >
                                     <input type="submit" value="Artists" />&nbsp;
                             </div>
-                        }
-                        @using (Html.BeginForm("Create", "Song", FormMethod.Get))
-                        {
-                            <div >
-                                    <input type="submit" value="AddSongs" />&nbsp;
-                            </div>
-                        }
+                        }                     
                         @using (Html.BeginForm("Users", "Admin", FormMethod.Get))
                         {
                             <div >
@@ -50,17 +50,22 @@
                         </div>
                     }
                     @if (Context.Session.GetString("login") != null)
-                    {                       
+                    {
+                        @if (Context.Session.GetString("admin") == null && Context.Session.GetString("level") != null)
+                        {
+                            <div class="navbar-collapse collapse d-sm-inline-flex c c1">
+                            @using (Html.BeginForm("Create", "Song", FormMethod.Get))
+                            {
+                                <div>
+                                    <input type="submit" value="Add Songs" />&nbsp;
+                                </div>
+                            }
+                            </div>
+                        }
                         @using (Html.BeginForm("Logout", "Login", FormMethod.Get))
                         {
                               <div class="navbar-collapse collapse d-sm-inline-flex c c1">
-                                @if (Context.Session.GetString("admin") == null && Context.Session.GetString("level") != null)
-                                    @using (Html.BeginForm("Create", "Song", FormMethod.Get))
-                                    {
-                                       <div>
-                                           <input type="submit" value="AddSongs" />&nbsp;
-                                       </div>
-                                    }
+                               
                             <span style="margin-left:50px;">
                                 Welcome, @Context.Session.GetString("login")&nbsp;&nbsp;
                             </span>
