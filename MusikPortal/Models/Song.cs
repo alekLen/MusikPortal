@@ -9,5 +9,6 @@
         public Artist artist { get; set; }
         public string Year { get; set; }
         public string file { get; set; }
+        public string? text { get; set; }
     }
 }
