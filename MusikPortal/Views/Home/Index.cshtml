@@ -18,13 +18,13 @@
         </div>
        
             <div class="card ">
-             <h1 class="c4">@s.artist.Name</h1>      
+             <h1 >@s.artist.Name</h1>      
             <div class="c c1">@s.Name</div>
-            <div class="c c1">Albom:&nbsp;&nbsp;&nbsp;</div>
+            <div class="c c1">Album:&nbsp;&nbsp;&nbsp;@s.Album</div>
             <div class="c c1">Year:&nbsp;&nbsp;&nbsp;@s.Year</div>
                 <div class="c c1">@s.style.Name</div>
                 <div>Text </div>
-            <textarea readonly rows="6">@s.text</textarea><br /><br />
+            <textarea readonly rows="5">@s.text</textarea><br /><br />
                 @if (Context.Session.GetString("admin") != null)
                 {
                     <div>

@@ -6,22 +6,18 @@
     <label >Styles</label>
     <select asp-for="Id" class="form-control card _c" asp-items="ViewBag.StyleId"></select>    
 </div>
-    <br /><br />
+    <br />
     <div class="form-group">
         <input type="submit" formaction="DeleteStyle" value="Delete Style" class="btn btn-primary c2" />
     </div>   
-
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div><br />
                 <div class="form-group">
-        <span>input Name of the Style  to Add or Edit  </span><br />
+        <span>input Name of the Style  to Add  </span><br />
                     <input asp-for="Name" class="form-control card _c" />
                     <span asp-validation-for="Name" class="text-danger"></span>
         </div><br />
     <div class="form-group">
             <input type="submit" formaction="CreateStyle" value="Add Style" class="btn btn-primary c2" />
-        </div> <br />
-    <div class="form-group">
-        <input type="submit" formaction="EditStyle" value="Edit Style" class="btn btn-primary c2" />
-    </div>
+        </div> <br />  
     </form>
 </div>
