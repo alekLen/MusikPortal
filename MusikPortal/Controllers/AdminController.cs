@@ -227,18 +227,39 @@ namespace MusikPortal.Controllers
         {
             try
             {
-                Song song = await rep.GetSong(s.SongId.Value);
-              
-                song.Name = s.Name;
-                song.Year = s.Year;
-                song.Album = s.Album;
-                song.artist = await rep.GetArtist(s.ArtistId);
-                song.style = await rep.GetStyle(s.StyleId);              
-                song.file = s.file;
-                song.text = s.text;
-                await rep.UpdateSong(song);
-                await rep.Save();
-                return RedirectToAction("Index", "Home");
+                DateTime today = DateTime.Today;
+                int currentYear = today.Year;
+                try
+                {
+                    if (Convert.ToInt32(s.Year) < 0 || Convert.ToInt32(s.Year) > currentYear)
+                        ModelState.AddModelError("", "не корректный год");
+                }
+                catch { ModelState.AddModelError("", "не корректный год"); }
+                if (ModelState.IsValid)
+                {
+                    try
+                    {
+                        Song song = await rep.GetSong(s.SongId.Value);
+                    song.Name = s.Name;
+                    song.Year = s.Year;
+                    song.Album = s.Album;
+                    song.artist = await rep.GetArtist(s.ArtistId);
+                    song.style = await rep.GetStyle(s.StyleId);
+                    song.file = s.file;
+                    song.text = s.text;
+                    await rep.UpdateSong(song);
+                    await rep.Save();
+                    return RedirectToAction("Index", "Home");
+                    }
+                    catch
+                    {
+                        return View("EditSong", s);
+                    }
+                }
+                else
+                {
+                    return View("EditSong", s);
+                }
             }
             catch
             {
