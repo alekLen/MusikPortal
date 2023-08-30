@@ -23,7 +23,7 @@ namespace MusikPortal.Models
                 s.salt = salt;
                 string password = salt + pass;
                 string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
-                User u = new User { Name = "Elena", Password = hashedPassword, Level = 2 };
+                User u = new User { Name = "admin", Password = hashedPassword, Level = 2 };
                 Users.Add(u);
                 SaveChanges();
                 s.user = u;
@@ -32,10 +32,8 @@ namespace MusikPortal.Models
                 Styles.Add(new Style { Name = "pop" });
                 Styles.Add(new Style { Name = "reggae" });
                 Styles.Add(new Style { Name = "blues" });
-                Styles.Add(new Style { Name = "country" });
-                Styles.Add(new Style { Name = "hip hop" });
+                Styles.Add(new Style { Name = "rep" });
                 Styles.Add(new Style { Name = "disco" });
-                Artists.Add(new Artist { Name = "Enrique Iglesias" });
                 Artists.Add(new Artist { Name = "Bob Marley" });
                 Artists.Add(new Artist { Name = "Sting" });
                 SaveChanges();

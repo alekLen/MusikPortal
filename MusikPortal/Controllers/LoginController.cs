@@ -77,6 +77,7 @@ namespace MusikPortal.Controllers
                         string conf = s.salt + user.Password;
                         if (BCrypt.Net.BCrypt.Verify(conf, u.Password))
                         {
+
                             HttpContext.Session.SetString("login", user.Login);
                             if (u.Level == 1)
                                 HttpContext.Session.SetString("level", "level");

@@ -206,6 +206,7 @@ namespace MusikPortal.Controllers
                 s1.SongId = id;
                 s1.Name= s.Name;
                 s1.Year= s.Year;
+                s1.Album= s.Album;
                 int i = await rep.GetArtistId(id);
                 int i1 = await rep.GetStyleId(id);
                 s1.ArtistId = i;
@@ -230,6 +231,7 @@ namespace MusikPortal.Controllers
               
                 song.Name = s.Name;
                 song.Year = s.Year;
+                song.Album = s.Album;
                 song.artist = await rep.GetArtist(s.ArtistId);
                 song.style = await rep.GetStyle(s.StyleId);              
                 song.file = s.file;

@@ -33,8 +33,12 @@ namespace MusikPortal.Controllers
                 ModelState.AddModelError("", "вы не добавили файл");
             DateTime today = DateTime.Today;
             int currentYear = today.Year;
-            if (Convert.ToInt32(song.Year) < 0 || Convert.ToInt32(song.Year) > currentYear)
-                ModelState.AddModelError("", "не корректный год");
+            try
+            {
+                if (Convert.ToInt32(song.Year) < 0 || Convert.ToInt32(song.Year) > currentYear)
+                    ModelState.AddModelError("", "не корректный год");
+            }
+            catch { ModelState.AddModelError("", "не корректный год"); }
             if (uploadedFile != null)
             {
                 string str= uploadedFile.FileName.Replace(" ", "_");
@@ -54,6 +58,7 @@ namespace MusikPortal.Controllers
                 s.artist = aArtist;
                 s.Year = song.Year;
                 s.text = song.text;
+                s.Album=song.Album; 
                 s.file = path;
                 if (ModelState.IsValid)
                 {
