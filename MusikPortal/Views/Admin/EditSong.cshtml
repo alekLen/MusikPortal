@@ -1,6 +1,6 @@
 ﻿@model MusikPortal.Models.AddSong
 
-<h1 class=" b1 b3">Add the Song</h1>
+<h1 class=" b1 b3">Edit the Song</h1>
 
 <div class="card">
     <form asp-action="EditSong" asp-controller="Admin" method="post" enctype="multipart/form-data">
@@ -10,7 +10,10 @@
             <span>Name </span><br />
             <input asp-for="Name" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
-        </div><br /><br />
+        </div><br />
+        <span>Album </span><br />
+        <input asp-for="Album" class="form-control" />
+        <span asp-validation-for="Album" class="text-danger"></span>
         <div class="form-group">
             <label>styles</label>
             <select asp-for="StyleId" class="form-control" asp-items="ViewBag.StyleId"></select>

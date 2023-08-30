@@ -40,12 +40,12 @@ namespace MusikPortal.Controllers
                 }
                 catch
                 {
-                    putStyles(); 
+                    await putStyles(); 
                     return View("Styles", s);
                 }
 
             }
-            putStyles();
+            await putStyles();
             return View("Styles", s);
         }
         [HttpPost]
@@ -64,12 +64,12 @@ namespace MusikPortal.Controllers
                 }
                 catch
                 {
-                    putArtists();
+                    await putArtists();
                     return View("Artists", s);
                 }
 
             }
-            putArtists();
+            await putArtists();
             return View("Artists", s);
         }
         [HttpPost]
@@ -84,7 +84,7 @@ namespace MusikPortal.Controllers
                 }
                 catch
                 {
-                putStyles(); 
+                await putStyles(); 
                 return View("Styles");
                 }           
         }
@@ -100,7 +100,7 @@ namespace MusikPortal.Controllers
             }
             catch
             {
-                putArtists();
+                await putArtists();
                 return View("Artists");
             }
         }
@@ -118,12 +118,12 @@ namespace MusikPortal.Controllers
                     }
                     catch
                     {
-                        putStyles();
+                        await putStyles();
                         return View("Styles");
                     }
 
                 }
-            putStyles();
+            await putStyles();
             return View("Styles");
         }
         [HttpPost]
@@ -140,25 +140,25 @@ namespace MusikPortal.Controllers
                 }
                 catch
                 {
-                    putArtists();
+                    await putArtists();
                     return View("Artists");
                 }
 
             }
-            putArtists();
+            await putArtists();
             return View("Artists");
         }
-        public async void putStyles()
+        public async Task putStyles()
         {
             List<Style> s = await rep.GetStylesList();
             ViewData["StyleId"] = new SelectList(s, "Id", "Name");          
         }
-        public async void putArtists()
+        public async Task putArtists()
         {
             List<Artist> a = await rep.GetArtistsList();
             ViewData["ArtistId"] = new SelectList(a, "Id", "Name");
         }
-        public async void putUsers()
+        public async Task putUsers()
         {
             IEnumerable<User> s = await rep.GetUsers(HttpContext.Session.GetString("login"));
             ViewBag.Users = s;
@@ -179,7 +179,7 @@ namespace MusikPortal.Controllers
                 }
                 catch
                 {
-                    putUsers();
+                   await putUsers();
                     return View("Users");
                 }
            
@@ -207,13 +207,14 @@ namespace MusikPortal.Controllers
                 s1.Name= s.Name;
                 s1.Year= s.Year;
                 s1.Album= s.Album;
+                s1.text = s.text;
                 int i = await rep.GetArtistId(id);
                 int i1 = await rep.GetStyleId(id);
                 s1.ArtistId = i;
                 s1.StyleId = i1;
                 s1.file = s.file;
-                putStyles();
-                putArtists();
+                await putStyles();
+                await putArtists();
                 return View("EditSong",s1);
             }
             catch
@@ -253,16 +254,22 @@ namespace MusikPortal.Controllers
                     }
                     catch
                     {
+                        await putStyles();
+                        await putArtists();
                         return View("EditSong", s);
                     }
                 }
                 else
                 {
+                    await putStyles();
+                    await putArtists();
                     return View("EditSong", s);
                 }
             }
             catch
             {
+                await putStyles();
+                await putArtists();
                 return View("EditSong", s);
             }
         }
