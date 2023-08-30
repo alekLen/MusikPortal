@@ -194,8 +194,55 @@ namespace MusikPortal.Controllers
             }
             catch
             {
-                return View("Index", "Home");
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        public async Task<IActionResult> EditSong(int id)
+        {
+            try
+            {
+                Song s=await rep.GetSong(id);
+                AddSong s1 = new();
+                s1.SongId = id;
+                s1.Name= s.Name;
+                s1.Year= s.Year;
+                int i = await rep.GetArtistId(id);
+                int i1 = await rep.GetStyleId(id);
+                s1.ArtistId = i;
+                s1.StyleId = i1;
+                s1.file = s.file;
+                putStyles();
+                putArtists();
+                return View("EditSong",s1);
+            }
+            catch
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditSong(AddSong s)
+        {
+            try
+            {
+                Song song = await rep.GetSong(s.SongId.Value);
+              
+                song.Name = s.Name;
+                song.Year = s.Year;
+                song.artist = await rep.GetArtist(s.ArtistId);
+                song.style = await rep.GetStyle(s.StyleId);              
+                song.file = s.file;
+                song.text = s.text;
+                await rep.UpdateSong(song);
+                await rep.Save();
+                return RedirectToAction("Index", "Home");
+            }
+            catch
+            {
+                return View("EditSong", s);
             }
         }
     }
 }
+

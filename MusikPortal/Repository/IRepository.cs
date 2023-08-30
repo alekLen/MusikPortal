@@ -8,6 +8,9 @@ namespace MusikPortal.Repository
         Task<User> GetUser(string name);
         Task<Style> GetStyle(int id);
         Task<Artist> GetArtist(int id);
+        Task<Song> GetSong(int id);
+        Task<int> GetArtistId(int SongId);
+        Task<int> GetStyleId(int SongId);
         Task AddUser(User user);
         Task AddSalt(Salt s);
         Task AddSong(Song s);
@@ -23,6 +26,7 @@ namespace MusikPortal.Repository
         Task EditArtist(int id, string s);
         Task EditUser(int id, int l);
         Task DeleteSong(int id);
+        Task UpdateSong(Song s);
         Task Save();
     }
 }

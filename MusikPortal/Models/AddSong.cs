@@ -12,6 +12,8 @@ namespace MusikPortal.Models
         [Required]
         [Display(Name = "put the Year ")]
         public string Year { get; set; }   
-        public string? text { get; set; }
+        public string? text { get; set; }     
+        public string? file { get; set; }
+        public int? SongId { get; set; }
     }
 }

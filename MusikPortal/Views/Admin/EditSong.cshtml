@@ -1,0 +1,41 @@
+﻿@model MusikPortal.Models.AddSong
+
+<h1 class=" b1 b3">Add the Song</h1>
+
+<div class="card">
+    <form asp-action="EditSong" asp-controller="Admin" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input asp-for="SongId" type="hidden" />
+        <div class="form-group">
+            <span>Name </span><br />
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div><br /><br />
+        <div class="form-group">
+            <label>styles</label>
+            <select asp-for="StyleId" class="form-control" asp-items="ViewBag.StyleId"></select>
+            <span asp-validation-for="StyleId" class="text-danger"></span>
+        </div><br />
+        <div class="form-group">
+            <label>artists</label>
+            <select asp-for="ArtistId" class="form-control" asp-items="ViewBag.ArtistId"></select>
+            <span asp-validation-for="ArtistId" class="text-danger"></span>
+        </div><br />
+        <div class="form-group">
+            <span>Year</span><br />
+            <input asp-for="Year" class="form-control" />
+            <span asp-validation-for="Year" class="text-danger"></span>
+        </div><br />
+        <div class="form-group">
+            <span>Text of the Song(optionaly)</span><br />
+            <textarea asp-for="text"></textarea>
+            <span asp-validation-for="text" class="text-danger"></span>
+        </div><br />
+        <span>file</span><br />
+        <input asp-for="file" class="form-control" />
+        <div class="form-group">
+            <br /><br />
+            <input type="submit" value="Edit Song" class="btn btn-primary c2" />
+        </div>
+    </form>
+</div>
