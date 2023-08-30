@@ -54,7 +54,11 @@ body {
     font-weight: bold;
     font-family: Comfortaa;
 }
-
+._c {
+  
+    width: 670px;
+    background-color: white;
+}
 .card2 {
     margin: 10px;
     padding: 5px;

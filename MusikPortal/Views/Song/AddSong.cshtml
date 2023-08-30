@@ -2,9 +2,7 @@
 
 <h1 class=" b1 b3">Add the Song</h1>
 
-<div class="b1 b2">
-    <div class="img ">
-        <div class="b">
+        <div class="card">
             <form asp-action="Create" asp-controller="Song" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
@@ -28,7 +26,7 @@
                     <span asp-validation-for="Year" class="text-danger"></span>
                 </div><br />
                 <div class="form-group">
-                    <span>Text of the Song(otionaly)</span><br />
+                    <span>Text of the Song(optionaly)</span><br />
                     <textarea asp-for="text"></textarea>
                     <span asp-validation-for="text" class="text-danger"></span>
                 </div><br />
@@ -40,5 +38,3 @@
                 </div>
             </form>
         </div>
-    </div>
-</div>

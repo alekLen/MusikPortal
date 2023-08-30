@@ -1,10 +1,10 @@
 ﻿@model MusikPortal.Models.Style
-
+<div class=" card">
 <form  asp-controller="Admin" method="post">
-  
-<div class="form-group">
+    
+<div class="form-group ">
     <label >Styles</label>
-    <select asp-for="Id" class="form-control" asp-items="ViewBag.StyleId"></select>    
+    <select asp-for="Id" class="form-control card _c" asp-items="ViewBag.StyleId"></select>    
 </div>
     <br /><br />
     <div class="form-group">
@@ -14,13 +14,14 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div><br />
                 <div class="form-group">
         <span>input Name of the Style  to Add or Edit  </span><br />
-                    <input asp-for="Name" class="form-control" />
+                    <input asp-for="Name" class="form-control card _c" />
                     <span asp-validation-for="Name" class="text-danger"></span>
-                </div><br />
+        </div><br />
     <div class="form-group">
             <input type="submit" formaction="CreateStyle" value="Add Style" class="btn btn-primary c2" />
-    </div> <br />
+        </div> <br />
     <div class="form-group">
         <input type="submit" formaction="EditStyle" value="Edit Style" class="btn btn-primary c2" />
     </div>
-</form>
+    </form>
+</div>
