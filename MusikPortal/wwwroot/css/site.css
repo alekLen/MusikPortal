@@ -104,6 +104,11 @@ body {
 .c7 {
     width: 350px;
 }
+._c7 {
+    width: 320px;
+    background-color: white;
+    padding:5px;
+}
 .c8 {
     width: 10px;
 }
@@ -112,4 +117,22 @@ body {
 }
 .c10{
     font-weight:normal;
+}
+.c11{
+    height:200px;
+}
+.c12 {
+    height: 170px;
+}
+.c13 {
+    height: 10px;
+}
+.c14 {
+    height: 50px;
+}
+.c15{
+    padding-top:3px;
+}
+.c17 {
+    width: 320px;
 }

@@ -19,10 +19,7 @@ namespace MusikPortal.Controllers
         }
         public async Task<IActionResult> Create()
         {
-            List<Style> s= await rep.GetStylesList();        
-            List<Artist> a = await rep.GetArtistsList();                
-            ViewData["StyleId"] = new SelectList(s, "Id", "Name");
-            ViewData["ArtistId"] = new SelectList(a, "Id", "Name");
+            await putStylesArtists();
             return View("AddSong");
         }
         [HttpPost]
@@ -70,20 +67,20 @@ namespace MusikPortal.Controllers
                     }
                     catch
                     {
-                        putStylesArtists();
+                        await putStylesArtists();
                         return View("AddSong", song);
                     }
                 }
                 else
                 {
-                    putStylesArtists();
+                    await putStylesArtists();
                     return View("AddSong", song);
                 }
             }
-            putStylesArtists();
+            await putStylesArtists();
             return View("AddSong", song);
         }
-        public async void putStylesArtists()
+        public async Task putStylesArtists()
         {
             List<Style> s = await rep.GetStylesList();
             List<Artist> a = await rep.GetArtistsList();

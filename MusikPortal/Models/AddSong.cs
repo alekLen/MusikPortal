@@ -5,17 +5,19 @@ namespace MusikPortal.Models
     public class AddSong
     {
         [Required]
-        [Display(Name = "put the Name ")]
+        [Display(Name = "name ")]
         public string Name { get; set; }      
         public int StyleId  { get; set; }
         public int ArtistId { get; set; }
         [Required]
-        [Display(Name = "put the Year ")]
+        [Display(Name = "year ")]
         public string Year { get; set; }
         [Required]
-        [Display(Name = "put the Album ")]
+        [Display(Name = "album ")]
         public string Album{ get; set; }
-        public string? text { get; set; }     
+        [Required]
+        [Display(Name = "text ")]
+        public string text { get; set; }     
         public string? file { get; set; }
         public int? SongId { get; set; }
     }

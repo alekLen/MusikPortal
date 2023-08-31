@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http
-
+<div>
  @foreach (var s in ViewBag.Songs)
  {   <div class="c3">
        <div>
@@ -17,19 +17,29 @@
             </div>
         </div>
        <div class="c8"></div>
-        <div class="card c5">
+       <dv>
+        <div class="card c5 c11">
              <h1 >@s.artist.Name</h1> <br/>     
             <div >@s.Name</div>
             <div class="c c7"><span class="c6 c10">Year:</span>&nbsp;@s.Year </div>
             <div class="c c7"><span class="c6 c10">genre:</span>&nbsp;@s.style.Name</div>
             <div class="c c7"><span class="c6 c10">Album:</span>&nbsp;@s.Album</div>
+        </div>
+            <div class="c13 "></div>
             @if (@s.text != null)
             {
-
-                <div class="c10">Text </div>
-                    <textarea readonly rows="4" >@s.text</textarea><br /><br />              
+                <div class="card c5 c12 c15">
+                <div class="c6 c10">Text </div>
+                    <textarea readonly rows="3">@s.text</textarea><br /><br />
+                </div>
             }
-        </div>
+            @if (@s.text == null)
+            {
+
+                <div class="card c5 c14">waiting for text</div>
+            }
+            
+        </dv>
         <div class="c9">
         @if (Context.Session.GetString("admin") != null)
         {
@@ -46,4 +56,6 @@
         </div>
     </div>
     <br />
+   
  }
+</div>

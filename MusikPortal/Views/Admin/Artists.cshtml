@@ -1,24 +1,23 @@
 ﻿@model MusikPortal.Models.Artist
-<div class=" card">
+<h4 class=" b1 b3"> Artist</h4>
+<div class=" card c7">
 <form asp-controller="Admin" method="post">
-
     <div class="form-group ">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <span>enter the name </span><br />
+                    <input asp-for="Name" class="form-control card _c7" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div><br />
+                <div class="form-group">
+                    <input type="submit" formaction="CreateArtist" value="Add Artist" class="btn btn-primary c2" />
+                </div><hr />
         <label>Artists</label>
-        <select asp-for="Id" class="form-control card _c" asp-items="ViewBag.ArtistId"></select>
+        <select asp-for="Id" class="form-control card _c7" asp-items="ViewBag.ArtistId"></select>
     </div>
     <br />
     <div class="form-group">
         <input type="submit" formaction="DeleteArtist" value="Delete Artist" class="btn btn-primary c2" />
-    </div>
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div><br />
-    <div class="form-group">
-        <span>input Artist's Name to Add </span><br />
-        <input asp-for="Name" class="form-control card _c" />
-        <span asp-validation-for="Name" class="text-danger"></span>
-    </div><br />
-    <div class="form-group">
-        <input type="submit" formaction="CreateArtist" value="Add Artist" class="btn btn-primary c2" />
-    </div><br />
-   
+    </div>       
     </form>
 </div>

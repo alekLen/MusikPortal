@@ -28,14 +28,7 @@ namespace MusikPortal.Models
                 SaveChanges();
                 s.user = u;
                 Salts.Add(s);
-                SaveChanges();
-                Styles.Add(new Style { Name = "pop" });
-                Styles.Add(new Style { Name = "reggae" });
-                Styles.Add(new Style { Name = "blues" });
-                Styles.Add(new Style { Name = "rep" });
-                Styles.Add(new Style { Name = "disco" });
-                Artists.Add(new Artist { Name = "Bob Marley" });
-                Artists.Add(new Artist { Name = "Sting" });
+                SaveChanges();              
                 SaveChanges();
             }
         }
