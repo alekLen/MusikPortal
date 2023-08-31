@@ -20,14 +20,14 @@
         <div class="card c5">
              <h1 >@s.artist.Name</h1> <br/>     
             <div >@s.Name</div>
-            <div class="c c7"><span class="c6 ">Year:</span>&nbsp;@s.Year </div>
-            <div class="c c7"><span class="c6">genre:</span>&nbsp;@s.style.Name</div>
-            <div class="c c7"><span class="c6">Album:</span>&nbsp;@s.Album</div>
+            <div class="c c7"><span class="c6 c10">Year:</span>&nbsp;@s.Year </div>
+            <div class="c c7"><span class="c6 c10">genre:</span>&nbsp;@s.style.Name</div>
+            <div class="c c7"><span class="c6 c10">Album:</span>&nbsp;@s.Album</div>
             @if (@s.text != null)
             {
-               
-                    <div>Text </div>
-                    <textarea readonly rows="4">@s.text</textarea><br /><br />              
+
+                <div class="c10">Text </div>
+                    <textarea readonly rows="4" >@s.text</textarea><br /><br />              
             }
         </div>
         <div class="c9">
