@@ -45,7 +45,7 @@ body {
     line-height: 30px;
     outline: none;
     border: none;
-    width: 700px;
+    width: 600px;
     justify-items: flex-end;
     border-radius: 6px;
     background-color: #EBECF0;
@@ -93,4 +93,20 @@ body {
 }
 .c4{
     align-self:center;
+}
+.c5{
+    width:400px;
+}
+
+.c6{
+    font-size:0.8em;
+}
+.c7 {
+    width: 350px;
+}
+.c8 {
+    width: 10px;
+}
+.c9{
+    margin-left:50px;
 }

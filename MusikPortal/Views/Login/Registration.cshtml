@@ -29,10 +29,22 @@
                 <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
             </div>
         </div>
-
+        <div>
+            @Html.DisplayNameFor(model => model.email)
+            <div>
+                @Html.EditorFor(model => model.email)
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+        </div>  <div>
+            @Html.DisplayNameFor(model => model.age)
+            <div>
+                @Html.EditorFor(model => model.age)
+                <span asp-validation-for="age" class="text-danger"></span>
+            </div>
+        </div>
         <div>
             <div>
-                <button type="submit">Зарегистрироваться</button>
+                <button type="submit">Confirm</button>
             </div>
         </div>
     </div>

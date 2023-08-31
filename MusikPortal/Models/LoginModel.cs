@@ -5,12 +5,12 @@ namespace MusikPortal.Models
     public class LoginModel
     {
         [Required]
-        [Display(Name = "введите логин: ")]
+        [Display(Name = "login: ")]
         public string? Login { get; set; }
 
         [Required]
-        [Display(Name = "Пароль: ")]
+        [Display(Name = "password: ")]
         [DataType(DataType.Password)]
-        public string? Password { get; set; }
+        public string? Password { get; set; }   
     }
 }

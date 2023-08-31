@@ -5,18 +5,24 @@ namespace MusikPortal.Models
     public class RegisterModel
     {
         [Required]
-        [Display(Name = "придумайте логин: ")]
+        [Display(Name = "login ")]
         public string? Login { get; set; }
 
         [Required]
-        [Display(Name = "придумайте пароль: ")]
+        [Display(Name = "password ")]
         [DataType(DataType.Password)]
         public string? Password { get; set; }
 
         [Required]
-        [Display(Name = "подтвердите пароль: ")]
-        [Compare("Password", ErrorMessage = "пароли не совпадают")]
+        [Display(Name = "confirm password ")]
+        [Compare("Password", ErrorMessage = "passwords do not mutch")]
         [DataType(DataType.Password)]
         public string? PasswordConfirm { get; set; }
+        [Required]
+        [Display(Name = "email: ")]
+        public string? email { get; set; }
+        [Required]
+        [Display(Name = "age ")]
+        public string? age { get; set; }
     }
 }

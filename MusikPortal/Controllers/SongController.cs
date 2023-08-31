@@ -30,15 +30,15 @@ namespace MusikPortal.Controllers
         public async Task<IActionResult> Create( AddSong song, IFormFile uploadedFile)
         {            
             if (uploadedFile == null)
-                ModelState.AddModelError("", "вы не добавили файл");
+                ModelState.AddModelError("", "put the file");
             DateTime today = DateTime.Today;
             int currentYear = today.Year;
             try
             {
                 if (Convert.ToInt32(song.Year) < 0 || Convert.ToInt32(song.Year) > currentYear)
-                    ModelState.AddModelError("", "не корректный год");
+                    ModelState.AddModelError("", "uncorrectly year");
             }
-            catch { ModelState.AddModelError("", "не корректный год"); }
+            catch { ModelState.AddModelError("", "uncorrectly year"); }
             if (uploadedFile != null)
             {
                 string str= uploadedFile.FileName.Replace(" ", "_");

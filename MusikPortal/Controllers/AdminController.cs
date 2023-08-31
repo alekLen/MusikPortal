@@ -233,9 +233,9 @@ namespace MusikPortal.Controllers
                 try
                 {
                     if (Convert.ToInt32(s.Year) < 0 || Convert.ToInt32(s.Year) > currentYear)
-                        ModelState.AddModelError("", "не корректный год");
+                        ModelState.AddModelError("", "uncorrectly year");
                 }
-                catch { ModelState.AddModelError("", "не корректный год"); }
+                catch { ModelState.AddModelError("", "uncorrectly year"); }
                 if (ModelState.IsValid)
                 {
                     try

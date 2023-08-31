@@ -8,7 +8,7 @@
              <h4>@s.Name</h4>
            
       <div class="text-center">
-            <video controls autoplay="autoplay" loop="loop" muted="muted" width="600" height="400">
+            <video controls autoplay="autoplay" loop="loop" muted="muted" width="500" height="300">
             <source src=@s.file type="video/mp4">
            </video>
          </div>
@@ -16,26 +16,34 @@
             
             </div>
         </div>
-       
-            <div class="card ">
-             <h1 >@s.artist.Name</h1>      
-            <div class="c c1">@s.Name</div>
-            <div class="c c1">Album:&nbsp;&nbsp;&nbsp;@s.Album</div>
-            <div class="c c1">Year:&nbsp;&nbsp;&nbsp;@s.Year</div>
-                <div class="c c1">@s.style.Name</div>
-                <div>Text </div>
-            <textarea readonly rows="5">@s.text</textarea><br /><br />
-                @if (Context.Session.GetString("admin") != null)
-                {
-                    <div>
-                        <a asp-controller="Admin" asp-action="EditSong" asp-route-id="@s.Id">Edit Song</a>
-                    </div>
-                    <br /><br />
-                    <div >
-                    <a asp-controller="Admin" asp-action="DeleteSong" asp-route-id="@s.Id">Delete Song</a>
-                   </div>
-                }
-            </div>                     
+       <div class="c8"></div>
+        <div class="card c5">
+             <h1 >@s.artist.Name</h1> <br/>     
+            <div >@s.Name</div>
+            <div class="c c7"><span class="c6 ">Year:</span>&nbsp;@s.Year </div>
+            <div class="c c7"><span class="c6">genre:</span>&nbsp;@s.style.Name</div>
+            <div class="c c7"><span class="c6">Album:</span>&nbsp;@s.Album</div>
+            @if (@s.text != null)
+            {
+               
+                    <div>Text </div>
+                    <textarea readonly rows="4">@s.text</textarea><br /><br />              
+            }
+        </div>
+        <div class="c9">
+        @if (Context.Session.GetString("admin") != null)
+        {
+                <br />
+                <br />
+             <div>
+                 <a asp-controller="Admin" asp-action="EditSong" asp-route-id="@s.Id">Edit Song</a>
+             </div>
+                   
+              <div >
+                  <a asp-controller="Admin" asp-action="DeleteSong" asp-route-id="@s.Id">Delete Song</a>
+             </div>
+        }
+        </div>
     </div>
     <br />
  }
