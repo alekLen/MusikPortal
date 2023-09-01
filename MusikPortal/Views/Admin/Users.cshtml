@@ -2,10 +2,10 @@
 @model MusikPortal.Models.User
 
 
-    <div> <h4>New users</h4></div>
+<div class="c20"> <h4>New users</h4></div>
     <div class="c3">
     <table>
-            <tr><th>Name</th><th style="width:60px">Age</th><th>Email</th><th style="width:80px">Level</th><th></th></tr>
+            <tr class="c20"><th>Name</th><th style="width:60px">Age</th><th>Email</th><th style="width:80px">Level</th><th></th></tr>
         @foreach (var s in ViewBag.Users)
       {
         
@@ -26,10 +26,10 @@
     </table></div>
         <hr />
         <hr />
-    <div> <h4>Confirmd users</h4></div>
+<div class="c20"> <h4>Confirmd users</h4></div>
     <div class="c3">
     <table>
-        <tr><th>Name</th><th style="width:60px">Age</th><th>Email</th><th style="width:80px">Level</th><th></th></tr>
+        <tr class="c20"><th>Name</th><th style="width:60px">Age</th><th>Email</th><th style="width:80px">Level</th><th></th></tr>
       @foreach (var s in ViewBag.Users)
       {
             @if (@s.Level > 0)

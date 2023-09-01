@@ -28,6 +28,7 @@ namespace MusikPortal.Repository
         Task DeleteSong(int id);
         Task UpdateSong(Song s);
         Task AddSongToArtist(int id, Song s);
+        Task<List<Song>> FindSongs(string str);
         Task Save();
     }
 }

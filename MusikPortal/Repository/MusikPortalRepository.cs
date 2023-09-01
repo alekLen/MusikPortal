@@ -58,6 +58,14 @@ namespace MusikPortal.Repository
         {
             return await db.Songs.Include((p) => p.artist ).Include((p) => p.style).ToListAsync();
         }
+        public async Task<List<Song>> FindSongs( string str)
+        {
+            Artist a = await db.Artists.FirstOrDefaultAsync(m => m.Name == str);
+            if (a == null)
+               return await db.Songs.Where(son => son.Name == str).Include((p) => p.artist).Include((p) => p.style).ToListAsync();
+            else
+                return await db.Songs.Where(son => son.artist == a).Include((p) => p.artist).Include((p) => p.style).ToListAsync();
+        }
         public async Task<List<User>> GetUsers(string n)
         {
             return await db.Users.Where(user => user.Name != n).ToListAsync();

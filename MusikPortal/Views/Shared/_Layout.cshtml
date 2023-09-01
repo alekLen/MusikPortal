@@ -18,11 +18,18 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                @using (Html.BeginForm("Find", "Home", FormMethod.Get))
+                {
+                    <div>
+                        <input type="text" name="str" />
+                        <input type="submit"  value="find" />&nbsp;
+                    </div>
+                }
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     @using Microsoft.AspNetCore.Http
                     @if (Context.Session.GetString("admin") != null)
                     {                        
-                        <div class="navbar-collapse collapse d-sm-inline-flex c c1">
+                        <div class="navbar-collapse collapse d-sm-inline-flex c c21">
                             @using (Html.BeginForm("Create", "Song", FormMethod.Get))
                             {
                                 <div>
@@ -71,7 +78,7 @@
                         {
                               <div class="navbar-collapse collapse d-sm-inline-flex c c1">
                                
-                            <span style="margin-left:50px;" class="c20">
+                            <span  class="c20">
                                 Welcome, @Context.Session.GetString("login")&nbsp;&nbsp;
                             </span>
                             <div>

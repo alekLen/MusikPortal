@@ -18,5 +18,11 @@ namespace MusikPortal.Controllers
             ViewBag.Songs = s;
             return View();
         }
+        public async Task<IActionResult> Find(string str)
+        {
+            IEnumerable<Song> s = await rep.FindSongs(str);
+            ViewBag.Songs = s;
+            return View("Index");
+        }
     }
 }
