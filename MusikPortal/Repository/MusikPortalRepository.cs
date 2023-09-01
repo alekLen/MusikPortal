@@ -1,5 +1,6 @@
 ﻿using MusikPortal.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace MusikPortal.Repository
 {
@@ -80,6 +81,17 @@ namespace MusikPortal.Repository
         public async Task AddSong(Song s)
         {
             await db.AddAsync(s);
+        }
+        public async Task AddSongToArtist(int id,Song s)
+        {
+         
+            var f = await db.Artists.FindAsync(id);
+           Song s1 =await db.Songs.Where(son => son.artist == f).FirstOrDefaultAsync(m => m.Name == s.Name);
+            if (f != null && s1!=null)
+            {
+                f.Songs.Add(s1);
+                db.Artists.Update(f);
+            }          
         }
         public async Task DeleteStyle(int id)
         {

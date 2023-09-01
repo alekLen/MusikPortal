@@ -63,6 +63,8 @@ namespace MusikPortal.Controllers
                     {
                         await rep.AddSong(s);
                         await rep.Save();
+                        await rep.AddSongToArtist(song.ArtistId, s);
+                        await rep.Save();
                         return RedirectToAction("Index", "Home");
                     }
                     catch
