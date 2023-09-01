@@ -18,8 +18,8 @@ namespace MusikPortal.Models
         [Compare("Password", ErrorMessage = "passwords do not mutch")]
         [DataType(DataType.Password)]
         public string? PasswordConfirm { get; set; }
-        [Required]
-        [Display(Name = "email: ")]
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "uncorrectly email ")]
         public string? email { get; set; }
         [Required]
         [Display(Name = "age ")]
