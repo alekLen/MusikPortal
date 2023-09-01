@@ -25,12 +25,12 @@
             <div class="c c7"><span class="c6 c10">genre:</span>&nbsp;@s.style.Name</div>
             <div class="c c7"><span class="c6 c10">Album:</span>&nbsp;@s.Album</div>
         </div>
-            <div class="c13 "></div>
+           <div class="c13"></div>
             @if (@s.text != null)
             {
                 <div class="card c5 c12 c15">
-                <div class="c6 c10">Text </div>
-                    <textarea readonly rows="3">@s.text</textarea><br /><br />
+                        <div class="c6 c10">Text</div>
+                    <textarea readonly rows="3" style="resize:none">@s.text</textarea><br /><br />
                 </div>
             }
             @if (@s.text == null)
@@ -41,15 +41,20 @@
             
         </dv>
         <div class="c9">
+                <br />
+                <br />
+                <div class="card c18 c19 text-center">
+                <a href="@s.file" download>download</a>
+                </div>
         @if (Context.Session.GetString("admin") != null)
         {
                 <br />
                 <br />
-             <div>
+                    <div class="card c18 c19 text-center">
                  <a asp-controller="Admin" asp-action="EditSong" asp-route-id="@s.Id">Edit Song</a>
              </div>
-                   
-              <div >
+
+                    <div class="card c18 c19 text-center">
                   <a asp-controller="Admin" asp-action="DeleteSong" asp-route-id="@s.Id">Delete Song</a>
              </div>
         }

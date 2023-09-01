@@ -19,6 +19,7 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color:saddlebrown;
 }
 .card1 {
     display: flex;
@@ -48,7 +49,7 @@ body {
     width: 600px;
     justify-items: flex-end;
     border-radius: 3px;
-    background-color: #EBECF0;
+    background-color: yellow;
     box-shadow: inset 2px 2px 5px #BABECC, inset -2px -2px 4px #FFF;
     transition: all 0.1s ease-in-out;
     font-weight: bold;
@@ -125,7 +126,7 @@ body {
     height: 170px;
 }
 .c13 {
-    height: 10px;
+    height: 7px;
 }
 .c14 {
     height: 50px;
@@ -135,4 +136,14 @@ body {
 }
 .c17 {
     width: 320px;
+}
+.c18 {
+    width: 120px;
+}
+.c19{
+    padding:2px;
+    margin-bottom:5px;
+}
+.c20{
+    color:white;
 }

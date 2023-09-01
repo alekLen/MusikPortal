@@ -11,8 +11,8 @@
 </head>
 <body>
     <header >
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3" >
-            <div class="container-fluid" >
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-1" >
+            <div class="container-fluid" style="background-color:brown">
                 <a class="navbar-brand card2" asp-area="" asp-controller="Home" asp-action="Index">MusicPortal</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -64,14 +64,14 @@
                         }
                         @if (Context.Session.GetString("admin") == null && Context.Session.GetString("level") == null)
                         {
-                            <div class="navbar-collapse collapse d-sm-inline-flex c c1">waiting for confirm registration</div>
+                            <div class="navbar-collapse collapse d-sm-inline-flex c c1 c20">waiting for confirm registration</div>
                         }
 
                         @using (Html.BeginForm("Logout", "Login", FormMethod.Get))
                         {
                               <div class="navbar-collapse collapse d-sm-inline-flex c c1">
                                
-                            <span style="margin-left:50px;">
+                            <span style="margin-left:50px;" class="c20">
                                 Welcome, @Context.Session.GetString("login")&nbsp;&nbsp;
                             </span>
                             <div>
