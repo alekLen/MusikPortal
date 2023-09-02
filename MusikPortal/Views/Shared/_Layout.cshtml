@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GestBook.styles.css" asp-append-version="true" />
     <script src="~/js/site.js" ></script>
+    <script src="~/js/jquery-3.5.1.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
     <header >
@@ -60,7 +62,7 @@
                     {
                         @if (Context.Session.GetString("admin") == null && Context.Session.GetString("level") != null)
                         {
-                            <div class="navbar-collapse collapse d-sm-inline-flex c c1">
+                            <div class="navbar-collapse collapse d-sm-inline-flex c c21">
                             @using (Html.BeginForm("Create", "Song", FormMethod.Get))
                             {
                                 <div>
@@ -71,7 +73,7 @@
                         }
                         @if (Context.Session.GetString("admin") == null && Context.Session.GetString("level") == null)
                         {
-                            <div class="navbar-collapse collapse d-sm-inline-flex c c1 c20">waiting for confirm registration</div>
+                            <div class="navbar-collapse collapse d-sm-inline-flex c c21 c20">waiting for confirm registration</div>
                         }
 
                         @using (Html.BeginForm("Logout", "Login", FormMethod.Get))
@@ -108,7 +110,7 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
+        <div class="container c20">
             &copy; 2023 - MusicPortal - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>

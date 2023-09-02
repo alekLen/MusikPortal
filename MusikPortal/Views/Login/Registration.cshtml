@@ -8,8 +8,9 @@
         <div>
             @Html.DisplayNameFor(model => model.Login)
             <div>
-                @Html.EditorFor(model => model.Login)
-                <span asp-validation-for="Login" class="text-danger"></span>
+                @Html.EditorFor(model => model.Login, new { id = "login" })
+                <span id="log" style="color:red; display:none">Login is used</span>
+                <span asp-validation-for="Login"  class="text-danger"></span>
             </div>
         </div>
 
@@ -32,8 +33,8 @@
         <div>
             @Html.DisplayNameFor(model => model.email)
             <div>
-                @Html.EditorFor(model => model.email)
-                <span asp-validation-for="email" class="text-danger"></span>
+                @Html.EditorFor(model => model.email, new { id = "emailInput" })
+                <span asp-validation-for="email" id="emailStatus" class="text-danger"></span>
             </div>
         </div>  <div>
             @Html.DisplayNameFor(model => model.age)
@@ -54,3 +55,4 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+

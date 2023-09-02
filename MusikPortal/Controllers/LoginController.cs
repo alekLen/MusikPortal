@@ -3,6 +3,7 @@ using MusikPortal.Models;
 using System.Security.Cryptography;
 using System.Text;
 using MusikPortal.Repository;
+using Microsoft.EntityFrameworkCore;
 
 namespace MusikPortal.Controllers
 {
@@ -25,17 +26,22 @@ namespace MusikPortal.Controllers
             try
             {
                 if (Convert.ToInt32(user.age) < 0 || Convert.ToInt32(user.age) > 99)
-                    ModelState.AddModelError("", "uncorrectly age");
+                    ModelState.AddModelError("age", "uncorrectly age");
             }
-            catch { ModelState.AddModelError("", "uncorrectly age"); }
+            catch { ModelState.AddModelError("age", "uncorrectly age"); }
                 if (ModelState.IsValid)
                 {
                     if (await rep.GetUser(user.Login) != null)
                     {
-                        ModelState.AddModelError("", "this login already exists");
+                        ModelState.AddModelError("login", "this login already exists");
                         return View(user);
                     }
-                    User u = new();
+                    if (await rep.GetEmail(user.email) != null)
+                    {
+                        ModelState.AddModelError("email", "this email is already registred");
+                        return View(user);
+                    }
+                User u = new();
                     u.Name = user.Login;
                     u.Age = user.age;
                     u.email = user.email;
@@ -109,6 +115,19 @@ namespace MusikPortal.Controllers
                 }
             }
             return View(user);
+        }
+        [AcceptVerbs("Get", "Post")]
+        public async Task<IActionResult> IsEmailInUse(string email)
+        {
+            bool isEmailInUse =await rep.CheckEmail(email);
+            return Json(isEmailInUse);
+        }
+        [AcceptVerbs("Get", "Post")]
+        public async Task<IActionResult> IsLoginInUse( string login)
+        {
+
+            bool isUnique = await rep.GetLogins(login);
+            return Json(isUnique);
         }
         public ActionResult Logout()
         {

@@ -21,6 +21,10 @@ namespace MusikPortal.Repository
         {
             return await db.Users.FirstOrDefaultAsync(m => m.Name == name);
         }
+        public async Task<User> GetEmail(string email)
+        {
+            return await db.Users.FirstOrDefaultAsync(m => m.email == email);
+        }
         public async Task<Style> GetStyle(int id)
         {
             return await db.Styles.FirstOrDefaultAsync(m => m.Id == id);
@@ -162,6 +166,15 @@ namespace MusikPortal.Repository
         {
            
                 db.Songs.Update(s);
+        }
+        public async Task<bool> CheckEmail(string  s)
+        {
+            return await db.Users.AllAsync(u => u.email == s);
+        }
+        public async Task< bool> GetLogins(string s)
+        {
+            return   await db.Users.AllAsync(u => u.Name != s);
+             
         }
         public async Task Save()
         {
