@@ -12,10 +12,28 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <span>Photo</span><br />
-            <input asp-for="photo" class="form-control card _c7" />
-            <input type="file" name="p" accept=".jpg, .jpeg" /><br />           
-        <div class="form-group">           
+            <input asp-for="photo" class="form-control card _c7" id="fileNameField" />
+            <input type="file" name="p" accept=".jpg, .jpeg" id="fileInput" /><br />
+            <div class="form-group">           
             <input type="submit" formaction="EditArtist" value="Edit Artist" class="btn btn-primary c2" />
         </div>
     </form>
 </div>
+<script>
+    document.getElementById('fileInput').addEventListener('change', function () {
+        var fileInput = document.getElementById('fileInput');
+        var fileNameField = document.getElementById('fileNameField');
+
+        if (fileInput.files.length > 0) {
+            fileNameField.value = fileInput.files[0].name;
+        } else {
+            fileNameField.value = '';
+        }
+    });
+</script>
+
+
+
+
+
+
