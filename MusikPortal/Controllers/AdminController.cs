@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MusikPortal.Models;
 using MusikPortal.Repository;
+using System.IO;
 
 namespace MusikPortal.Controllers
 {
@@ -26,6 +27,11 @@ namespace MusikPortal.Controllers
             ViewData["ArtistId"] = new SelectList(a, "Id", "Name");
             return View("Artists");
         }
+        public async Task<IActionResult> EditArtist(int id)
+        {
+            Artist a = await rep.GetArtist(id);
+            return View("EditArtist",a);
+        }       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateStyle(Style s)
@@ -105,7 +111,7 @@ namespace MusikPortal.Controllers
         {
             try
             {
-                await rep.DeleteArtist(s.Id);
+                    await rep.DeleteArtist(s.Id);
                 await rep.Save();
                 return RedirectToAction("Index", "Home");
             }
@@ -139,20 +145,32 @@ namespace MusikPortal.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditArtist(Artist s)
+        public async Task<IActionResult> EditArtist(Artist s, IFormFile p)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await rep.EditArtist(s.Id, s.Name, s.photo);
+                    if (p != null)
+                    {
+                        // Путь к папке Files
+                        string path = "/Photos/" + p.FileName; // имя файла
+
+                        using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                        {
+                            await p.CopyToAsync(fileStream); // копируем файл в поток
+                        }
+                        await rep.EditArtist(s.Id, s.Name, path);
+                    }
+                    else
+                        await rep.EditArtist(s.Id, s.Name,s.photo);
                     await rep.Save();
                     return RedirectToAction("Index", "Home");
                 }
                 catch
                 {
                     await putArtists();
-                    return View("Artists");
+                    return View("EditArtist");
                 }
 
             }

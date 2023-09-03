@@ -1,7 +1,8 @@
-﻿@model MusikPortal.Models.Artist
-<h4 class=" b1 b3"> Artist</h4>
+﻿
+<h4 class=" b1 b3 c20"> Artist</h4>
 <div class=" card c7">
     <form asp-controller="Admin" method="post" enctype="multipart/form-data" >
+        @model MusikPortal.Models.Artist
     <div class="form-group ">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
@@ -10,16 +11,22 @@
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
             <span>Photo</span><br />
-            <input type="file" name="p" accept=".jpg, .jpeg" /><br />
+            <input type="file" name="p" accept=".jpg, .jpeg" /><br /><br />
                 <div class="form-group">
                     <input type="submit" formaction="CreateArtist" value="Add Artist" class="btn btn-primary c2" />
-                </div><hr />
+            </div>
+    </form>
+</div>
+<hr />
+<hr />
+     <form asp-controller="Admin" method="post" >
         <label>Artists</label>
         <select asp-for="Id" class="form-control card _c7" asp-items="ViewBag.ArtistId"></select>
-    </div>
+   
     <br />
     <div class="form-group">
-        <input type="submit" formaction="DeleteArtist" value="Delete Artist" class="btn btn-primary c2" />
+        <input type="submit" formaction="DeleteArtist" value="Delete Artist" class="btn btn-primary c2" /><br /><br />
+            <input type="submit" formmethod="get" formaction="EditArtist" value="Edit Artist" class="btn btn-primary c2" />
     </div>       
     </form>
 </div>
