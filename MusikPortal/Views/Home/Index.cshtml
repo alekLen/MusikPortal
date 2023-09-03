@@ -8,9 +8,23 @@
              <h4>@s.Name</h4>
            
       <div class="text-center">
+            
+          @if(@s.file.Split('.')[1]=="mp4"){ 
             <video controls autoplay="autoplay" loop="loop" muted="muted" width="500" height="300">
             <source src=@s.file type="video/mp4">
-           </video>
+           </video>           
+           }
+                        @{
+                            string[] st = @s.file.Split('.');}
+                            @if (@st[st.Count()-1] == "mp3")
+                        {
+                            <div>
+                                <img src=@Url.Content(s.artist.photo) style="width:auto;height:270px"></img>
+                            </div>
+                            <video controls autoplay="autoplay" loop="loop" muted="muted" width="500" height="30">
+                                <source src=@s.file type="video/mp4">
+                            </video>
+                        }
          </div>
 
             
@@ -19,11 +33,19 @@
        <div class="c8"></div>
        <dv>
         <div class="card c5 c11">
-             <h1 >@s.artist.Name</h1> <br/>     
+            <div class="c3 b">
+                <div>
+             <h1 >@s.artist.Name</h1>     
             <div >@s.Name</div>
-            <div class="c c7"><span class="c6 c10">Year:</span>&nbsp;@s.Year </div>
-            <div class="c c7"><span class="c6 c10">genre:</span>&nbsp;@s.style.Name</div>
-            <div class="c c7"><span class="c6 c10">Album:</span>&nbsp;@s.Album</div>
+                            <div><span class="c6 c10">Year:</span>&nbsp;@s.Year </div>
+                            <div><span class="c6 c10">genre:</span>&nbsp;@s.style.Name</div>
+                            <div><span class="c6 c10">Album:</span>&nbsp;@s.Album</div>
+                    </div>
+                <div>
+                            <img src=@Url.Content(s.artist.photo) class="im"></img>
+                </div>    
+             </div>
+           
         </div>
            <div class="c13"></div>
             @if (@s.text != null)

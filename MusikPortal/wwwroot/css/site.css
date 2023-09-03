@@ -150,3 +150,10 @@ body {
 .c21 {
     width: 400px;
 }
+.im {
+    max-width: 150px;
+    height: auto;
+}
+.b{
+    justify-content:space-between;
+}

@@ -120,7 +120,7 @@ namespace MusikPortal.Controllers
         public async Task<IActionResult> IsEmailInUse(string email)
         {
             bool isEmailInUse =await rep.CheckEmail(email);
-            return Json(isEmailInUse);
+            return Json(!isEmailInUse);
         }
         [AcceptVerbs("Get", "Post")]
         public async Task<IActionResult> IsLoginInUse( string login)

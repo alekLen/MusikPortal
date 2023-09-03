@@ -7,10 +7,12 @@ namespace MusikPortal.Controllers
 {
     public class AdminController : Controller
     {
+        IWebHostEnvironment _appEnvironment;
         IRepository rep;
-        public AdminController(IRepository context)
+        public AdminController(IRepository context, IWebHostEnvironment appEnvironment)
         {
             rep = context;
+            _appEnvironment= appEnvironment;
         }
         public async Task<IActionResult> Styles()
         {
@@ -50,25 +52,34 @@ namespace MusikPortal.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateArtist(Artist s)
+        public async Task<IActionResult> CreateArtist(Artist s, IFormFile p)
         {
-           Artist art = new Artist();
-            art.Name = s.Name;
-            if (ModelState.IsValid)
+            if (p != null)
             {
-                try
-                {
-                    await rep.AddArtist(art);
-                    await rep.Save();
-                    return RedirectToAction("Index", "Home");
-                }
-                catch
-                {
-                    await putArtists();
-                    return View("Artists", s);
-                }
+                // Путь к папке Files
+                string path = "/Photos/" + p.FileName; // имя файла
 
+                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                {
+                    await p.CopyToAsync(fileStream); // копируем файл в поток
+                }
+                Artist art = new Artist();
+                art.Name = s.Name;
+                art.photo = path;
+               
+                    try
+                    {
+                        await rep.AddArtist(art);
+                        await rep.Save();
+                        return RedirectToAction("Index", "Home");
+                    }
+                    catch
+                    {
+                        await putArtists();
+                        return View("Artists", s);
+                    }               
             }
+            ModelState.AddModelError("", "enter the photo");
             await putArtists();
             return View("Artists", s);
         }
@@ -134,7 +145,7 @@ namespace MusikPortal.Controllers
             {
                 try
                 {
-                    await rep.EditArtist(s.Id, s.Name);
+                    await rep.EditArtist(s.Id, s.Name, s.photo);
                     await rep.Save();
                     return RedirectToAction("Index", "Home");
                 }

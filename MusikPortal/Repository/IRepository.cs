@@ -24,7 +24,7 @@ namespace MusikPortal.Repository
         Task DeleteStyle(int id);
         Task EditStyle(int id, string s);
         Task DeleteArtist(int id);
-        Task EditArtist(int id, string s);
+        Task EditArtist(int id, string s, string p);
         Task EditUser(int id, int l);
         Task DeleteSong(int id);
         Task UpdateSong(Song s);

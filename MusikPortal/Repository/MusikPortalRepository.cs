@@ -133,12 +133,13 @@ namespace MusikPortal.Repository
 
             }
         }
-        public async Task EditArtist(int id, string s)
+        public async Task EditArtist(int id, string s, string p)
         {
             var f = await db.Artists.FindAsync(id);
             if (f != null)
             {
                 f.Name = s;
+                f.photo = p;
                 db.Artists.Update(f);
 
             }

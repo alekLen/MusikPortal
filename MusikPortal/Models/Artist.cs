@@ -7,7 +7,8 @@ namespace MusikPortal.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-      
+        public string? photo { get; set; }
+
         public ICollection<Song>? Songs { get; set; } = new List<Song>();
     }
 }
