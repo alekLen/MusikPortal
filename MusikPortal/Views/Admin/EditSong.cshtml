@@ -1,7 +1,7 @@
 ﻿@model MusikPortal.Models.AddSong
 
-<h1 class=" b1 b3">Edit the Song</h1>
-
+<h1 class=" b1 b3 center c20">Edit the Song</h1>
+<div class="center">
 <div class="card">
     <form asp-action="EditSong" asp-controller="Admin" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -15,12 +15,12 @@
         <input asp-for="Album" class="form-control" />
         <span asp-validation-for="Album" class="text-danger"></span>
         <div class="form-group">
-            <label>styles</label>
+            <label>List of styles</label>
             <select asp-for="StyleId" class="form-control" asp-items="ViewBag.StyleId"></select>
             <span asp-validation-for="StyleId" class="text-danger"></span>
         </div><br />
         <div class="form-group">
-            <label>artists</label>
+            <label>List of artists</label>
             <select asp-for="ArtistId" class="form-control" asp-items="ViewBag.ArtistId"></select>
             <span asp-validation-for="ArtistId" class="text-danger"></span>
         </div><br />
@@ -34,11 +34,25 @@
             <textarea asp-for="text" class="c17"></textarea>
             <span asp-validation-for="text" class="text-danger"></span>
         </div><br />
-        <span>file</span><br />
-        <input asp-for="file" class="form-control" />
+        <span>File</span><br />
+            <input asp-for="file" class="form-control" id="fileNameField1" />
+            <input type="file" name="p" accept=".mp3, .mp4" id="fileInput1" /><br />
         <div class="form-group">
             <br /><br />
             <input type="submit" value="Edit Song" class="btn btn-primary c2" />
         </div>
     </form>
 </div>
+</div>
+<script>
+    document.getElementById('fileInput1').addEventListener('change', function () {
+        var fileInput = document.getElementById('fileInput1');
+        var fileNameField = document.getElementById('fileNameField1');
+
+        if (fileInput.files.length > 0) {
+            fileNameField.value = fileInput.files[0].name;
+        } else {
+            fileNameField.value = '';
+        }
+    });
+</script>

@@ -1,5 +1,7 @@
 ﻿@model MusikPortal.Models.Artist
-<h4 class=" b1 b3 c20">Edit Artist</h4>
+
+<h4 class=" b1 b3 c20 center">Edit Artist</h4>
+<div class="center">
 <div class=" card c7">
     <form asp-controller="Admin" method="post" enctype="multipart/form-data">
        
@@ -7,7 +9,7 @@
             <input type="hidden" asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <span>enter the name </span><br />
+                <span>Enter the name </span><br />
                 <input asp-for="Name" class="form-control card _c7" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
@@ -18,6 +20,7 @@
             <input type="submit" formaction="EditArtist" value="Edit Artist" class="btn btn-primary c2" />
         </div>
     </form>
+</div>
 </div>
 <script>
     document.getElementById('fileInput').addEventListener('change', function () {

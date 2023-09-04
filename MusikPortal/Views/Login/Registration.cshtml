@@ -1,9 +1,9 @@
 ﻿@model MusikPortal.Models.RegisterModel
 @using Microsoft.AspNetCore.Http
-
+<div class="center">
 <form id="registrationForm" action="Registration" method="post">
     @Html.AntiForgeryToken()
-    <div class="card c7">
+    <div class="card c22">
         @Html.ValidationSummary(true, "")
         <div>
             @Html.DisplayNameFor(model => model.Login)
@@ -50,6 +50,7 @@
         </div>
     </div>
 </form>
+</div>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");

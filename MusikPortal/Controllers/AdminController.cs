@@ -253,7 +253,7 @@ namespace MusikPortal.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditSong(AddSong s)
+        public async Task<IActionResult> EditSong(AddSong s, IFormFile p)
         {
             try
             {
@@ -269,7 +269,18 @@ namespace MusikPortal.Controllers
                 {
                     try
                     {
-                        Song song = await rep.GetSong(s.SongId.Value);
+                        if (p != null)
+                        {
+                            // Путь к папке Files
+                            string path = "/MusicFiles/" + p.FileName; // имя файла
+
+                            using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                            {
+                                await p.CopyToAsync(fileStream); // копируем файл в поток
+                            }
+                            s.file = path;
+                        }
+                    Song song = await rep.GetSong(s.SongId.Value);
                     song.Name = s.Name;
                     song.Year = s.Year;
                     song.Album = s.Album;

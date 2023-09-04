@@ -150,10 +150,19 @@ body {
 .c21 {
     width: 400px;
 }
+.c22{
+    width:250px
+}
 .im {
     max-width: 150px;
     height: auto;
 }
 .b{
     justify-content:space-between;
+}
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   width: 90vw;
 }

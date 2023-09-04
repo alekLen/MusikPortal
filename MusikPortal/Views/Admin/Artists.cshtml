@@ -1,12 +1,13 @@
 ﻿
-<h4 class=" b1 b3 c20"> Artist</h4>
+<h4 class=" b1 b3 c20 center"> Artist</h4>
+<div class="center">
 <div class=" card c7">
     <form asp-controller="Admin" method="post" enctype="multipart/form-data" >
         @model MusikPortal.Models.Artist
-    <div class="form-group ">
+    
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
-                    <span>enter the name </span><br />
+                    <span>Enter the name </span><br />
                     <input asp-for="Name" class="form-control card _c7" />
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
@@ -16,11 +17,10 @@
                     <input type="submit" formaction="CreateArtist" value="Add Artist" class="btn btn-primary c2" />
             </div>
     </form>
-</div>
 <hr />
 <hr />
      <form asp-controller="Admin" method="post" >
-        <label>Artists</label>
+        <label>List of artists</label>
         <select asp-for="Id" class="form-control card _c7" asp-items="ViewBag.ArtistId"></select>
    
     <br />
@@ -29,4 +29,5 @@
             <input type="submit" formmethod="get" formaction="EditArtist" value="Edit Artist" class="btn btn-primary c2" />
     </div>       
     </form>
+</div>
 </div>

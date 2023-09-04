@@ -1,10 +1,12 @@
 ﻿@model MusikPortal.Models.Style
-<h4 class=" b1 b3 c20"> Genre</h4>
+
+<h4 class=" b1 b3 c20 center"> Genre</h4>
+<div class="center">
 <div class=" card c7">
 <form  asp-controller="Admin" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <span>enter the genre  </span><br />
+            <span>Enter the genre  </span><br />
             <input asp-for="Name" class="form-control card _c7" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div><br />
@@ -12,7 +14,7 @@
             <input type="submit" formaction="CreateStyle" value="Add Genre" class="btn btn-primary c2" />
         </div> <hr />
         <div class="form-group ">
-    <label >Genres</label>
+    <label >List of Genres</label>
     <select asp-for="Id" class="form-control card _c7" asp-items="ViewBag.StyleId"></select>    
 </div>
     <br />
@@ -20,4 +22,5 @@
         <input type="submit" formaction="DeleteStyle" value="Delete Genre" class="btn btn-primary c2" />
     </div>               
     </form>
+</div>
 </div>
