@@ -2,7 +2,7 @@
 
 <h1 class=" b1 b3 center c20">Edit the Song</h1>
 <div class="center">
-<div class="card">
+<div class="card c77">
     <form asp-action="EditSong" asp-controller="Admin" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input asp-for="SongId" type="hidden" />
@@ -35,7 +35,7 @@
             <span asp-validation-for="text" class="text-danger"></span>
         </div><br />
         <span>File</span><br />
-            <input asp-for="file" class="form-control" id="fileNameField1" />
+            <input asp-for="file" class="form-control" id="fileNameField1" readonly="readonly"/>
             <input type="file" name="p" accept=".mp3, .mp4" id="fileInput1" /><br />
         <div class="form-group">
             <br /><br />

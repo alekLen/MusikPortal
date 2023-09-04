@@ -14,7 +14,7 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <span>Photo</span><br />
-            <input asp-for="photo" class="form-control card _c7" id="fileNameField" />
+                <input asp-for="photo" class="form-control card _c7" id="fileNameField" readonly="readonly" />
             <input type="file" name="p" accept=".jpg, .jpeg" id="fileInput" /><br />
             <div class="form-group">           
             <input type="submit" formaction="EditArtist" value="Edit Artist" class="btn btn-primary c2" />
