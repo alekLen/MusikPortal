@@ -62,8 +62,10 @@ namespace MusikPortal.Controllers
         {
             if (p != null)
             {
+                string str = p.FileName.Replace(" ", "_");
+                string str1 = str.Replace("-", "_");
                 // Путь к папке Files
-                string path = "/Photos/" + p.FileName; // имя файла
+                string path = "/Photos/" + str1; // имя файла
 
                 using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                 {
@@ -153,8 +155,10 @@ namespace MusikPortal.Controllers
                 {
                     if (p != null)
                     {
+                        string str = p.FileName.Replace(" ", "_");
+                        string str1 = str.Replace("-", "_");
                         // Путь к папке Files
-                        string path = "/Photos/" + p.FileName; // имя файла
+                        string path = "/Photos/" +str1; // имя файла
 
                         using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                         {
