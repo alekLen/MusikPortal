@@ -114,7 +114,22 @@ namespace MusikPortal.Controllers
         {
             try
             {
-                    await rep.DeleteArtist(s.Id);
+                Artist a = await rep.GetArtist(s.Id);
+                return View(a);
+            }
+            catch
+            {
+                await putArtists();
+                return View("Artists");
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ConfirmDeleteArtist(Artist s)
+        {
+            try
+            {
+                await rep.DeleteArtist(s.Id);
                 await rep.Save();
                 return RedirectToAction("Index", "Home");
             }
@@ -123,6 +138,13 @@ namespace MusikPortal.Controllers
                 await putArtists();
                 return View("Artists");
             }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelDeleteArtist()
+        {
+            await putArtists();
+            return View("Artists");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
