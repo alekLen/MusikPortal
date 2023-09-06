@@ -229,13 +229,18 @@ namespace MusikPortal.Controllers
         {            
                 try
                 {
-                    await rep.EditUser(u.Id, u.Level.Value);
+                IEnumerable<User> s = await rep.GetUsers(HttpContext.Session.GetString("login"));
+                ViewBag.Users = s;
+                await rep.EditUser(u.Id, u.Level.Value);
                     await rep.Save();
-                    return RedirectToAction("Index", "Home");
-                }
+                // return RedirectToAction("Index", "Home");
+                return View("Users");
+            }
                 catch
                 {
-                   await putUsers();
+                IEnumerable<User> s = await rep.GetUsers(HttpContext.Session.GetString("login"));
+                ViewBag.Users = s;
+                await putUsers();
                     return View("Users");
                 }
            
@@ -276,6 +281,7 @@ namespace MusikPortal.Controllers
         {          
                 return RedirectToAction("Index", "Home");
         }
+        [HttpGet]
         public async Task<IActionResult> EditSong(int id)
         {
             try
@@ -303,7 +309,7 @@ namespace MusikPortal.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditSong(AddSong s, IFormFile p)
+        public async Task<IActionResult> EditSong(AddSong s, IFormFile? p)
         {
             try
             {
