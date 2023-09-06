@@ -255,7 +255,7 @@ namespace MusikPortal.Controllers
 
             return View(s);
         }
-        [HttpPost, ActionName("Delete")]
+        [HttpPost, ActionName("DeleteSong")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteSongConfirmd(int id)
         {
@@ -269,6 +269,12 @@ namespace MusikPortal.Controllers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+       [HttpPost, ActionName("CancelDeleteSong")]
+        [ValidateAntiForgeryToken]
+        public IActionResult CancelDeleteSong()
+        {          
+                return RedirectToAction("Index", "Home");
         }
         public async Task<IActionResult> EditSong(int id)
         {

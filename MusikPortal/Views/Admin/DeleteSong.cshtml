@@ -1,9 +1,10 @@
 ﻿@model MusikPortal.Models.Song
 
 <h1 class=" b1 b3 center c20">Confirm song deletion</h1>
+
 <div class="center">
     <div class="card c77">
-        <form asp-action="Delete" asp-controller="Admin" method="post" enctype="multipart/form-data">
+        <form formaction="Delete" asp-controller="Admin" method="post" >
             <input asp-for="Id" type="hidden" />
             <div class="form-group">
                 <span>Song's name  </span><br />
@@ -13,11 +14,11 @@
             <input asp-for="Album" class="form-control" readonly/>
             <div class="form-group">
                 <label>Style</label>
-                <input asp-for="style" class="form-control" readonly ></input>
+                <input asp-for="style" class="form-control" readonly />
             </div>
             <div class="form-group">
                 <label>Artist</label>
-                <input asp-for="artist" class="form-control" readonly></input>
+                <input asp-for="artist" class="form-control" readonly/>
             </div>
             <div class="form-group">
                 <span>Year</span><br />
@@ -26,7 +27,15 @@
             <span>File</span><br />
             <input asp-for="file" class="form-control"  readonly="readonly" />
                 <br />
-                <input type="submit" value="Delete Song" class="btn btn-primary c2" />            
-        </form>
+                <div class="c3">
+                <div class="form-group">
+                    <input type="submit"  value="Delete Song" class="btn btn-primary c2" />
+                </div>&nbsp;&nbsp;&nbsp;             
+            </div>
+        </form><br />
+        <div class="card c18 c19 text-center">
+            <a asp-controller="Home" asp-action="Index" class="br c20">Cancel</a>
+        </div>
     </div>
+    
 </div>

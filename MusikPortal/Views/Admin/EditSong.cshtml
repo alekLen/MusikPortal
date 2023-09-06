@@ -40,10 +40,14 @@
         <div class="form-group">
             <br /><br />
             <input type="submit" value="Edit Song" class="btn btn-primary c2" />
-        </div>
+        </div><br />
+            <div class="card c18 c19 text-center">
+                <a asp-controller="Home" asp-action="Index" class="br c20">Cancel</a>
+            </div>
     </form>
 </div>
 </div>
+
 <script>
     document.getElementById('fileInput1').addEventListener('change', function () {
         var fileInput = document.getElementById('fileInput1');
