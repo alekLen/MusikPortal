@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using MusikPortal.Models;
 using MusikPortal.Repository;
 using System.IO;
@@ -216,8 +217,25 @@ namespace MusikPortal.Controllers
                     return View("Users");
                 }
            
-        }      
+        }
         public async Task<IActionResult> DeleteSong(int id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            Song s = await rep.GetSong(id);
+            if (s == null)
+            {
+                return NotFound();
+            }
+
+            return View(s);
+        }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteSongConfirmd(int id)
         {
             try
             {
@@ -234,15 +252,15 @@ namespace MusikPortal.Controllers
         {
             try
             {
-                Song s=await rep.GetSong(id);
+                Song s=await rep.GetSong(id);              
                 AddSong s1 = new();
                 s1.SongId = id;
                 s1.Name= s.Name;
                 s1.Year= s.Year;
                 s1.Album= s.Album;
                 s1.text = s.text;
-                int i = await rep.GetArtistId(id);
-                int i1 = await rep.GetStyleId(id);
+                int i = await rep.GetArtistId(s);
+                int i1 = await rep.GetStyleId(s);
                 s1.ArtistId = i;
                 s1.StyleId = i1;
                 s1.file = s.file;

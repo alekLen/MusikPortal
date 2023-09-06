@@ -37,16 +37,14 @@ namespace MusikPortal.Repository
         {
             return await db.Songs.Include((p) => p.artist).Include((p) => p.style).FirstOrDefaultAsync(m => m.Id == id);
         }
-        public async Task<int> GetArtistId(int SongId)
-        {
-            Song s = await GetSong(SongId);
+        public async Task<int> GetArtistId(Song s)
+        {         
             Artist a = await db.Artists.FirstOrDefaultAsync(m => m == s.artist);           
             return a.Id;
         }
 
-        public async Task<int> GetStyleId(int SongId)
+        public async Task<int> GetStyleId(Song s)
         {
-            Song s = await GetSong(SongId);
             Style a = s.style;
             return a.Id;
         }

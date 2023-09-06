@@ -10,8 +10,8 @@ namespace MusikPortal.Repository
         Task<Style> GetStyle(int id);
         Task<Artist> GetArtist(int id);
         Task<Song> GetSong(int id);
-        Task<int> GetArtistId(int SongId);
-        Task<int> GetStyleId(int SongId);
+        Task<int> GetArtistId(Song s);
+        Task<int> GetStyleId(Song s);
         Task AddUser(User user);
         Task AddSalt(Salt s);
         Task AddSong(Song s);
