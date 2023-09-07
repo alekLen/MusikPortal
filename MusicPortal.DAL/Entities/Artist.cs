@@ -10,7 +10,6 @@ namespace MusicPortal.DAL.Entities
     public class Artist
     {
         public int Id { get; set; }
-        [Required]
         public string Name { get; set; }
         public string? photo { get; set; }
 

@@ -4,6 +4,9 @@ using MusikPortal.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
+using MusicPortal.BLL.Interfaces;
+using MusicPortal.BLL.DTO;
+using MusicPortal.BLL.Services;
 
 
 namespace MusikPortal.Controllers
@@ -11,10 +14,14 @@ namespace MusikPortal.Controllers
     public class SongController : Controller
     {
         IWebHostEnvironment _appEnvironment;
-        IRepository rep;
-        public SongController(IRepository context,IWebHostEnvironment appEnvironment)
+        private readonly ISongService songService;
+        private readonly IArtistService artistService;
+        private readonly IStyleService styleService;
+        public SongController(ISongService s, IArtistService a, IStyleService st, IWebHostEnvironment appEnvironment)
         {
-            rep = context;
+            songService = s;
+            artistService = a;
+            styleService = st;
             _appEnvironment = appEnvironment;
         }
         public async Task<IActionResult> Create()
@@ -47,12 +54,14 @@ namespace MusikPortal.Controllers
                 {
                     await uploadedFile.CopyToAsync(fileStream); // копируем файл в поток
                 }
-                Song s = new();
-                Style sStyle = await rep.GetStyle(song.StyleId);
-                Artist aArtist = await rep.GetArtist(song.ArtistId);
+                SongDTO s = new();
+                StyleDTO sStyle = await styleService.GetStyle(song.StyleId);
+                ArtistDTO aArtist = await artistService.GetArtist(song.ArtistId);
                 s.Name = song.Name;
-                s.style =sStyle;
-                s.artist = aArtist;
+                s.style =sStyle.Name;
+                s.styleId = sStyle.Id;
+                s.artist = aArtist.Name;
+                s.styleId = aArtist.Id;
                 s.Year = song.Year;
                 s.text = song.text;
                 s.Album=song.Album; 
@@ -61,10 +70,10 @@ namespace MusikPortal.Controllers
                 {
                     try
                     {
-                        await rep.AddSong(s);
-                        await rep.Save();
-                        await rep.AddSongToArtist(song.ArtistId, s);
-                        await rep.Save();
+                        await songService.AddSong(s);
+                        
+                        await songService.AddSongToArtist(song.ArtistId, s);
+                     
                         return RedirectToAction("Index", "Home");
                     }
                     catch
@@ -84,8 +93,8 @@ namespace MusikPortal.Controllers
         }
         public async Task putStylesArtists()
         {
-            List<Style> s = await rep.GetStylesList();
-            List<Artist> a = await rep.GetArtistsList();
+            IEnumerable<StyleDTO> s = await styleService.GetAllStyles();
+            IEnumerable<ArtistDTO> a = await artistService.GetAllArtists();
             ViewData["StyleId"] = new SelectList(s, "Id", "Name");
             ViewData["ArtistId"] = new SelectList(a, "Id", "Name");
         }

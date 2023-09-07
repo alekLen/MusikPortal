@@ -4,9 +4,9 @@ using System.Text;
 
 namespace MusikPortal.Models
 {
-    public class MusikPortalContext : DbContext
-    {
-        public MusikPortalContext(DbContextOptions<MusikPortalContext> options)
+    //public class MusikPortalContext : DbContext
+   // {
+       /* public MusikPortalContext(DbContextOptions<MusikPortalContext> options)
          : base(options)
         {
             if (Database.EnsureCreated())
@@ -36,6 +36,6 @@ namespace MusikPortal.Models
         public DbSet<Salt> Salts { get; set; }
         public DbSet<Style> Styles { get; set; }
         public DbSet<Artist> Artists { get; set; }
-        public DbSet<Song> Songs { get; set; }
-    }
+        public DbSet<Song> Songs { get; set; }*/
+   // }
 }

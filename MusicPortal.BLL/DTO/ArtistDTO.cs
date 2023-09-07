@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MusicPortal.DAL.Entities
+namespace MusicPortal.BLL.DTO
 {
-    public class Style
+    public class ArtistDTO
     {
-        public int Id { get; set; }      
+        public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
-        public ICollection<Song>? Songs { get; set; } = new List<Song>();
+        public string? photo { get; set; }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace MusikPortal.Repository
 {
-    public class MusikPortalRepository :IRepository
+  /*  public class MusikPortalRepository :IRepository
     {
         MusikPortalContext db;
         public MusikPortalRepository(MusikPortalContext context)
@@ -179,5 +179,5 @@ namespace MusikPortal.Repository
         {
             await db.SaveChangesAsync();
         }
-    }
+    }*/
 }

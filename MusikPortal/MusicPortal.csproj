@@ -16,4 +16,8 @@
     <Folder Include="wwwroot\Photos\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MusicPortal.BLL\MusicPortal.BLL.csproj" />
+  </ItemGroup>
+
 </Project>

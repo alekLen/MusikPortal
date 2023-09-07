@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using MusikPortal.Models;
-using MusikPortal.Repository;
+using MusicPortal.BLL.Interfaces;
+using MusicPortal.BLL.Services;
+using MusicPortal.BLL.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,11 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 string? connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // добавляем контекст ApplicationContext в качестве сервиса в приложение
-builder.Services.AddDbContext<MusikPortalContext>(options => options.UseSqlServer(connection));
+//builder.Services.AddDbContext<MusikPortalContext>(options => options.UseSqlServer(connection));
 // качаем NuGet Package Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
 // качаем NuGet Package Microsoft.EntityFrameworkCore.SqlServer
 // качаем NuGet Package BCrypt.Net-Next
-
+builder.Services.AddMusicPortalContext(connection);
+builder.Services.AddUnitOfWorkService();
+builder.Services.AddTransient<IArtistService, ArtistService>();
+builder.Services.AddTransient<IStyleService, StyleService>();
+builder.Services.AddTransient<ISongService, SongService>();
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<ISaltService, SaltService>();
 
 // добавляем сервис для динамического создания вьюшек
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
@@ -25,7 +32,7 @@ builder.Services.AddSession(options =>
 });
 // Добавляем сервисы MVC
 builder.Services.AddControllersWithViews();
-builder.Services.AddScoped<IRepository, MusikPortalRepository>();
+//builder.Services.AddScoped<IRepository, MusikPortalRepository>();
 
 var app = builder.Build();
 app.UseStaticFiles();

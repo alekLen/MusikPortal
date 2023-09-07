@@ -4,15 +4,19 @@ using System.Security.Cryptography;
 using System.Text;
 using MusikPortal.Repository;
 using Microsoft.EntityFrameworkCore;
+using MusicPortal.BLL.Interfaces;
+using MusicPortal.BLL.DTO;
 
 namespace MusikPortal.Controllers
 {
     public class LoginController : Controller
     {
-        IRepository rep;
-        public LoginController(IRepository context)
+        private readonly IUserService userService;
+        private readonly ISaltService saltService;
+        public LoginController(IUserService u, ISaltService s)
         {
-            rep = context;
+            userService = u;
+            saltService = s;
         }
         public IActionResult Registration()
         {
@@ -31,17 +35,17 @@ namespace MusikPortal.Controllers
             catch { ModelState.AddModelError("age", "uncorrectly age"); }
                 if (ModelState.IsValid)
                 {
-                    if (await rep.GetUser(user.Login) != null)
+                    if (await userService.GetUser(user.Login) != null)
                     {
                         ModelState.AddModelError("login", "this login already exists");
                         return View(user);
                     }
-                    if (await rep.GetEmail(user.email) != null)
+                    if (await userService.GetEmail(user.email) != null)
                     {
                         ModelState.AddModelError("email", "this email is already registred");
                         return View(user);
                     }
-                User u = new();
+                UserDTO u = new();
                     u.Name = user.Login;
                     u.Age = user.age;
                     u.email = user.email;
@@ -52,7 +56,7 @@ namespace MusikPortal.Controllers
                     for (int i = 0; i < 16; i++)
                         sb.Append(string.Format("{0:X2}", saltbuf[i]));
                     string salt = sb.ToString();
-                    Salt s = new();
+                    SaltDTO s = new();
                     s.salt = salt;
                     string password = salt + user.Password;
                     string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
@@ -61,11 +65,9 @@ namespace MusikPortal.Controllers
                     u.Level = 0;
                     try
                     {
-                        await rep.AddUser(u);
-                        await rep.Save();
-                        s.user = u;
-                        await rep.AddSalt(s);
-                        await rep.Save();
+                        await userService.AddUser(u);                       
+                        s.userId = u.Id;
+                        await saltService.AddSalt(s);                       
                     }
                     catch { }
                     return RedirectToAction("Login");
@@ -84,8 +86,8 @@ namespace MusikPortal.Controllers
             if (ModelState.IsValid)
             {
 
-                var u = await rep.GetUser(user.Login);
-                var s = await rep.GetSalt(u);
+                var u = await userService.GetUser(user.Login);
+                var s = await saltService.GetSalt(u);
                 {
                    
                     if (u != null && s != null)
@@ -119,14 +121,14 @@ namespace MusikPortal.Controllers
         [AcceptVerbs("Get", "Post")]
         public async Task<IActionResult> IsEmailInUse(string email)
         {
-            bool isEmailInUse =await rep.CheckEmail(email);
+            bool isEmailInUse =await userService.CheckEmail(email);
             return Json(!isEmailInUse);
         }
         [AcceptVerbs("Get", "Post")]
         public async Task<IActionResult> IsLoginInUse( string login)
         {
 
-            bool isUnique = await rep.GetLogins(login);
+            bool isUnique = await userService.GetLogins(login);
             return Json(isUnique);
         }
         public ActionResult Logout()

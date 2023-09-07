@@ -22,7 +22,7 @@ namespace MusicPortal.DAL.Repositories
         {
             return await db.Salts.FirstOrDefaultAsync(m => m.user == u);
         }
-        public async Task AddSItem(Salt s)
+        public async Task AddItem(Salt s)
         {
             await db.AddAsync(s);
         }

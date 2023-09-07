@@ -4,7 +4,7 @@ namespace MusikPortal.Repository
 {
     public interface IRepository
     {
-        Task<Salt> GetSalt(User user);       
+       /* Task<Salt> GetSalt(User user);       
         Task<User> GetUser(string name);
         Task<User> GetEmail(string email);
         Task<Style> GetStyle(int id);
@@ -32,6 +32,6 @@ namespace MusikPortal.Repository
         Task<List<Song>> FindSongs(string str);
         Task<bool> CheckEmail(string s);
         Task<bool> GetLogins(string s);
-        Task Save();
+        Task Save();*/
     }
 }

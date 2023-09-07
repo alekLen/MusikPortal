@@ -2,49 +2,59 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MusikPortal.Models;
-using MusikPortal.Repository;
+using MusicPortal.BLL.DTO;
+using MusicPortal.BLL.Interfaces;
+using MusicPortal.BLL.Infrastructure;
 using System.IO;
+using MusicPortal.BLL.Services;
 
 namespace MusikPortal.Controllers
 {
     public class AdminController : Controller
     {
         IWebHostEnvironment _appEnvironment;
-        IRepository rep;
-        public AdminController(IRepository context, IWebHostEnvironment appEnvironment)
+        private readonly ISongService songService;
+        private readonly IArtistService artistService;
+        private readonly IStyleService styleService;
+        private readonly IUserService userService;
+        private readonly ISaltService saltService;
+        public AdminController(ISongService s, IArtistService a, IStyleService st, IUserService u, ISaltService t, IWebHostEnvironment appEnvironment)
         {
-            rep = context;
-            _appEnvironment= appEnvironment;
+            songService = s;
+            artistService = a;
+            styleService = st;
+            userService = u;
+            saltService = t;
+            _appEnvironment = appEnvironment;
         }
         public async Task<IActionResult> Styles()
         {
-            List<Style> s = await rep.GetStylesList();
+            IEnumerable<StyleDTO> s = await styleService.GetAllStyles();
             ViewData["StyleId"] = new SelectList(s, "Id", "Name");
             return View("Styles");
         }
         public async Task<IActionResult> Artists()
         {
-            List<Artist> a = await rep.GetArtistsList();
+            IEnumerable<ArtistDTO> a = await artistService.GetAllArtists();
             ViewData["ArtistId"] = new SelectList(a, "Id", "Name");
             return View("Artists");
         }
         public async Task<IActionResult> EditArtist(int id)
         {
-            Artist a = await rep.GetArtist(id);
+            ArtistDTO a = await artistService.GetArtist(id);
             return View("EditArtist",a);
         }       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateStyle(Style s)
+        public async Task<IActionResult> CreateStyle(StyleDTO s)
         {
-            Style style = new Style();
+            StyleDTO style = new StyleDTO();
             style.Name = s.Name;
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await rep.AddStyle(style);
-                    await rep.Save();
+                    await styleService.AddStyle(style);                
                     return RedirectToAction("Index", "Home");                   
                 }
                 catch
@@ -59,7 +69,7 @@ namespace MusikPortal.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateArtist(Artist s, IFormFile p)
+        public async Task<IActionResult> CreateArtist(ArtistDTO s, IFormFile p)
         {
             if (p != null)
             {
@@ -72,14 +82,13 @@ namespace MusikPortal.Controllers
                 {
                     await p.CopyToAsync(fileStream); // копируем файл в поток
                 }
-                Artist art = new Artist();
+                ArtistDTO art = new ArtistDTO();
                 art.Name = s.Name;
                 art.photo = path;
                
                     try
                     {
-                        await rep.AddArtist(art);
-                        await rep.Save();
+                        await artistService.AddArtist(art);                    
                         return RedirectToAction("Index", "Home");
                     }
                     catch
@@ -94,12 +103,11 @@ namespace MusikPortal.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteStyle(Style s)
+        public async Task<IActionResult> DeleteStyle(StyleDTO s)
         {                  
                 try
                 {
-                    await rep.DeleteStyle(s.Id);
-                    await rep.Save();
+                    await styleService.DeleteStyle(s.Id);
                     return RedirectToAction("Index", "Home");
                 }
                 catch
@@ -110,11 +118,11 @@ namespace MusikPortal.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteArtist(Artist s)
+        public async Task<IActionResult> DeleteArtist(ArtistDTO s)
         {
             try
             {
-                Artist a = await rep.GetArtist(s.Id);
+                ArtistDTO a = await artistService.GetArtist(s.Id);
                 return View(a);
             }
             catch
@@ -125,12 +133,11 @@ namespace MusikPortal.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ConfirmDeleteArtist(Artist s)
+        public async Task<IActionResult> ConfirmDeleteArtist(ArtistDTO s)
         {
             try
             {
-                await rep.DeleteArtist(s.Id);
-                await rep.Save();
+                await artistService.DeleteArtist(s.Id);
                 return RedirectToAction("Index", "Home");
             }
             catch
@@ -148,14 +155,13 @@ namespace MusikPortal.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditStyle(Style s)
+        public async Task<IActionResult> EditStyle(StyleDTO s)
         {
                 if (ModelState.IsValid)
                 {
                     try
                     {
-                        await rep.EditStyle(s.Id,s.Name);
-                        await rep.Save();
+                        await styleService.UpdateStyle(s.Id,s.Name);
                         return RedirectToAction("Index", "Home");
                     }
                     catch
@@ -170,7 +176,7 @@ namespace MusikPortal.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditArtist(Artist s, IFormFile p)
+        public async Task<IActionResult> EditArtist(ArtistDTO s, IFormFile p)
         {
             if (ModelState.IsValid)
             {
@@ -187,11 +193,10 @@ namespace MusikPortal.Controllers
                         {
                             await p.CopyToAsync(fileStream); // копируем файл в поток
                         }
-                        await rep.EditArtist(s.Id, s.Name, path);
+                        await artistService.UpdateArtist(s.Id, s.Name, path);
                     }
                     else
-                        await rep.EditArtist(s.Id, s.Name,s.photo);
-                    await rep.Save();
+                        await artistService.UpdateArtist(s.Id, s.Name,s.photo);                  
                     return RedirectToAction("Index", "Home");
                 }
                 catch
@@ -206,39 +211,39 @@ namespace MusikPortal.Controllers
         }
         public async Task putStyles()
         {
-            List<Style> s = await rep.GetStylesList();
+            IEnumerable<StyleDTO> s = await styleService.GetAllStyles();
             ViewData["StyleId"] = new SelectList(s, "Id", "Name");          
         }
         public async Task putArtists()
         {
-            List<Artist> a = await rep.GetArtistsList();
+            IEnumerable<ArtistDTO> a = await artistService.GetAllArtists();
             ViewData["ArtistId"] = new SelectList(a, "Id", "Name");
         }
         public async Task putUsers()
         {
-            IEnumerable<User> s = await rep.GetUsers(HttpContext.Session.GetString("login"));
+            IEnumerable<UserDTO> s = await userService.GetUsers(HttpContext.Session.GetString("login"));
             ViewBag.Users = s;
         }
         public async Task<IActionResult> Users()
         {
-            IEnumerable<User> s = await rep.GetUsers(HttpContext.Session.GetString("login"));
+            IEnumerable<UserDTO> s = await userService.GetUsers(HttpContext.Session.GetString("login"));
             ViewBag.Users = s;
             return View();
         }
-        public async Task<IActionResult> EditUser(User u)
+        public async Task<IActionResult> EditUser(UserDTO u)
         {            
                 try
                 {
-                IEnumerable<User> s = await rep.GetUsers(HttpContext.Session.GetString("login"));
+                IEnumerable<UserDTO> s = await userService.GetUsers(HttpContext.Session.GetString("login"));
                 ViewBag.Users = s;
-                await rep.EditUser(u.Id, u.Level.Value);
-                    await rep.Save();
+                await userService.UpdateUser(u.Id, u.Level.Value);
+
                 // return RedirectToAction("Index", "Home");
                 return View("Users");
             }
                 catch
                 {
-                IEnumerable<User> s = await rep.GetUsers(HttpContext.Session.GetString("login"));
+                IEnumerable<UserDTO> s = await userService.GetUsers(HttpContext.Session.GetString("login"));
                 ViewBag.Users = s;
                 await putUsers();
                     return View("Users");
@@ -252,7 +257,7 @@ namespace MusikPortal.Controllers
                 return NotFound();
             }
 
-            Song s = await rep.GetSong(id);
+            SongDTO s = await songService.GetSong(id);
             if (s == null)
             {
                 return NotFound();
@@ -266,8 +271,8 @@ namespace MusikPortal.Controllers
         {
             try
             {
-                await rep.DeleteSong(id);
-                await rep.Save();
+                await songService.DeleteSong(id);
+             
                 return RedirectToAction("Index", "Home");
             }
             catch
@@ -286,15 +291,15 @@ namespace MusikPortal.Controllers
         {
             try
             {
-                Song s=await rep.GetSong(id);              
+                SongDTO s=await songService.GetSong(id);              
                 AddSong s1 = new();
                 s1.SongId = id;
                 s1.Name= s.Name;
                 s1.Year= s.Year;
                 s1.Album= s.Album;
                 s1.text = s.text;
-                int i = await rep.GetArtistId(s);
-                int i1 = await rep.GetStyleId(s);
+                int i = await artistService.GetArtistId(s);
+                int i1 = await styleService.GetStyleId(s);
                 s1.ArtistId = i;
                 s1.StyleId = i1;
                 s1.file = s.file;
@@ -336,16 +341,18 @@ namespace MusikPortal.Controllers
                             }
                             s.file = path;
                         }
-                    Song song = await rep.GetSong(s.SongId.Value);
+                    SongDTO song = await songService.GetSong(s.SongId.Value);
                     song.Name = s.Name;
                     song.Year = s.Year;
                     song.Album = s.Album;
-                    song.artist = await rep.GetArtist(s.ArtistId);
-                    song.style = await rep.GetStyle(s.StyleId);
+                    ArtistDTO a= await artistService.GetArtist(s.ArtistId);
+                    song.artist = a.Name;
+                    StyleDTO st = await styleService.GetStyle(s.StyleId);
+                    song.style = st.Name;
                     song.file = s.file;
                     song.text = s.text;
-                    await rep.UpdateSong(song);
-                    await rep.Save();
+                    await songService.UpdateSong(song);
+               
                     return RedirectToAction("Index", "Home");
                     }
                     catch

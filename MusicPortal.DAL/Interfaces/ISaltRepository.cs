@@ -10,6 +10,6 @@ namespace MusicPortal.DAL.Interfaces
     public interface ISaltRepository
     {
         Task<Salt> Get(User u);
-        Task AddSItem(Salt s);
+        Task AddItem(Salt s);
     }
 }
