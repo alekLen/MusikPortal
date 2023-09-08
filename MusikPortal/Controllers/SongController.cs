@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MusikPortal.Repository;
 using MusikPortal.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -61,7 +60,7 @@ namespace MusikPortal.Controllers
                 s.style =sStyle.Name;
                 s.styleId = sStyle.Id;
                 s.artist = aArtist.Name;
-                s.styleId = aArtist.Id;
+                s.artistId = aArtist.Id;
                 s.Year = song.Year;
                 s.text = song.text;
                 s.Album=song.Album; 

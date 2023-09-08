@@ -2,7 +2,6 @@
 using MusikPortal.Models;
 using System.Security.Cryptography;
 using System.Text;
-using MusikPortal.Repository;
 using Microsoft.EntityFrameworkCore;
 using MusicPortal.BLL.Interfaces;
 using MusicPortal.BLL.DTO;
@@ -65,8 +64,9 @@ namespace MusikPortal.Controllers
                     u.Level = 0;
                     try
                     {
-                        await userService.AddUser(u);                       
-                        s.userId = u.Id;
+                        await userService.AddUser(u);
+                    UserDTO u1 =await userService.GetUser(u.Name);
+                        s.userId = u1.Id;
                         await saltService.AddSalt(s);                       
                     }
                     catch { }

@@ -7,6 +7,7 @@ using MusicPortal.DAL.Interfaces;
 using MusicPortal.DAL.Entities;
 using MusicPortal.DAL.EF;
 using Microsoft.EntityFrameworkCore;
+using System.Numerics;
 
 
 namespace MusicPortal.DAL.Repositories
@@ -58,10 +59,16 @@ namespace MusicPortal.DAL.Repositories
                 db.Songs.Remove(f);
             }
         }
-        public void Update(Song s)
+        public async Task Update(Song s)
         {
-
-            db.Songs.Update(s);
+            try
+            {
+                var f = await db.Songs.FindAsync(s.Id);
+                db.Songs.Update(s);
+                //db.Entry(s).State = EntityState.Modified;
+               
+            }
+            catch { }
         }
     }
 }

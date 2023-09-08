@@ -11,7 +11,7 @@ namespace MusicPortal.DAL.Interfaces
     {  
         Task<List<Song>> FindSongs(string str);
         Task AddSongToArtist(int id, Song s);
-        void Update(Song s);
+        Task Update(Song s);
 
     }
 }

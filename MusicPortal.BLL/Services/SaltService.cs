@@ -43,6 +43,7 @@ namespace MusicPortal.BLL.Services
             };
 
             await Database.Salts.AddItem(salt);
+            await Database.Save();
         }
     }
 }

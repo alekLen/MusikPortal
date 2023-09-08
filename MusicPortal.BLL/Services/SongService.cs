@@ -84,9 +84,9 @@ namespace MusicPortal.BLL.Services
         }
         public async Task UpdateSong(SongDTO songDto)
         {
-            Song s = await SongDTOToSong(songDto);
-             Database.Songs.Update(s);
-            await Database.Save();
+            Song s = await SongDTOToSong(songDto);          
+             await Database.Songs.Update(s);
+             await Database.Save();
         }
     }
 }

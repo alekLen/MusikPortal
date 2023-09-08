@@ -19,14 +19,14 @@ namespace MusicPortal.BLL.Services
         {
             var u = await Database.Users.GetUser(name);
             if (u == null)
-                throw new ValidationException("Wrong user!", "");
+                return null;
             return UserToUserDTO(u);
         }
         public async Task<UserDTO> GetEmail(string email)
         {
             var u = await Database.Users.GetEmail(email);
             if (u == null)
-                throw new ValidationException("Wrong user!", "");
+                return null;
             return UserToUserDTO(u);
         }
         public async Task<IEnumerable<UserDTO>> GetUsers(string n)
