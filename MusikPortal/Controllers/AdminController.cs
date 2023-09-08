@@ -238,7 +238,9 @@ namespace MusikPortal.Controllers
                 ViewBag.Users = s;
                 await userService.UpdateUser(u.Id, u.Level.Value);
 
-                // return RedirectToAction("Index", "Home");
+                IEnumerable<UserDTO> s1 = await userService.GetUsers(HttpContext.Session.GetString("login"));
+                ViewBag.Users = s1;
+                await putUsers();
                 return View("Users");
             }
                 catch
