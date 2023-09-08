@@ -9,8 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 string? connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
 // качаем NuGet Package Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
-// качаем NuGet Package Microsoft.EntityFrameworkCore.SqlServer
-// качаем NuGet Package BCrypt.Net-Next
+// качаем NuGet Package Microsoft.EntityFrameworkCore.SqlServer на третьем уровне для работы с БД
+// качаем NuGet Package AutoMapper на втором уровне для преобразования классов моделей в классы DTO
+// качаем NuGet Package BCrypt.Net-Next на втором уровне для хеширования
 builder.Services.AddMusicPortalContext(connection);
 builder.Services.AddUnitOfWorkService();
 builder.Services.AddTransient<IArtistService, ArtistService>();
