@@ -176,7 +176,7 @@ namespace MusikPortal.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditArtist(ArtistDTO s, IFormFile p)
+        public async Task<IActionResult> EditArtist(ArtistDTO s, IFormFile? p)
         {
             if (ModelState.IsValid)
             {
