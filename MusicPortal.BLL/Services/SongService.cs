@@ -50,7 +50,8 @@ namespace MusicPortal.BLL.Services
         }
         public async Task<IEnumerable<SongDTO>> FindSongs( string str)
         {
-            var config = new MapperConfiguration(cfg => cfg.CreateMap<Song, SongDTO>());
+            var config = new MapperConfiguration(cfg => cfg.CreateMap<Song, SongDTO>()
+             .ForMember("artist", opt => opt.MapFrom(c => c.artist.Name)).ForMember("style", opt => opt.MapFrom(c => c.style.Name)));
             var mapper = new Mapper(config);
             return mapper.Map<IEnumerable<Song>, IEnumerable<SongDTO>>(await Database.Songs.FindSongs(str));
         }
@@ -85,7 +86,7 @@ namespace MusicPortal.BLL.Services
         public async Task UpdateSong(SongDTO songDto)
         {
             Song s = await SongDTOToSong(songDto);          
-             await Database.Songs.Update(s);
+              Database.Songs.Update(s);
              await Database.Save();
         }
     }

@@ -59,11 +59,10 @@ namespace MusicPortal.DAL.Repositories
                 db.Songs.Remove(f);
             }
         }
-        public async Task Update(Song s)
+        public void Update(Song s)
         {
             try
             {
-                var f = await db.Songs.FindAsync(s.Id);
                 db.Songs.Update(s);
                 //db.Entry(s).State = EntityState.Modified;
                

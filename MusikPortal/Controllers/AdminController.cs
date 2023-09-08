@@ -341,14 +341,18 @@ namespace MusikPortal.Controllers
                             }
                             s.file = path;
                         }
-                    SongDTO song = await songService.GetSong(s.SongId.Value);
+                    SongDTO song = new(); //await songService.GetSong(s.SongId.Value);
+                    song.Id = s.SongId.Value;
                     song.Name = s.Name;
                     song.Year = s.Year;
                     song.Album = s.Album;
                     ArtistDTO a= await artistService.GetArtist(s.ArtistId);
                     song.artist = a.Name;
+                    song.artistId = a.Id;
+                    song.artistPhoto = a.photo;
                     StyleDTO st = await styleService.GetStyle(s.StyleId);
                     song.style = st.Name;
+                     song.styleId = st.Id;
                     song.file = s.file;
                     song.text = s.text;
                     await songService.UpdateSong(song);
