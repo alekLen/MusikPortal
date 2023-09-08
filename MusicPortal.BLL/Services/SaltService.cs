@@ -3,6 +3,8 @@ using MusicPortal.BLL.DTO;
 using MusicPortal.DAL.Entities;
 using MusicPortal.BLL.Infrastructure;
 using MusicPortal.BLL.Interfaces;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace MusicPortal.BLL.Services
 {
@@ -45,5 +47,6 @@ namespace MusicPortal.BLL.Services
             await Database.Salts.AddItem(salt);
             await Database.Save();
         }
+       
     }
 }

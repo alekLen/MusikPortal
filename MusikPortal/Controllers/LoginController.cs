@@ -11,11 +11,9 @@ namespace MusikPortal.Controllers
     public class LoginController : Controller
     {
         private readonly IUserService userService;
-        private readonly ISaltService saltService;
-        public LoginController(IUserService u, ISaltService s)
+        public LoginController(IUserService u)
         {
-            userService = u;
-            saltService = s;
+            userService = u;           
         }
         public IActionResult Registration()
         {
@@ -47,27 +45,11 @@ namespace MusikPortal.Controllers
                 UserDTO u = new();
                     u.Name = user.Login;
                     u.Age = user.age;
-                    u.email = user.email;
-                    byte[] saltbuf = new byte[16];
-                    RandomNumberGenerator randomNumberGenerator = RandomNumberGenerator.Create();
-                    randomNumberGenerator.GetBytes(saltbuf);
-                    StringBuilder sb = new StringBuilder(16);
-                    for (int i = 0; i < 16; i++)
-                        sb.Append(string.Format("{0:X2}", saltbuf[i]));
-                    string salt = sb.ToString();
-                    SaltDTO s = new();
-                    s.salt = salt;
-                    string password = salt + user.Password;
-                    string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
-                    //bool passwordsMatch = BCrypt.Net.BCrypt.Verify(enteredPassword, hashedPasswordFromDatabase); для проверки совпадения           
-                    u.Password = hashedPassword;
-                    u.Level = 0;
+                    u.email = user.email;          
+                 u.Password = user.Password;
                     try
                     {
-                        await userService.AddUser(u);
-                    UserDTO u1 =await userService.GetUser(u.Name);
-                        s.userId = u1.Id;
-                        await saltService.AddSalt(s);                       
+                        await userService.CreateUser(u);                      
                     }
                     catch { }
                     return RedirectToAction("Login");
@@ -85,22 +67,18 @@ namespace MusikPortal.Controllers
            
             if (ModelState.IsValid)
             {
-
                 var u = await userService.GetUser(user.Login);
-                var s = await saltService.GetSalt(u);
                 {
                    
-                    if (u != null && s != null)
+                    if (u != null )
                     {
-                        string conf = s.salt + user.Password;
-                        if (BCrypt.Net.BCrypt.Verify(conf, u.Password))
+                        if(await userService.CheckPassword(u,user.Password))
                         {
-
                             HttpContext.Session.SetString("login", user.Login);
                             if (u.Level == 1)
                                 HttpContext.Session.SetString("level", "level");
                             if (u.Level==2)
-                              HttpContext.Session.SetString("admin", "admin");// создание сессионной переменной
+                              HttpContext.Session.SetString("admin", "admin");
                             return RedirectToAction("Index", "Home");
                         }
                         else

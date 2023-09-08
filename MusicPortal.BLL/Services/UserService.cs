@@ -4,6 +4,8 @@ using MusicPortal.DAL.Entities;
 using MusicPortal.BLL.Infrastructure;
 using MusicPortal.BLL.Interfaces;
 using AutoMapper;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace MusicPortal.BLL.Services
 {
@@ -80,6 +82,57 @@ namespace MusicPortal.BLL.Services
         public async Task<bool> GetLogins(string s)
         {
             return await Database.Users.GetLogins(s);
+        }
+        public async Task CreateUser(UserDTO user)
+        {           
+                 string salt =await CreateSalt();
+                  Salt s = new();
+                  s.salt = salt;
+                  string password = salt + user.Password;
+                  string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password);
+
+            User u = new()
+            {
+                Name = user.Name,
+                Password = hashedPassword,
+                email = user.email,
+                Age = user.Age,
+                Level = 0
+            };
+            await Database.Users.AddItem(u);
+            await Database.Save();
+            s.user = u;
+            await Database.Salts.AddItem(s);
+            await Database.Save();
+        }
+        public async Task<bool> CheckPassword(UserDTO u,string p)
+        {
+            var user = new User
+            {
+                Id = u.Id,
+                Name = u.Name,
+                Password = u.Password,
+                Level = u.Level,
+                email = u.email,
+                Age = u.Age,
+            };
+            Salt s = await Database.Salts.Get(user);
+            string conf = s.salt + p;
+            if (BCrypt.Net.BCrypt.Verify(conf, user.Password))
+                return true;
+            else
+                return false;
+        }
+        public async Task<string> CreateSalt()
+        {
+            byte[] saltbuf = new byte[16];
+            RandomNumberGenerator randomNumberGenerator = RandomNumberGenerator.Create();
+            randomNumberGenerator.GetBytes(saltbuf);
+            StringBuilder sb = new StringBuilder(16);
+            for (int i = 0; i < 16; i++)
+                sb.Append(string.Format("{0:X2}", saltbuf[i]));
+            string salt = sb.ToString();
+            return salt;
         }
     }
 }

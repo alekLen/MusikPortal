@@ -8,8 +8,6 @@ var builder = WebApplication.CreateBuilder(args);
 // Получаем строку подключения из файла конфигурации
 string? connection = builder.Configuration.GetConnectionString("DefaultConnection");
 
-// добавляем контекст ApplicationContext в качестве сервиса в приложение
-//builder.Services.AddDbContext<MusikPortalContext>(options => options.UseSqlServer(connection));
 // качаем NuGet Package Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation
 // качаем NuGet Package Microsoft.EntityFrameworkCore.SqlServer
 // качаем NuGet Package BCrypt.Net-Next
@@ -32,7 +30,6 @@ builder.Services.AddSession(options =>
 });
 // Добавляем сервисы MVC
 builder.Services.AddControllersWithViews();
-//builder.Services.AddScoped<IRepository, MusikPortalRepository>();
 
 var app = builder.Build();
 app.UseStaticFiles();

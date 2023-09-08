@@ -12,5 +12,7 @@ namespace MusicPortal.BLL.Interfaces
         Task<UserDTO> GetUser(int id);
         Task<bool> CheckEmail(string s);
         Task<bool> GetLogins(string s);
+        Task CreateUser(UserDTO u);
+        Task<bool> CheckPassword(UserDTO u, string p);
     }
 }
