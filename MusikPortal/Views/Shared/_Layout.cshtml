@@ -62,17 +62,17 @@
                 <div class="c20 " id="wait" style="display:none;">waiting for confirm registration&nbsp;&nbsp;&nbsp;</div>
 
                 @using (Html.BeginForm("Logout", "Login", FormMethod.Get))
-                     {                  
+                {                  
                         <div style="display:flex; justify-content:end; width:400px;">
                            <div class="c c1 c20 non" id="wellcome" >
 
                             &nbsp;&nbsp;&nbsp;&nbsp;Welcome,&nbsp; <span id="wellcomeTo"></span>&nbsp;&nbsp;                        
-                                <input type="submit" id="logout" value="Logout" class="non" />
-                           </div>
+                               
+                           </div>                       
                         </div>
-                     }
-                    
-                    <ul class="navbar-nav flex-grow-1 c c1 " id="enter">
+                 }
+                <a href="javascript:void(0)" class="nav-link text-dark card2 btn-Logout non" id="logout" >LogOut</a>
+                <ul class="navbar-nav flex-grow-1 c c1 " id="enter">
                         <li class="nav-item">                           
                                 <a href="javascript:void(0)" class="nav-link text-dark card2 btn-Login">Login</a>
                         </li>

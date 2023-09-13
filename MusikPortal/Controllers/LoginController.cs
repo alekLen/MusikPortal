@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.EntityFrameworkCore;
 using MusicPortal.BLL.Interfaces;
 using MusicPortal.BLL.DTO;
+using Azure;
 
 namespace MusikPortal.Controllers
 {
@@ -146,7 +147,7 @@ namespace MusikPortal.Controllers
         public ActionResult Logout()
         {
             HttpContext.Session.Clear(); // очищается сессия
-            return RedirectToAction("Index", "Home");
+            return Json(true);
         }
         public ActionResult GetName()
         {

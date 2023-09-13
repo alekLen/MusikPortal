@@ -20,14 +20,24 @@
                     type: 'GET',
                     contentType: false,
                     processData: false,
-                    success: function (response) {
-                        alert(response);
+                    success: function (response) {                      
                         let l = document.getElementById("wellcome");
                         l.style.display = "none";
                         let lt = document.getElementById("enter");
                         lt.style.display = "flex";
                         let lm = document.getElementById("wait");
                         lm.style.display = "none";
+                        let lg = document.getElementById("logout");
+                        lg.style.display = "none";
+                        let l2 = document.getElementById("artists");
+                        l2.style.display = "none";
+                        let l3 = document.getElementById("genres");
+                        l3.style.display = "none";
+                        let l4 = document.getElementById("users");
+                        l4.style.display = "none";
+                        let ls = document.getElementById("addSong");
+                        ls.style.display = "none";
+                        $(".admin").css("display", "none");
                     },
                     error: function (x, y, z) {
                         alert(x + '\n' + y + '\n' + z);
@@ -142,7 +152,8 @@
                                 let l3 = document.getElementById("genres");
                                 l3.style.display = "inline";
                                 let l4 = document.getElementById("users");
-                                l4.style.display = "inline";
+                                l4.style.display = "inline";                               
+                                $(".admin").css("display", "block");
                             }
                         }
                         else {
@@ -332,7 +343,7 @@
                 <div class="card c18 c19 text-center">
                 <a href="@s.file" download>download</a>
                 </div>
-           <div id="admin" style="display:none;">
+           <div class="admin" style="display:none;">
                 <br />
                 <br />
               <div class="card c18 c19 text-center">
