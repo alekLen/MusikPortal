@@ -1,5 +1,268 @@
 ﻿@using Microsoft.AspNetCore.Http
-<div>
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            
+
+            $("body").on("click", ".btn-gestBook", function () {
+                registrNone();
+                loginNone();
+                getAllMessages();
+            });
+
+            $("body").on("click", ".btn-Login", function () {
+                registrNone();
+                login();
+            });
+            $("body").on("click", ".btn-Logout", function () {
+                $.ajax({
+                    url: '@Url.Action("Logout", "Login")',
+                    type: 'GET',
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        alert(response);
+                        let l = document.getElementById("wellcome");
+                        l.style.display = "none";
+                        let lt = document.getElementById("enter");
+                        lt.style.display = "flex";
+                        let lm = document.getElementById("wait");
+                        lm.style.display = "none";
+                    },
+                    error: function (x, y, z) {
+                        alert(x + '\n' + y + '\n' + z);
+                    }
+                });
+            });
+
+            $("body").on("click", ".btn-Reg", function () {
+                loginNone();
+                registr();
+            });
+            $("#btn-registration").on("click", function () {
+                let formData1 = new FormData();
+                formData1.append("Login", $("#Login").val());
+                $.ajax({
+                    url: '@Url.Action("IsLoginInUse", "Login")',
+                    type: 'POST',
+                    contentType: false,
+                    processData: false,
+                    data: formData1,
+                    success: function (response) {
+                        if (response) {
+                            alert("логин уже используется!")
+                            let l1 = document.getElementById("error-Rlogin");
+                            l1.style.display = "inline";
+                        }
+                        else {
+                            let formData = new FormData();
+                            formData.append("Login", $("#Login").val());
+                            formData.append("Password", $("#Reg_Password1").val());
+                            formData.append("PasswordConfirm", $("#Reg_Password2").val());
+                            $.ajax({
+                                url: '@Url.Action("Registration", "Login")',
+                                type: 'POST',
+                                contentType: false,
+                                processData: false,
+                                data: formData,
+                                success: function (response) {
+                                    alert(response);
+                                    registrNone();
+                                    ClearRegistr();
+                                    login();
+                                },
+                                error: function (x, y, z) {
+                                    alert(x + '\n' + y + '\n' + z);
+                                }
+                            });
+                        }
+                    },
+                    error: function (x, y, z) {
+                        alert(x + '\n' + y + '\n' + z);
+                    }
+                });
+
+
+
+            });
+            $("#Login").on("focus", function () {
+                let l1 = document.getElementById("error-Rlogin");
+                l1.style.display = "none";
+            });
+
+            $("#btn-log").on("click", function () {
+                let formData = new FormData();
+                formData.append("Login", $("#log").val());
+                formData.append("Password", $("#pass").val());
+                $.ajax({
+                    url: '@Url.Action("Login", "Login")',
+                    type: 'POST',
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (response) {
+                        alert(response);
+                        if (response) {
+                            let l1 = document.getElementById("error-login");
+                            l1.style.display = "none";
+                            loginNone();
+                            ClearLogin();
+                            if(response=="0")
+                            {
+                                let lw = document.getElementById("wait");
+                                lw.style.display = "inline";
+                            }
+                            else
+                            { 
+                              let la = document.getElementById("addSong");
+                              la.style.display = "inline";
+                            }
+                            let ll = document.getElementById("wellcome");
+                            ll.style.display = "inline";
+                            let lo = document.getElementById("logout");
+                            lo.style.display = "inline";
+                            let lt = document.getElementById("enter");
+                            lt.style.display = "none";                           
+                            $.ajax({
+                                url: '@Url.Action("GetName", "Login")',
+                                type: 'GET',
+                                contentType: false,
+                                processData: false,
+                                success: function (response1) {
+                                    $("#wellcomeTo").html(response1);
+                                },
+                                error: function (x, y, z) {
+                                    alert(x + '\n' + y + '\n' + z);
+                                }
+                            });
+                            if(response=="admin")
+                            {
+                                let l2 = document.getElementById("artists");
+                                l2.style.display = "inline";
+                                let l3 = document.getElementById("genres");
+                                l3.style.display = "inline";
+                                let l4 = document.getElementById("users");
+                                l4.style.display = "inline";
+                            }
+                        }
+                        else {
+                            let l5 = document.getElementById("error-login");
+                            l5.style.display = "inline";
+                        }
+                    },
+                    error: function (x, y, z) {
+                        alert(x + '\n' + y + '\n' + z);
+                    }
+                });
+            });
+            $("#btn-addMess").on("click", function () {
+                let formData = new FormData();
+                formData.append("Text", $("#TextMessage").val());
+                $.ajax({
+                    url: '@Url.Action("AddMessage", "Login")',
+                    type: 'POST',
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (response) {
+                        alert(response);
+                        $("#TextMessage").val("");
+                        getAllMessages();
+                    },
+                    error: function (x, y, z) {
+                        alert(x + '\n' + y + '\n' + z);
+                    }
+                });
+            });
+
+        });
+
+        let login = function () {
+            let l = document.getElementById("login");
+            l.style.display = "block";
+        };
+        let loginNone = function () {
+            let l = document.getElementById("login");
+            l.style.display = "none";
+        };
+        // создание строки для таблицы
+        let row = function (message) {
+            return "<div>" + message.user + " </div>" +
+                "<div class='card'  >" + message.Text + " </div>" +
+                "<div class='c' >" + message.MessageDate + " </div><hr />"
+        };
+
+        // Получение всех студентов
+        function getAllMessages() {
+            $.ajax({
+                url: '@Url.Action("GetMessages", "Home")',
+                type: 'GET',
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    let rows = "";
+                    let message = JSON.parse(response);
+                    $.each(message, function (index, message) {
+                        rows += row(message);
+                    })
+                    $("#message-list").html(rows);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+        let registr = function () {
+            let l = document.getElementById("registrationForm");
+            l.style.display = "block";
+        };
+        let registrNone = function () {
+            let l = document.getElementById("registrationForm");
+            l.style.display = "none";
+        };
+        let ClearRegistr = function () {
+            $("#Login").val("");
+            $("#Reg_Password1").val("");
+            $("#Reg_Password2").val("");
+        };
+        let ClearLogin = function () {
+            $("#log").val("");
+            $("#pass").val("");
+        };
+
+
+    </script>
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
+<div class="end">
+<div id="login" class="card c22 non">
+    <label>Login</label>
+    <span id="error-login" style="color:red;display:none;">*не верный логин или пароль</span>
+    <div >
+        <input type="text" class="form-control" id="log" required>
+    </div>
+
+    <div>
+        <label>Password</label>
+        <div>
+            <input type="password" class="form-control" id="pass" required>
+        </div>
+    </div>
+
+    <div>        
+        <div>
+            <a href="javascript:void(0)" class="nav-link text-dark card2 but" id="btn-log">Enter</a>
+        </div>
+    </div>
+</div>
+</div>
+<div id="registrationForm" style="display:none;">
+
+</div>
+<br />
+<div id="songs">
  @foreach (var s in ViewBag.Songs)
  {   <div class="c3">
        <div>
@@ -7,7 +270,7 @@
              <div class="card">
              <h4>@s.Name</h4>
            
-      <div class="text-center">
+         <div class="text-center">
             
           @if(@s.file.Split('.')[1]=="mp4"){ 
             <video controls autoplay="autoplay" loop="loop" muted="muted" width="500" height="300">
@@ -69,18 +332,17 @@
                 <div class="card c18 c19 text-center">
                 <a href="@s.file" download>download</a>
                 </div>
-        @if (Context.Session.GetString("admin") != null)
-        {
+           <div id="admin" style="display:none;">
                 <br />
                 <br />
-                    <div class="card c18 c19 text-center">
+              <div class="card c18 c19 text-center">
                  <a asp-controller="Admin" asp-action="EditSong" asp-route-id="@s.Id">Edit Song</a>
              </div>
 
-                    <div class="card c18 c19 text-center">
+             <div class="card c18 c19 text-center">
                   <a asp-controller="Admin" asp-action="DeleteSong" asp-route-id="@s.Id">Delete Song</a>
              </div>
-        }
+           </div>
         </div>
     </div>
     <br />

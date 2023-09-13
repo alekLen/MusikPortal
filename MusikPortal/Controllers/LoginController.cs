@@ -15,10 +15,10 @@ namespace MusikPortal.Controllers
         {
             userService = u;           
         }
-        public IActionResult Registration()
+       /* public IActionResult Registration()
         {
             return View();
-        }
+        }*/
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -56,45 +56,79 @@ namespace MusikPortal.Controllers
                 }
             return View(user);
         }
-        public IActionResult Login()
+       /* public IActionResult Login()
         {
             return View();
-        }
+        }*/
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel user)
         {
-           
+
+            /* if (ModelState.IsValid)
+              {
+                  var u = await userService.GetUser(user.Login);
+                  {
+
+                      if (u != null )
+                      {
+                          if(await userService.CheckPassword(u,user.Password))
+                          {
+                              HttpContext.Session.SetString("login", user.Login);
+                              if (u.Level == 1)
+                                  HttpContext.Session.SetString("level", "level");
+                              if (u.Level==2)
+                                HttpContext.Session.SetString("admin", "admin");
+                              return RedirectToAction("Index", "Home");
+                          }
+                          else
+                          {
+                              ModelState.AddModelError("", "login/password  not correct");
+                              return View(user);
+                          }
+                      }
+                      else
+                      {
+                          ModelState.AddModelError("", "login/password  not correct");
+                          return View(user);
+                      }
+                  }
+              }
+              return View(user);*/
             if (ModelState.IsValid)
             {
+
                 var u = await userService.GetUser(user.Login);
                 {
-                   
                     if (u != null )
                     {
-                        if(await userService.CheckPassword(u,user.Password))
+                        if (await userService.CheckPassword(u, user.Password))
                         {
+                            string response = "0";
                             HttpContext.Session.SetString("login", user.Login);
                             if (u.Level == 1)
+                            { 
                                 HttpContext.Session.SetString("level", "level");
-                            if (u.Level==2)
-                              HttpContext.Session.SetString("admin", "admin");
-                            return RedirectToAction("Index", "Home");
-                        }
+                                 response = "1";
+                            }
+                            if (u.Level == 2)
+                            {
+                                HttpContext.Session.SetString("admin", "admin");
+                                 response = "admin";                              
+                            }
+                            return Json(response);
+                        }                                              
                         else
                         {
-                            ModelState.AddModelError("", "login/password  not correct");
-                            return View(user);
+                            return Json(false);
                         }
                     }
                     else
-                    {
-                        ModelState.AddModelError("", "login/password  not correct");
-                        return View(user);
+                    { 
+                        return Json(false);
                     }
                 }
             }
-            return View(user);
+            return Json(false);
         }
         [AcceptVerbs("Get", "Post")]
         public async Task<IActionResult> IsEmailInUse(string email)
@@ -114,6 +148,10 @@ namespace MusikPortal.Controllers
             HttpContext.Session.Clear(); // очищается сессия
             return RedirectToAction("Index", "Home");
         }
-     
+        public ActionResult GetName()
+        {
+            string response = HttpContext.Session.GetString("login");
+            return Json(response);
+        }
     }
 }

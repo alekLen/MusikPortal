@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -22,84 +23,65 @@
                 </button>
                 @using (Html.BeginForm("Find", "Home", FormMethod.Get))
                 {
-                    <div>
+                    <div style="display:flex">
                         <input type="text" name="str" />
                         <input type="submit"  value="find" />&nbsp;
                     </div>
                 }
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    @using Microsoft.AspNetCore.Http
-                    @if (Context.Session.GetString("admin") != null)
-                    {                        
-                        <div class="navbar-collapse collapse d-sm-inline-flex c c21">
+                
+                   
+                                           
+                    <div class="navbar-collapse collapse d-sm-inline-flex c c21">
                             @using (Html.BeginForm("Create", "Song", FormMethod.Get))
                             {
                                 <div>
-                                    <input type="submit" value="Add Songs" />&nbsp;&nbsp;&nbsp;
+                                    <input type="submit" id="addSong" value="Add Songs" class="non" />&nbsp;&nbsp;&nbsp;
                                 </div>
                             }
                         @using (Html.BeginForm("Styles", "Admin", FormMethod.Get))
                         {
                                 <div >
-                                    <input type="submit" value="Genres" />&nbsp;
+                                    <input type="submit" id="genres"  class="non" value="Genres" />&nbsp;
                              </div>
                         }
                         @using (Html.BeginForm("Artists", "Admin", FormMethod.Get))
                         {
                             <div >
-                                    <input type="submit" value="Artists" />&nbsp;
+                                <input type="submit" id="artists" class="non" value="Artists" />&nbsp;
                             </div>
                         }                     
                         @using (Html.BeginForm("Users", "Admin", FormMethod.Get))
                         {
                             <div >
-                                    <input type="submit" value="Users" />&nbsp;
+                                <input type="submit" class="non" id="users" value="Users" />&nbsp;
                             </div>
                         }
-                        </div>
-                    }
-                    @if (Context.Session.GetString("login") != null)
-                    {
-                        @if (Context.Session.GetString("admin") == null && Context.Session.GetString("level") != null)
-                        {
-                            <div class="navbar-collapse collapse d-sm-inline-flex c c21">
-                            @using (Html.BeginForm("Create", "Song", FormMethod.Get))
-                            {
-                                <div>
-                                    <input type="submit" value="Add Songs" />&nbsp;
-                                </div>
-                            }
-                            </div>
-                        }
-                        @if (Context.Session.GetString("admin") == null && Context.Session.GetString("level") == null)
-                        {
-                            <div class="navbar-collapse collapse d-sm-inline-flex c c21 c20">waiting for confirm registration</div>
-                        }
+                    </div>
 
-                        @using (Html.BeginForm("Logout", "Login", FormMethod.Get))
-                        {
-                              <div class="navbar-collapse collapse d-sm-inline-flex c c1">
-                               
-                            <span  class="c20">
-                                Welcome, @Context.Session.GetString("login")&nbsp;&nbsp;
-                            </span>
-                            <div>
-                                <input type="submit" value="Logout" />
-                                </div>
-                            </div>
-                        }
-                    }                   
-                    else{ 
-                    <ul class="navbar-nav flex-grow-1 c c1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark card2" asp-area="" asp-controller="Login" asp-action="Login">Login</a>
+
+                <div class="c20 " id="wait" style="display:none;">waiting for confirm registration&nbsp;&nbsp;&nbsp;</div>
+
+                @using (Html.BeginForm("Logout", "Login", FormMethod.Get))
+                     {                  
+                        <div style="display:flex; justify-content:end; width:400px;">
+                           <div class="c c1 c20 non" id="wellcome" >
+
+                            &nbsp;&nbsp;&nbsp;&nbsp;Welcome,&nbsp; <span id="wellcomeTo"></span>&nbsp;&nbsp;                        
+                                <input type="submit" id="logout" value="Logout" class="non" />
+                           </div>
+                        </div>
+                     }
+                    
+                    <ul class="navbar-nav flex-grow-1 c c1 " id="enter">
+                        <li class="nav-item">                           
+                                <a href="javascript:void(0)" class="nav-link text-dark card2 btn-Login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark card2" asp-area="" asp-controller="Login" asp-action="Registration">Registration</a>
+                                <a href="javascript:void(0)" class="nav-link text-dark card2 btn-Reg">Registration</a>
                         </li>
                     </ul>
-                    }
-                </div>
+                   
+               
             </div>
         </nav>
     </header>
