@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using MusicPortal.BLL.Interfaces;
 using MusicPortal.BLL.DTO;
 using Azure;
+using MusicPortal.DAL.Entities;
 
 namespace MusikPortal.Controllers
 {
@@ -15,34 +16,19 @@ namespace MusikPortal.Controllers
         public LoginController(IUserService u)
         {
             userService = u;           
-        }
-       /* public IActionResult Registration()
-        {
-            return View();
-        }*/
+        }      
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost]    
         public async Task<IActionResult> Registration(RegisterModel user)
         {
             try
             {
                 if (Convert.ToInt32(user.age) < 0 || Convert.ToInt32(user.age) > 99)
-                    ModelState.AddModelError("age", "uncorrectly age");
+                    return Json("age");
             }
-            catch { ModelState.AddModelError("age", "uncorrectly age"); }
-                if (ModelState.IsValid)
-                {
-                    if (await userService.GetUser(user.Login) != null)
-                    {
-                        ModelState.AddModelError("login", "this login already exists");
-                        return View(user);
-                    }
-                    if (await userService.GetEmail(user.email) != null)
-                    {
-                        ModelState.AddModelError("email", "this email is already registred");
-                        return View(user);
-                    }
+            catch { return Json("age"); }
+            if (ModelState.IsValid)
+            {               
                 UserDTO u = new();
                     u.Name = user.Login;
                     u.Age = user.age;
@@ -52,49 +38,15 @@ namespace MusikPortal.Controllers
                     {
                         await userService.CreateUser(u);                      
                     }
-                    catch { }
-                    return RedirectToAction("Login");
-                }
-            return View(user);
-        }
-       /* public IActionResult Login()
-        {
-            return View();
-        }*/
+                    catch { return Json(false); }
+                 return Json(true);
+            }
+            return Json(false);
+        }    
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel user)
         {
-
-            /* if (ModelState.IsValid)
-              {
-                  var u = await userService.GetUser(user.Login);
-                  {
-
-                      if (u != null )
-                      {
-                          if(await userService.CheckPassword(u,user.Password))
-                          {
-                              HttpContext.Session.SetString("login", user.Login);
-                              if (u.Level == 1)
-                                  HttpContext.Session.SetString("level", "level");
-                              if (u.Level==2)
-                                HttpContext.Session.SetString("admin", "admin");
-                              return RedirectToAction("Index", "Home");
-                          }
-                          else
-                          {
-                              ModelState.AddModelError("", "login/password  not correct");
-                              return View(user);
-                          }
-                      }
-                      else
-                      {
-                          ModelState.AddModelError("", "login/password  not correct");
-                          return View(user);
-                      }
-                  }
-              }
-              return View(user);*/
+           
             if (ModelState.IsValid)
             {
 
@@ -134,16 +86,41 @@ namespace MusikPortal.Controllers
         [AcceptVerbs("Get", "Post")]
         public async Task<IActionResult> IsEmailInUse(string email)
         {
-            bool isEmailInUse =await userService.CheckEmail(email);
-            return Json(!isEmailInUse);
+            bool isUnique = true;
+            UserDTO u = await userService.GetEmail(email);
+            if (u == null)
+                isUnique = false;
+            return Json(isUnique);
         }
         [AcceptVerbs("Get", "Post")]
         public async Task<IActionResult> IsLoginInUse( string login)
         {
 
-            bool isUnique = await userService.GetLogins(login);
+            bool isUnique = true;
+            UserDTO u = await userService.GetUser(login);
+            if (u == null)
+                isUnique = false;
             return Json(isUnique);
         }
+        [AcceptVerbs("Get", "Post")]
+        public async Task<IActionResult> IsEmailIn(string email)
+        {
+            bool isUnique = true;
+            UserDTO u = await userService.GetEmail(email);
+            if (u == null)
+                isUnique = false;
+            return Json(!isUnique);
+        }
+        [AcceptVerbs("Get", "Post")]
+        public async Task<IActionResult> IsLoginIn(string login)
+        {
+            bool isUnique = true;
+            UserDTO u = await userService.GetUser(login);
+            if (u == null)
+                isUnique = false;
+            return Json(!isUnique);
+        }
+
         public ActionResult Logout()
         {
             HttpContext.Session.Clear(); // очищается сессия

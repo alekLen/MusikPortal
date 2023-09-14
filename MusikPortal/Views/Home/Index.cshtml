@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Http
+@model MusikPortal.Models.RegisterModel
 @section Scripts{
     <script>
         $(document).ready(function () {
@@ -49,7 +50,7 @@
                 loginNone();
                 registr();
             });
-            $("#btn-registration").on("click", function () {
+           $("#btn-registration").on("click", function () {
                 let formData1 = new FormData();
                 formData1.append("Login", $("#Login").val());
                 $.ajax({
@@ -60,31 +61,66 @@
                     data: formData1,
                     success: function (response) {
                         if (response) {
-                            alert("логин уже используется!")
-                            let l1 = document.getElementById("error-Rlogin");
+                            alert("login is used!")
+                            let l1 = document.getElementById("error-log");
                             l1.style.display = "inline";
                         }
                         else {
-                            let formData = new FormData();
-                            formData.append("Login", $("#Login").val());
-                            formData.append("Password", $("#Reg_Password1").val());
-                            formData.append("PasswordConfirm", $("#Reg_Password2").val());
+                            let formData2 = new FormData();
+                            formData2.append("Email", $("#email").val());
                             $.ajax({
-                                url: '@Url.Action("Registration", "Login")',
-                                type: 'POST',
+                                url: '@Url.Action("IsEmailInUse", "Login")',
+                                type: 'GET',
                                 contentType: false,
                                 processData: false,
-                                data: formData,
-                                success: function (response) {
-                                    alert(response);
-                                    registrNone();
-                                    ClearRegistr();
-                                    login();
+                                data: formData2,
+                                success: function (response1) {
+                                    if (response1) {
+                                        alert("email is used!")
+                                        let l2 = document.getElementById("error-email");
+                                        l2.style.display = "inline";
+                                    }
+                                    else
+                                    {
+                                        let formData = new FormData();
+                                        formData.append("Login", $("#Login").val());
+                                        formData.append("Password", $("#Password").val());
+                                        formData.append("PasswordConfirm", $("#PasswordConfirm").val());
+                                        formData.append("Email", $("#email").val());
+                                        formData.append("Age", $("#age").val());
+                                        $.ajax({
+                                            url: '@Url.Action("Registration", "Login")',
+                                            type: 'POST',
+                                            contentType: false,
+                                            processData: false,
+                                            data: formData,
+                                            success: function (response2) {                                               
+                                                if(response2)
+                                                {
+                                                   if(response2=="age")
+                                                   {
+                                                        let l3 = document.getElementById("#error-age");
+                                                        l3.style.display = "inline";
+                                                   }
+                                                   else{ 
+                                                       alert("registration is successful!");
+                                                       registrNone();
+                                                       ClearRegistr();
+                                                       login();
+                                                   }
+                                                }
+                                            },
+                                            error: function (x, y, z) {
+                                                alert(x + '\n' + y + '\n' + z);
+                                            }
+                                        });
+                                    }
                                 },
                                 error: function (x, y, z) {
                                     alert(x + '\n' + y + '\n' + z);
                                 }
                             });
+                          
                         }
                     },
                     error: function (x, y, z) {
@@ -111,7 +147,6 @@
                     processData: false,
                     data: formData,
                     success: function (response) {
-                        alert(response);
                         if (response) {
                             let l1 = document.getElementById("error-login");
                             l1.style.display = "none";
@@ -269,8 +304,59 @@
     </div>
 </div>
 </div>
-<div id="registrationForm" style="display:none;">
+<div class="center">
+    <form id="registrationForm" action="Registration" method="post">
+        @Html.AntiForgeryToken()
+        <div class="card c22">
+            @Html.ValidationSummary(true, "")
+            <div>
+                @Html.DisplayNameFor(model => model.Login)
+                <div>
+                    @Html.EditorFor(model => model.Login, new { id = "login" })
+                    <span id="error-log" style="color:red; display:none">Login is used</span>
+                    <span asp-validation-for="Login" class="text-danger"></span>
+                </div>
+            </div>
 
+            <div>
+                @Html.DisplayNameFor(model => model.Password)
+                <div>
+                    @Html.PasswordFor(model => model.Password, new { id = "Password" })
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div>
+                @Html.DisplayNameFor(model => model.PasswordConfirm)
+
+                <div>
+                    @Html.PasswordFor(model => model.PasswordConfirm)
+                    <span asp-validation-for="PasswordConfirm" class="text-danger"></span>
+                </div>
+            </div>
+            <div>
+                @Html.DisplayNameFor(model => model.email)
+                <div>
+                    <span id="error-email" style="color:red; display:none">Login is used</span>
+                    @Html.EditorFor(model => model.email, new { id = "emailInput" })
+                    <span asp-validation-for="email" id="emailStatus" class="text-danger"></span>
+                </div>
+            </div>  <div>
+                @Html.DisplayNameFor(model => model.age)
+                <div>
+                    <span id="error-age" style="color:red; display:none">Login is used</span>
+                    @Html.EditorFor(model => model.age)
+                    <span asp-validation-for="age" class="text-danger"></span>
+                </div>
+            </div>
+            <div>
+                <br />
+                <div>
+                    <a href="javascript:void(0)" class="nav-link text-dark card2 but" id="btn-registration">Confirm</a>
+                </div>
+            </div>
+        </div>
+    </form>
 </div>
 <br />
 <div id="songs">

@@ -7,7 +7,7 @@ namespace MusikPortal.Models
     {
         [Required]
         [Display(Name = "login ")]
-        [Remote("IsLoginInUse", "Login", ErrorMessage = "login is used")]
+        [Remote("IsLoginIn", "Login", ErrorMessage = "login is used")]
         public string? Login { get; set; }
 
         [Required]
@@ -23,7 +23,7 @@ namespace MusikPortal.Models
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "uncorrectly email ")]
         [Display(Name = "email ")]
-        [Remote("IsEmailInUse", "Login", ErrorMessage = "email is used")]
+        [Remote("IsEmailIn", "Login", ErrorMessage = "email is used")]
         public string? email { get; set; }
         [Required]
         [Display(Name = "age ")]

@@ -54,7 +54,12 @@ namespace MusicPortal.DAL.Repositories
         }
         public async Task<bool> GetLogins(string s)
         {
-            return await db.Users.AllAsync(u => u.Name != s);
+            return await db.Users.AllAsync(u => u.Name == s);
+
+        }       
+        public async Task<User> GetLogin(string s)
+        {
+            return await db.Users.FirstOrDefaultAsync(u => u.Name == s);
 
         }
     }
