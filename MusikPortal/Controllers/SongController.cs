@@ -23,10 +23,12 @@ namespace MusikPortal.Controllers
             styleService = st;
             _appEnvironment = appEnvironment;
         }
+        [HttpGet]
         public async Task<IActionResult> Create()
         {
             await putStylesArtists();
-            return View("AddSong");
+            //return View("AddSong");
+            return PartialView("AddSong");
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -69,26 +71,24 @@ namespace MusikPortal.Controllers
                 {
                     try
                     {
-                        await songService.AddSong(s);
-                        
+                        await songService.AddSong(s);                       
                         await songService.AddSongToArtist(song.ArtistId, s);
-                     
-                        return RedirectToAction("Index", "Home");
+                        return PartialView("Success");
                     }
                     catch
                     {
                         await putStylesArtists();
-                        return View("AddSong", song);
+                        return PartialView("AddSong", song);
                     }
                 }
                 else
                 {
                     await putStylesArtists();
-                    return View("AddSong", song);
+                    return PartialView("AddSong", song);
                 }
             }
             await putStylesArtists();
-            return View("AddSong", song);
+            return PartialView("AddSong", song);
         }
         public async Task putStylesArtists()
         {

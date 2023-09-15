@@ -209,7 +209,34 @@
                     }
                 });
             });
-            
+            $(".createSong").on("click", function (e) {
+                e.preventDefault();
+                $("<div id='dialogContent'></div>")
+                    .addClass("dialog")
+                    .appendTo("body")
+                    .load(this.href)
+                    .dialog({
+                        width:500,
+                        title: "Adding a song",                     
+                        close: function () { $(this).remove() },
+                        modal: true,
+                        buttons: {
+                            "Add the song": function () {
+                                $.ajax({
+                                    url: "@Url.Action("Create", "Song")",
+                                    type: "POST",
+                                    data: $('form').serialize(),
+                                    datatype: "json",
+                                    success: function (result) {
+
+                                        $("#dialogContent").html(result);
+                                        getAllSongs();
+                                    }
+                                });
+                            }
+                        }
+                    });
+            });
 
         });
 

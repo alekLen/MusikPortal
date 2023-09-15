@@ -1,7 +1,5 @@
 ﻿@model MusikPortal.Models.AddSong
 
-<h3 class=" b1 b3 center c20">Add the Song</h3>
-<div class="center">
         <div class="card c77">
             <form asp-action="Create" asp-controller="Song" method="post" enctype="multipart/form-data">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -36,10 +34,7 @@
                     <span asp-validation-for="text" class="text-danger"></span>
                 </div>               
                 <input type="file" name="uploadedFile" accept=".mp4, .mp3" />
-                <div class="form-group">
-                    <br />
-                    <input type="submit" value="Add Song" class="btn btn-primary c2" />
-                </div>
+                
             </form>
         </div>
-        </div>
+       

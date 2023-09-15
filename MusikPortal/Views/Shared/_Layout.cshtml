@@ -7,7 +7,9 @@
     <title>@ViewData["Title"] - MusicPortal</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/MusikPortla.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MusikPortal.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/base/jquery-ui.css" />
+    @* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css" /> *@
     <script src="~/js/site.js" ></script>
     <script src="~/js/jquery-3.5.1.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -33,12 +35,11 @@
                    
                                            
                     <div class="navbar-collapse collapse d-sm-inline-flex c c21">
-                            @using (Html.BeginForm("Create", "Song", FormMethod.Get))
-                            {
+                            
                                 <div>
-                                    <input type="submit" id="addSong" value="Add Songs" class="non" />&nbsp;&nbsp;&nbsp;
+                            <a asp-action="Create" asp-controller="Song"  class="card2 createSong" data_dialog_title="Addition Song">Add Song</a>&nbsp;&nbsp;&nbsp;
                                 </div>
-                            }
+                            
                         @using (Html.BeginForm("Styles", "Admin", FormMethod.Get))
                         {
                                 <div >
@@ -100,6 +101,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/jquery-ui-1.12.1.js"> </script>
+    @* <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script> *@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
