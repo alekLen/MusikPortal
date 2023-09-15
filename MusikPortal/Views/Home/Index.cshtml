@@ -3,12 +3,14 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
-            
+            registrNone();
+            getAllSongs();
 
-            $("body").on("click", ".btn-gestBook", function () {
+            $("body").on("click", ".btn-music", function () {
+                $("#str").val("");
                 registrNone();
                 loginNone();
-                getAllMessages();
+                getAllSongs();
             });
 
             $("body").on("click", ".btn-Login", function () {
@@ -50,6 +52,12 @@
                 loginNone();
                 registr();
             });
+            $("body").on("click", ".btn-find", function () {
+                registrNone();
+                loginNone();
+               FindSongs();
+            });
+           
            $("#btn-registration").on("click", function () {
                 let formData1 = new FormData();
                 formData1.append("Login", $("#Login").val());
@@ -201,25 +209,7 @@
                     }
                 });
             });
-            $("#btn-addMess").on("click", function () {
-                let formData = new FormData();
-                formData.append("Text", $("#TextMessage").val());
-                $.ajax({
-                    url: '@Url.Action("AddMessage", "Login")',
-                    type: 'POST',
-                    contentType: false,
-                    processData: false,
-                    data: formData,
-                    success: function (response) {
-                        alert(response);
-                        $("#TextMessage").val("");
-                        getAllMessages();
-                    },
-                    error: function (x, y, z) {
-                        alert(x + '\n' + y + '\n' + z);
-                    }
-                });
-            });
+            
 
         });
 
@@ -232,26 +222,80 @@
             l.style.display = "none";
         };
         // создание строки для таблицы
-        let row = function (message) {
-            return "<div>" + message.user + " </div>" +
-                "<div class='card'  >" + message.Text + " </div>" +
-                "<div class='c' >" + message.MessageDate + " </div><hr />"
+        let row = function (song) {
+           let so="<div class='c3'><div>"+      
+             "<div class='card'><h4>"+song.Name+"</h4><div class='text-center'>";
+            
+          if (song.file.endsWith(".mp4")){ 
+            so+="<video controls autoplay='autoplay' loop='loop' muted='muted' width='500' height='300'>"+
+                    "<source src=" + song.file + " type='video/mp4'></video>";
+            }                                                 
+            if (song.file.endsWith(".mp3")) {
+                            so+="<div><img src=Url.Content("+song.artist.photo+") style='width:auto;height:270px'></img></div>"+
+                            "<video controls autoplay='autoplay' loop='loop' muted='muted' width='500' height='30'>"+
+                    "<source src=" + song.file + " type='video/mp4' > </video>";
+            }
+         so+="</div></div> </div><div class='c8'></div> <dv><div class='card c5 c11'><div class='c3 b'><div>"+
+             "<h1 >"+song.artist+"</h1>"+    
+            "<div >"+song.Name+"</div>"+
+                            "<div><span class='c6 c10'>Year:</span>&nbsp;"+song.Year+" </div>"+
+                            "<div><span class='c6 c10'>Album:</span>&nbsp;"+song.Album+"</div>"+
+                            "<div><span class='c6 c10'>genre:</span>&nbsp;"+song.style+"</div>"+
+                     "</div><div><img src=Url.Content("+song.artistPhoto+") class='im'></img></div></div> </div>"+
+           "<div class='c13'></div>"+
+                "<div class='card c5 c12 c15'>"+
+                        "<div class='c6 c10'>Text</div>"+
+                    "<textarea readonly rows='5' style='resize:none'>"+song.text+"</textarea>"+
+                "</div></dv><div class='c9'> <br /> <br /><div class='card c18 c19 text-center'>"+
+                "<a href="+song.file+" download>download</a>"+
+                "</div><div class='admin' style='display:none;'> <br /><br />"+
+              "<div class='card c18 c19 text-center'>"+
+                 "<a asp-controller='Admin' asp-action='EditSong' asp-route-id="+song.Id+">Edit Song</a>"+
+             "</div><div class='card c18 c19 text-center'>"+
+                  "<a asp-controller='Admin' asp-action='DeleteSong' asp-route-id="+song.Id+">Delete Song</a>"+
+             "</div> </div> </div>  </div> <br />";
+             
+             return so;
         };
 
         // Получение всех студентов
-        function getAllMessages() {
+        function getAllSongs() {            
             $.ajax({
-                url: '@Url.Action("GetMessages", "Home")',
+                url: '@Url.Action("AllSongs", "Home")',
                 type: 'GET',
                 contentType: false,
                 processData: false,
                 success: function (response) {
                     let rows = "";
-                    let message = JSON.parse(response);
-                    $.each(message, function (index, message) {
-                        rows += row(message);
+                    let song = JSON.parse(response);
+                    $.each(song, function (index, song) {
+                        rows += row(song);
+                       
                     })
-                    $("#message-list").html(rows);
+                    $("#ss").html(rows);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        }
+        function FindSongs() {
+            let formData = new FormData();
+            formData.append("str", $("#str").val());
+            $.ajax({                
+                url: '@Url.Action("Find", "Home")',
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                data: formData,
+                success: function (response) {
+                    let rows = "";
+                    let song = JSON.parse(response);
+                    $.each(song, function (index, song) {
+                        rows += row(song);
+
+                    })
+                    $("#ss").html(rows);                    
                 },
                 error: function (x, y, z) {
                     alert(x + '\n' + y + '\n' + z);
@@ -359,90 +403,5 @@
     </form>
 </div>
 <br />
-<div id="songs">
- @foreach (var s in ViewBag.Songs)
- {   <div class="c3">
-       <div>
-      
-             <div class="card">
-             <h4>@s.Name</h4>
-           
-         <div class="text-center">
-            
-          @if(@s.file.Split('.')[1]=="mp4"){ 
-            <video controls autoplay="autoplay" loop="loop" muted="muted" width="500" height="300">
-            <source src=@s.file type="video/mp4">
-           </video>           
-           }
-                        @{
-                            string[] st = @s.file.Split('.');}
-                            @if (@st[st.Count()-1] == "mp3")
-                        {
-                            <div>
-                                <img src=@Url.Content(s.artist.photo) style="width:auto;height:270px"></img>
-                            </div>
-                            <video controls autoplay="autoplay" loop="loop" muted="muted" width="500" height="30">
-                                <source src=@s.file type="video/mp4">
-                            </video>
-                        }
-         </div>
 
-            
-            </div>
-        </div>
-       <div class="c8"></div>
-       <dv>
-        <div class="card c5 c11">
-            <div class="c3 b">
-                <div>
-             <h1 >@s.artist</h1>     
-            <div >@s.Name</div>
-                            <div><span class="c6 c10">Year:</span>&nbsp;@s.Year </div>
-                            <div><span class="c6 c10">Album:</span>&nbsp;@s.Album</div>
-                            <div><span class="c6 c10">genre:</span>&nbsp;@s.style</div>
-                           
-                    </div>
-                <div>
-                            <img src=@Url.Content(s.artistPhoto) class="im"></img>
-                </div>    
-             </div>
-           
-        </div>
-           <div class="c13"></div>
-            @if (@s.text != null)
-            {
-                <div class="card c5 c12 c15">
-                        <div class="c6 c10">Text</div>
-                    <textarea readonly rows="5" style="resize:none">@s.text</textarea>
-                </div>
-            }
-            @if (@s.text == null)
-            {
-
-                <div class="card c5 c14">waiting for text</div>
-            }
-            
-        </dv>
-        <div class="c9">
-                <br />
-                <br />
-                <div class="card c18 c19 text-center">
-                <a href="@s.file" download>download</a>
-                </div>
-           <div class="admin" style="display:none;">
-                <br />
-                <br />
-              <div class="card c18 c19 text-center">
-                 <a asp-controller="Admin" asp-action="EditSong" asp-route-id="@s.Id">Edit Song</a>
-             </div>
-
-             <div class="card c18 c19 text-center">
-                  <a asp-controller="Admin" asp-action="DeleteSong" asp-route-id="@s.Id">Delete Song</a>
-             </div>
-           </div>
-        </div>
-    </div>
-    <br />
-   
- }
-</div>
+<div id="ss"> </div>
