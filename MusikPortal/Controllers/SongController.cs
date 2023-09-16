@@ -31,10 +31,10 @@ namespace MusikPortal.Controllers
             return PartialView("AddSong");
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create( AddSong song, IFormFile uploadedFile)
+       // [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create( AddSong song, IFormFile file)
         {            
-            if (uploadedFile == null)
+            if (file == null)
                 ModelState.AddModelError("", "put the file");
             DateTime today = DateTime.Today;
             int currentYear = today.Year;
@@ -44,16 +44,16 @@ namespace MusikPortal.Controllers
                     ModelState.AddModelError("", "uncorrectly year");
             }
             catch { ModelState.AddModelError("", "uncorrectly year"); }
-            if (uploadedFile != null)
+            if (file != null)
             {
-                string str= uploadedFile.FileName.Replace(" ", "_");
+                string str= file.FileName.Replace(" ", "_");
                 string str1 = str.Replace("-", "_");
                 // Путь к папке Files
                 string path = "/MusicFiles/" + str1; // имя файла
 
                 using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                 {
-                    await uploadedFile.CopyToAsync(fileStream); // копируем файл в поток
+                    await file.CopyToAsync(fileStream); // копируем файл в поток
                 }
                 SongDTO s = new();
                 StyleDTO sStyle = await styleService.GetStyle(song.StyleId);

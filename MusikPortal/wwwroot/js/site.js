@@ -1,10 +1,7 @@
 ﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 // for details on configuring this project to bundle and minify static web assets.
-
 // Write your JavaScript code.
-
-<script>
-    $(document).ready(function ()
+   /* $(document).ready(function ()
     {
 
         $("#login").change(function (e) {
@@ -27,17 +24,15 @@
 
         })
     }
-
     $(document).ready(function ()
     {
-    $('#emailInput').on('blur', function () {
+        $('#emailInput').on('blur', function () {
             var email = $(this).val();
-    $.get('/Login/IsEmailInUse', {email: email }, function (data) {
+            $.get('/Login/IsEmailInUse', { email: email }, function (data) {
                 if (data === true) {
-        $('#emailStatus').text('Email уже занят.');
+                    $('#emailStatus').text('Email уже занят.');
                 }
 
             });
-        })};);
-    );)
-</script>
+        });
+    });*/

@@ -210,7 +210,7 @@
                 });
             });
             $(".createSong").on("click", function (e) {
-                e.preventDefault();
+                e.preventDefault();               
                 $("<div id='dialogContent'></div>")
                     .addClass("dialog")
                     .appendTo("body")
@@ -222,11 +222,25 @@
                         modal: true,
                         buttons: {
                             "Add the song": function () {
+                               let formData = new FormData();
+                                //formData.append("forma", $('#form').serialize());
+                                //let formData1 = new FormData();
+                                var fileInput = $("#fileInput")[0].files[0];
+                                formData.append("file", fileInput);
+                                formData.append("Name", $('#Name').val());
+                                formData.append("ArtistId", $('#ArtistId').val());
+                                formData.append("StyleId", $('#StyleId').val());
+                                formData.append("Year", $('#Year').val());
+                                formData.append("Album", $('#Album').val());
+                                formData.append("text", $('#text').val());
                                 $.ajax({
                                     url: "@Url.Action("Create", "Song")",
                                     type: "POST",
-                                    data: $('form').serialize(),
-                                    datatype: "json",
+                                    contentType: false,
+                                    processData: false,
+                                   // data: $('#form').serialize(),
+                                   data: formData,
+                                  // datatype: "json",
                                     success: function (result) {
 
                                         $("#dialogContent").html(result);
@@ -258,7 +272,7 @@
                     "<source src=" + song.file + " type='video/mp4'></video>";
             }                                                 
             if (song.file.endsWith(".mp3")) {
-                            so+="<div><img src=Url.Content("+song.artist.photo+") style='width:auto;height:270px'></img></div>"+
+                            so+="<div><img src="+song.artist.photo+" style='width:auto;height:270px'></img></div>"+
                             "<video controls autoplay='autoplay' loop='loop' muted='muted' width='500' height='30'>"+
                     "<source src=" + song.file + " type='video/mp4' > </video>";
             }
@@ -268,7 +282,7 @@
                             "<div><span class='c6 c10'>Year:</span>&nbsp;"+song.Year+" </div>"+
                             "<div><span class='c6 c10'>Album:</span>&nbsp;"+song.Album+"</div>"+
                             "<div><span class='c6 c10'>genre:</span>&nbsp;"+song.style+"</div>"+
-                     "</div><div><img src=Url.Content("+song.artistPhoto+") class='im'></img></div></div> </div>"+
+                     "</div><div><img src="+song.artistPhoto+" class='im'></img></div></div> </div>"+
            "<div class='c13'></div>"+
                 "<div class='card c5 c12 c15'>"+
                         "<div class='c6 c10'>Text</div>"+
