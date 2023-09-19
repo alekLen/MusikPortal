@@ -131,5 +131,23 @@ namespace MusikPortal.Controllers
             string response = HttpContext.Session.GetString("login");
             return Json(response);
         }
+        public async Task<IActionResult> GetUserLevel()
+        {
+            string response;
+            string login = HttpContext.Session.GetString("login");
+            UserDTO u = await userService.GetUser(login);
+            if (u != null)
+            {
+                if (u.Level == 0) 
+                 response ="0";
+                else if (u.Level == 2)
+                    response = "admin";
+                else
+                    response = "1";
+                return Json(response);
+            }
+            else
+                return Json(false);
+        }
     }
 }

@@ -10,7 +10,8 @@
                 $("#str").val("");
                 registrNone();
                 loginNone();
-                getAllSongs();
+                getAllSongs();             
+                
             });
 
             $("body").on("click", ".btn-Login", function () {
@@ -41,6 +42,7 @@
                         let ls = document.getElementById("addSong");
                         ls.style.display = "none";
                         $(".admin").css("display", "none");
+                        getAllSongs();
                     },
                     error: function (x, y, z) {
                         alert(x + '\n' + y + '\n' + z);
@@ -55,7 +57,7 @@
             $("body").on("click", ".btn-find", function () {
                 registrNone();
                 loginNone();
-               FindSongs();
+               FindSongs();               
             });
            
            $("#btn-registration").on("click", function () {
@@ -160,44 +162,8 @@
                             l1.style.display = "none";
                             loginNone();
                             ClearLogin();
-                            if(response=="0")
-                            {
-                                let lw = document.getElementById("wait");
-                                lw.style.display = "inline";
-                            }
-                            else
-                            { 
-                              let la = document.getElementById("addSong");
-                              la.style.display = "inline";
-                            }
-                            let ll = document.getElementById("wellcome");
-                            ll.style.display = "inline";
-                            let lo = document.getElementById("logout");
-                            lo.style.display = "inline";
-                            let lt = document.getElementById("enter");
-                            lt.style.display = "none";                           
-                            $.ajax({
-                                url: '@Url.Action("GetName", "Login")',
-                                type: 'GET',
-                                contentType: false,
-                                processData: false,
-                                success: function (response1) {
-                                    $("#wellcomeTo").html(response1);
-                                },
-                                error: function (x, y, z) {
-                                    alert(x + '\n' + y + '\n' + z);
-                                }
-                            });
-                            if(response=="admin")
-                            {
-                                let l2 = document.getElementById("artists");
-                                l2.style.display = "inline";
-                                let l3 = document.getElementById("genres");
-                                l3.style.display = "inline";
-                                let l4 = document.getElementById("users");
-                                l4.style.display = "inline";                               
-                                $(".admin").css("display", "block");
-                            }
+                            checkUser(response);
+
                         }
                         else {
                             let l5 = document.getElementById("error-login");
@@ -208,6 +174,19 @@
                         alert(x + '\n' + y + '\n' + z);
                     }
                 });
+            });
+            $("#btn-edit").on("click", function () {
+                e.preventDefault();
+
+                $("<div></div>")
+                    .addClass("dialog")
+                    .appendTo("body")
+                    .dialog({
+                        title: $(this).attr("data-dialog-title"),
+                        close: function () { $(this).remove() },
+                        modal: true
+                    })
+                    .load(this.href);
             });
             $(".createSong").on("click", function (e) {
                 e.preventDefault();               
@@ -242,8 +221,8 @@
                                    data: formData,
                                   // datatype: "json",
                                     success: function (result) {
-
-                                        $("#dialogContent").html(result);
+                                        alert("successful addition!");
+                                        //$("#dialogContent").html(result);
                                         getAllSongs();
                                     }
                                 });
@@ -253,26 +232,81 @@
             });
 
         });
+        let checkUserLevel = function () {
+            $.ajax({
+                url: '@Url.Action("GetUserLevel", "Login")',
+                type: 'GET',
+                contentType: false,
+                processData: false,
+                success: function (response) {                   
+                    if(response)
+                    checkUser(response);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }
+            });
+        };
+
+        let checkUser = function(response){
+            if (response == "0") {
+                let lw = document.getElementById("wait");
+                lw.style.display = "inline";
+            }
+            else {
+                let la = document.getElementById("addSong");
+                la.style.display = "inline";
+            }
+            let ll = document.getElementById("wellcome");
+            ll.style.display = "inline";
+            let lo = document.getElementById("logout");
+            lo.style.display = "inline";
+            let lt = document.getElementById("enter");
+            lt.style.display = "none";
+            $.ajax({
+                url: '@Url.Action("GetName", "Login")',
+                type: 'GET',
+                contentType: false,
+                processData: false,
+                success: function (response1) {
+                    $("#wellcomeTo").html(response1);
+                },
+                error: function (x, y, z) {
+                    alert(x + '\n' + y + '\n' + z);
+                }                    
+            });
+            if (response == "admin") {              
+                let l2 = document.getElementById("artists");
+                l2.style.display = "inline";
+                let l3 = document.getElementById("genres");
+                l3.style.display = "inline";
+                let l4 = document.getElementById("users");
+                l4.style.display = "inline";
+                $(".admin").css("display", "block");
+            }
+        };
 
         let login = function () {
             let l = document.getElementById("login");
             l.style.display = "block";
         };
+
         let loginNone = function () {
             let l = document.getElementById("login");
             l.style.display = "none";
         };
-        // создание строки для таблицы
+
+        // создание строки вывода песни
         let row = function (song) {
            let so="<div class='c3'><div>"+      
              "<div class='card'><h4>"+song.Name+"</h4><div class='text-center'>";
             
-          if (song.file.endsWith(".mp4")){ 
-            so+="<video controls autoplay='autoplay' loop='loop' muted='muted' width='500' height='300'>"+
+            if (song.file.endsWith(".mp4")){ 
+               so+="<video controls autoplay='autoplay' loop='loop' muted='muted' width='500' height='300'>"+
                     "<source src=" + song.file + " type='video/mp4'></video>";
             }                                                 
             if (song.file.endsWith(".mp3")) {
-                            so+="<div><img src="+song.artist.photo+" style='width:auto;height:270px'></img></div>"+
+                            so+="<div><img src="+song.artistPhoto +" style='width:auto;height:270px'></img></div>"+
                             "<video controls autoplay='autoplay' loop='loop' muted='muted' width='500' height='30'>"+
                     "<source src=" + song.file + " type='video/mp4' > </video>";
             }
@@ -282,7 +316,7 @@
                             "<div><span class='c6 c10'>Year:</span>&nbsp;"+song.Year+" </div>"+
                             "<div><span class='c6 c10'>Album:</span>&nbsp;"+song.Album+"</div>"+
                             "<div><span class='c6 c10'>genre:</span>&nbsp;"+song.style+"</div>"+
-                     "</div><div><img src="+song.artistPhoto+" class='im'></img></div></div> </div>"+
+                     "</div><div><img src="+song.artistPhoto+" class='im' alt='photo'></img></div></div> </div>"+
            "<div class='c13'></div>"+
                 "<div class='card c5 c12 c15'>"+
                         "<div class='c6 c10'>Text</div>"+
@@ -290,17 +324,19 @@
                 "</div></dv><div class='c9'> <br /> <br /><div class='card c18 c19 text-center'>"+
                 "<a href="+song.file+" download>download</a>"+
                 "</div><div class='admin' style='display:none;'> <br /><br />"+
-              "<div class='card c18 c19 text-center'>"+
-                 "<a asp-controller='Admin' asp-action='EditSong' asp-route-id="+song.Id+">Edit Song</a>"+
-             "</div><div class='card c18 c19 text-center'>"+
+              "<div class='card c18 c19 text-center '>"+
+                 "<a asp-controller='Admin' asp-action='EditSong' class='btn-edit' asp-route-id="+song.Id+">Edit Song</a>"+
+             "</div><div class='card c18 c19 text-center '>"+
                   "<a asp-controller='Admin' asp-action='DeleteSong' asp-route-id="+song.Id+">Delete Song</a>"+
              "</div> </div> </div>  </div> <br />";
              
              return so;
         };
 
-        // Получение всех студентов
-        function getAllSongs() {            
+        // Получение всех песен
+        function getAllSongs() {
+            $("#str").val("");
+            $("#ss").html("");
             $.ajax({
                 url: '@Url.Action("AllSongs", "Home")',
                 type: 'GET',
@@ -314,11 +350,12 @@
                        
                     })
                     $("#ss").html(rows);
+                    checkUserLevel();
                 },
                 error: function (x, y, z) {
                     alert(x + '\n' + y + '\n' + z);
                 }
-            });
+            });            
         }
         function FindSongs() {
             let formData = new FormData();
@@ -336,12 +373,13 @@
                         rows += row(song);
 
                     })
-                    $("#ss").html(rows);                    
+                    $("#ss").html(rows);
+                    checkUserLevel();
                 },
                 error: function (x, y, z) {
                     alert(x + '\n' + y + '\n' + z);
                 }
-            });
+            });            
         }
         let registr = function () {
             let l = document.getElementById("registrationForm");

@@ -307,11 +307,11 @@ namespace MusikPortal.Controllers
                 s1.file = s.file;
                 await putStyles();
                 await putArtists();
-                return View("EditSong",s1);
+                return PartialView("EditSong",s1);
             }
             catch
             {
-                return RedirectToAction("Index", "Home");
+                return NotFound();
             }
         }
         [HttpPost]

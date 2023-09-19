@@ -21,7 +21,7 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ISaltService, SaltService>();
 
 // добавляем сервис для динамического создания вьюшек
-builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+//builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {

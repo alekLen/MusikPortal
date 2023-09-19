@@ -63,6 +63,7 @@ namespace MusikPortal.Controllers
                 s.styleId = sStyle.Id;
                 s.artist = aArtist.Name;
                 s.artistId = aArtist.Id;
+                s.artistPhoto = aArtist.photo;
                 s.Year = song.Year;
                 s.text = song.text;
                 s.Album=song.Album; 
@@ -73,7 +74,8 @@ namespace MusikPortal.Controllers
                     {
                         await songService.AddSong(s);                       
                         await songService.AddSongToArtist(song.ArtistId, s);
-                        return PartialView("Success");
+                         return PartialView("Success");
+                       // return Json("success");
                     }
                     catch
                     {
