@@ -1,9 +1,8 @@
 ﻿@model MusicPortal.BLL.DTO.SongDTO
 
-<h1 class=" b1 b3 center c20">Confirm song deletion</h1>
 
-<div class="center">
-    <div class="card c77">
+
+    <div class="card c7a">
         <form formaction="Delete" asp-controller="Admin" method="post" >
             <input asp-for="Id" type="hidden" />
             <div class="form-group">
@@ -24,18 +23,10 @@
                 <span>Year</span><br />
                 <input asp-for="Year" class="form-control" readonly/>
             </div>            
-            <span>File</span><br />
-            <input asp-for="file" class="form-control"  readonly="readonly" />
-                <br />
-                <div class="c3">
-                <div class="form-group">
-                    <input type="submit"  value="Delete Song" class="btn btn-primary c2" />
-                </div>&nbsp;&nbsp;&nbsp;             
-            </div>
-        </form><br />
-        <div class="card c18 c19 text-center">
-            <a asp-controller="Home" asp-action="Index" class="br c20">Cancel</a>
-        </div>
+            @*<span>File</span><br />
+        <input asp-for="file" class="form-control"  readonly="readonly" />*@
+                
+        </form>
+       
     </div>
     
-</div>

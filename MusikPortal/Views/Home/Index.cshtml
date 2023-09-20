@@ -4,7 +4,7 @@
     <script>
         $(document).ready(function () {
             registrNone();
-           // getAllSongs();
+            getAllSongs();
 
             $("body").on("click", ".btn-music", function () {
                 $("#str").val("");
@@ -184,6 +184,7 @@
                     .dialog({
                         title: $(this).attr("data-dialog-title"),
                         close: function () { $(this).remove() },
+                        width: 330,
                         modal: true,
                         buttons: {
                             "Confirm Edition": function () {
@@ -216,6 +217,9 @@
                                         alert("error of edition song!")
                                     }
                                 });
+                            },
+                            "Cancel": function () {
+                                $("#dialogContent").remove();
                             }
                         }
                     });
@@ -254,16 +258,59 @@
                                   // datatype: "json",
                                     success: function (result) {
                                         alert("successful addition!");
-                                        //$("#dialogContent").html(result);
+                                        $("#dialogContent").remove();
                                         getAllSongs();
                                     }
                                 });
+                            },
+                            "Cancel": function () {
+                                $("#dialogContent").remove();
                             }
                         }
                     });
             });
 
         });
+
+        $("body").on("click", ".btn-delete", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: "Deleting the song",
+                    close: function () { $(this).remove() },
+                    width: 330,
+                    modal: true,
+                    buttons: {
+                        "Confirm deletion": function () {
+                            let formData = new FormData();                                                      
+                            formData.append("id", $('#Id').val());
+                            $.ajax({
+                                url: "@Url.Action("DeleteSongConfirmd", "Admin")",
+                                type: "POST",
+                                contentType: false,
+                                processData: false,
+                                data: formData,
+                                success: function (result) {
+                                    if (result) {
+                                        alert("The song was deleted!");
+                                        $("#dialogContent").remove()
+                                        getAllSongs();
+                                    }
+                                    else
+                                        alert("error of deleting song!")
+                                }
+                            });
+                        },
+                        "Cancel":function(){
+                            $("#dialogContent").remove();
+                        }
+                    }
+                });
+        });
+
         let checkUserLevel = function () {
             $.ajax({
                 url: '@Url.Action("GetUserLevel", "Login")',
@@ -359,7 +406,7 @@
               "<div class='card c18 c19 text-center '>"+
                 "<a href='/Admin/EditSong/?id=" + song.Id + "' class='btn-edit' >Edit Song</a>" +
              "</div><div class='card c18 c19 text-center '>"+
-                  "<a asp-controller='Admin' asp-action='DeleteSong' asp-route-id="+song.Id+">Delete Song</a>"+
+                "<a href='/Admin/DeleteSong/?id=" + song.Id + "' class='btn-delete' >Delete Song</a>" +
              "</div> </div> </div>  </div> <br />";
              
              return so;

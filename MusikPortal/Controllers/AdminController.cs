@@ -7,6 +7,7 @@ using MusicPortal.BLL.Interfaces;
 using MusicPortal.BLL.Infrastructure;
 using System.IO;
 using MusicPortal.BLL.Services;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MusikPortal.Controllers
 {
@@ -265,21 +266,20 @@ namespace MusikPortal.Controllers
                 return NotFound();
             }
 
-            return View(s);
+            return PartialView(s);
         }
-        [HttpPost, ActionName("DeleteSong")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]    
         public async Task<IActionResult> DeleteSongConfirmd(int id)
         {
             try
             {
                 await songService.DeleteSong(id);
              
-                return RedirectToAction("Index", "Home");
+                return Json(true);
             }
             catch
             {
-                return RedirectToAction("Index", "Home");
+                return Json(false);
             }
         }
        [HttpPost, ActionName("CancelDeleteSong")]

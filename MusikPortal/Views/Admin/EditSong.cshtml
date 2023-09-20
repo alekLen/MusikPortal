@@ -1,8 +1,8 @@
 ﻿@model MusikPortal.Models.AddSong
 
 @*<h1 class=" b1 b3 center c20">Edit the Song</h1>
-<div class="center">
-<div class="card c77">*@
+<div class="center">*@
+<div class="card c7a">
     <form asp-action="EditSong" asp-controller="Admin" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input asp-for="SongId" id="SongId1" type="hidden" />
@@ -45,8 +45,8 @@
                 <a asp-controller="Home" asp-action="Index" class="br c20 cancel">Cancel</a>
             </div>*@
     </form>
-@*</div>
 </div>
+@*</div>
 
 <script>
     document.getElementById('fileInput1').addEventListener('change', function () {
