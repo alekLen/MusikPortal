@@ -59,91 +59,124 @@
                 loginNone();
                FindSongs();               
             });
-           
+            $("body").on("focus", "#log", function (e) {
+                let l = document.getElementById("error-login");
+                l.style.display = "none";
+            });
+            $("body").on("focus", "#pass", function (e) {
+                let l = document.getElementById("error-login");
+                l.style.display = "none";                
+            });
            $("#btn-registration").on("click", function () {
-                let formData1 = new FormData();
-                formData1.append("Login", $("#Login").val());
-                $.ajax({
-                    url: '@Url.Action("IsLoginInUse", "Login")',
-                    type: 'POST',
-                    contentType: false,
-                    processData: false,
-                    data: formData1,
-                    success: function (response) {
-                        if (response) {
-                            alert("login is used!")
-                            let l1 = document.getElementById("error-log");
-                            l1.style.display = "inline";
-                        }
-                        else {
-                            let formData2 = new FormData();
-                            formData2.append("Email", $("#email").val());
-                            $.ajax({
-                                url: '@Url.Action("IsEmailInUse", "Login")',
-                                type: 'GET',
-                                contentType: false,
-                                processData: false,
-                                data: formData2,
-                                success: function (response1) {
-                                    if (response1) {
-                                        alert("email is used!")
-                                        let l2 = document.getElementById("error-email");
-                                        l2.style.display = "inline";
-                                    }
-                                    else
-                                    {
-                                        let formData = new FormData();
-                                        formData.append("Login", $("#Login").val());
-                                        formData.append("Password", $("#Password").val());
-                                        formData.append("PasswordConfirm", $("#PasswordConfirm").val());
-                                        formData.append("Email", $("#email").val());
-                                        formData.append("Age", $("#age").val());
-                                        $.ajax({
-                                            url: '@Url.Action("Registration", "Login")',
-                                            type: 'POST',
-                                            contentType: false,
-                                            processData: false,
-                                            data: formData,
-                                            success: function (response2) {                                               
-                                                if(response2)
-                                                {
-                                                   if(response2=="age")
-                                                   {
-                                                        let l3 = document.getElementById("#error-age");
-                                                        l3.style.display = "inline";
+               if ($("#Login").val() == "" || $("#email").val() == "" || $("#Password").val() == "") {
+                    let l = document.getElementById("error-Reg");
+                    l.style.display = "inline";
+                }
+                else if ($("#Password").val() != $("#PasswordConfirm").val()) {
+                    let l = document.getElementById("error-RegPass");
+                    l.style.display = "inline";
+                }
+               else {
+                   let formData1 = new FormData();
+                   formData1.append("Login", $("#Login").val());
+                   $.ajax({
+                       url: '@Url.Action("IsLoginInUse", "Login")',
+                       type: 'POST',
+                       contentType: false,
+                       processData: false,
+                       data: formData1,
+                       success: function (response) {
+                           if (response) {
+                               alert("login is used!")
+                               let l1 = document.getElementById("error-log");
+                               l1.style.display = "inline";
+                           }
+                           else {
+                               let formData2 = new FormData();
+                               formData2.append("Email", $("#email").val());
+                               $.ajax({
+                                   url: '@Url.Action("IsEmailInUse", "Login")',
+                                   type: 'GET',
+                                   contentType: false,
+                                   processData: false,
+                                   data: formData2,
+                                   success: function (response1) {
+                                       if (response1) {
+                                           alert("email is used!")
+                                           let l2 = document.getElementById("error-email");
+                                           l2.style.display = "inline";
+                                       }
+                                       else {
+                                           let formData = new FormData();
+                                           formData.append("Login", $("#Login").val());
+                                           formData.append("Password", $("#Password").val());
+                                           formData.append("PasswordConfirm", $("#PasswordConfirm").val());
+                                           formData.append("Email", $("#email").val());
+                                           formData.append("Age", $("#age").val());
+                                           $.ajax({
+                                               url: '@Url.Action("Registration", "Login")',
+                                               type: 'POST',
+                                               contentType: false,
+                                               processData: false,
+                                               data: formData,
+                                               success: function (response2) {
+                                                   if (response2) {
+                                                       if (response2 == "age") {
+                                                           let l3 = document.getElementById("#error-age");
+                                                           l3.style.display = "inline";
+                                                       }
+                                                       else {
+                                                           alert("registration is successful!");
+                                                           registrNone();
+                                                           ClearRegistr();
+                                                           login();
+                                                       }
                                                    }
-                                                   else{ 
-                                                       alert("registration is successful!");
-                                                       registrNone();
-                                                       ClearRegistr();
-                                                       login();
-                                                   }
-                                                }
-                                            },
-                                            error: function (x, y, z) {
-                                                alert(x + '\n' + y + '\n' + z);
-                                            }
-                                        });
-                                    }
-                                },
-                                error: function (x, y, z) {
-                                    alert(x + '\n' + y + '\n' + z);
-                                }
-                            });
-                          
-                        }
-                    },
-                    error: function (x, y, z) {
-                        alert(x + '\n' + y + '\n' + z);
-                    }
-                });
+                                               },
+                                               error: function (x, y, z) {
+                                                   alert(x + '\n' + y + '\n' + z);
+                                               }
+                                           });
+                                       }
+                                   },
+                                   error: function (x, y, z) {
+                                       alert(x + '\n' + y + '\n' + z);
+                                   }
+                               });
 
+                           }
+                       },
+                       error: function (x, y, z) {
+                           alert(x + '\n' + y + '\n' + z);
+                       }
+                   });
 
+               }
 
             });
             $("#Login").on("focus", function () {
                 let l1 = document.getElementById("error-Rlogin");
                 l1.style.display = "none";
+                let l2 = document.getElementById("error-Reg");
+                l2.style.display = "none";
+            });
+            $("#login").on("focus", function () {
+                let l1 = document.getElementById("error-log");
+                l1.style.display = "none";
+                let l2 = document.getElementById("error-Reg");
+                l2.style.display = "none";
+            });
+            $("#Password").on("focus", function () {
+                let l1 = document.getElementById("error-RegPass");
+                l1.style.display = "none";
+                let l2 = document.getElementById("error-Reg");
+                l2.style.display = "none";
+            });
+            $("#PasswordConfirm").on("focus", function () {
+                let l1 = document.getElementById("error-RegPass");
+                l1.style.display = "none";
+                let l2 = document.getElementById("error-Reg");
+                l2.style.display = "none";
             });
 
             $("#btn-log").on("click", function () {
@@ -398,7 +431,7 @@
                     }
                 });
         });
-
+       
         $("body").on("click", ".btn-delete", function (e) {
             e.preventDefault();
             $("<div id='dialogContent'></div>")
@@ -614,7 +647,7 @@
 <div class="end">
 <div id="login" class="card c22 non">
     <label>Login</label>
-    <span id="error-login" style="color:red;display:none;">*не верный логин или пароль</span>
+    <span id="error-login" style="color:red;display:none;">*uncorrectly login or password</span>
     <div >
         <input type="text" class="form-control" id="log" required>
     </div>
@@ -635,9 +668,12 @@
 </div>
 <div class="center">
     <form id="registrationForm" action="Registration" method="post">
+        
         @Html.AntiForgeryToken()
         <div class="card c22">
             @Html.ValidationSummary(true, "")
+            <span id="error-Reg" style="color:red;display:none;">*enter all fields</span>
+            <span id="error-RegPass" style="color:red;display:none;">*passwords are not equal</span>
             <div>
                 @Html.DisplayNameFor(model => model.Login)
                 <div>
