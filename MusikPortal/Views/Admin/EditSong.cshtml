@@ -1,51 +1,51 @@
 ﻿@model MusikPortal.Models.AddSong
 
-<h1 class=" b1 b3 center c20">Edit the Song</h1>
+@*<h1 class=" b1 b3 center c20">Edit the Song</h1>
 <div class="center">
-<div class="card c77">
+<div class="card c77">*@
     <form asp-action="EditSong" asp-controller="Admin" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <input asp-for="SongId" type="hidden" />
+        <input asp-for="SongId" id="SongId1" type="hidden" />
         <div class="form-group">
                 <span>Song's name  </span><br />
-            <input asp-for="Name" class="form-control" />
+            <input asp-for="Name" id="Name1" class="form-control" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <span>Album </span><br />
-        <input asp-for="Album" class="form-control" />
+        <input asp-for="Album" id="Album1" class="form-control" />
         <span asp-validation-for="Album" class="text-danger"></span>
         <div class="form-group">
             <label>List of styles</label>
-            <select asp-for="StyleId" class="form-control" asp-items="ViewBag.StyleId"></select>
+            <select asp-for="StyleId" id="StyleId1" class="form-control" asp-items="ViewBag.StyleId"></select>
             <span asp-validation-for="StyleId" class="text-danger"></span>
         </div>
         <div class="form-group">
             <label>List of artists</label>
-            <select asp-for="ArtistId" class="form-control" asp-items="ViewBag.ArtistId"></select>
+            <select asp-for="ArtistId" id="ArtistId1" class="form-control" asp-items="ViewBag.ArtistId"></select>
             <span asp-validation-for="ArtistId" class="text-danger"></span>
         </div>
         <div class="form-group">
             <span>Year</span><br />
-            <input asp-for="Year" class="form-control" />
+            <input asp-for="Year" id="Year1" class="form-control" />
             <span asp-validation-for="Year" class="text-danger"></span>
         </div>
         <div class="form-group">
             <span>Text of the Song(optionaly)</span><br />
-            <textarea asp-for="text" class="c17"></textarea>
+            <textarea asp-for="text" id="text1" class="c17"></textarea>
             <span asp-validation-for="text" class="text-danger"></span>
         </div>
         <span>File</span><br />
             <input asp-for="file" class="form-control" id="fileNameField1" readonly="readonly"/>
             <input type="file" name="p" accept=".mp3, .mp4" id="fileInput1" /><br />
-        <div class="form-group">
+       @* <div class="form-group">
             <br /><br />
             <input type="submit" value="Edit Song" class="btn btn-primary c2" />
         </div><br />
             <div class="card c18 c19 text-center">
-                <a asp-controller="Home" asp-action="Index" class="br c20">Cancel</a>
-            </div>
+                <a asp-controller="Home" asp-action="Index" class="br c20 cancel">Cancel</a>
+            </div>*@
     </form>
-</div>
+@*</div>
 </div>
 
 <script>
@@ -59,4 +59,4 @@
             fileNameField.value = '';
         }
     });
-</script>
+</script>*@

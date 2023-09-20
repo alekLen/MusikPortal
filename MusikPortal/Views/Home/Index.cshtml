@@ -4,7 +4,7 @@
     <script>
         $(document).ready(function () {
             registrNone();
-            getAllSongs();
+           // getAllSongs();
 
             $("body").on("click", ".btn-music", function () {
                 $("#str").val("");
@@ -175,18 +175,50 @@
                     }
                 });
             });
-            $("#btn-edit").on("click", function () {
+            $("body").on("click", ".btn-edit", function (e) {
                 e.preventDefault();
-
-                $("<div></div>")
+                $("<div id='dialogContent'></div>")
                     .addClass("dialog")
                     .appendTo("body")
+                    .load(this.href)
                     .dialog({
                         title: $(this).attr("data-dialog-title"),
                         close: function () { $(this).remove() },
-                        modal: true
-                    })
-                    .load(this.href);
+                        modal: true,
+                        buttons: {
+                            "Confirm Edition": function () {
+                                let formData = new FormData();
+                                var fileInput = $("#fileInput1")[0].files[0];
+                                if(fileInput!=null)
+                                    formData.append("file", fileInput);
+                                else
+                                    formData.append("file", $('#fileNameField1').val());
+                                formData.append("Name", $('#Name1').val());
+                                formData.append("ArtistId", $('#ArtistId1').val());
+                                formData.append("StyleId", $('#StyleId1').val());
+                                formData.append("Year", $('#Year1').val());
+                                formData.append("Album", $('#Album1').val());
+                                formData.append("text", $('#text1').val());
+                                formData.append("SongId", $('#SongId1').val());
+                                $.ajax({
+                                    url: "@Url.Action("EditSong", "Admin")",
+                                    type: "POST",
+                                    contentType: false,
+                                    processData: false,
+                                    data: formData,
+                                    success: function (result) {
+                                        if (result) {
+                                            alert("successful edition!");
+                                            $("#dialogContent").remove()
+                                            getAllSongs();
+                                        }
+                                        else
+                                        alert("error of edition song!")
+                                    }
+                                });
+                            }
+                        }
+                    });
             });
             $(".createSong").on("click", function (e) {
                 e.preventDefault();               
@@ -325,7 +357,7 @@
                 "<a href="+song.file+" download>download</a>"+
                 "</div><div class='admin' style='display:none;'> <br /><br />"+
               "<div class='card c18 c19 text-center '>"+
-                 "<a asp-controller='Admin' asp-action='EditSong' class='btn-edit' asp-route-id="+song.Id+">Edit Song</a>"+
+                "<a href='/Admin/EditSong/?id=" + song.Id + "' class='btn-edit' >Edit Song</a>" +
              "</div><div class='card c18 c19 text-center '>"+
                   "<a asp-controller='Admin' asp-action='DeleteSong' asp-route-id="+song.Id+">Delete Song</a>"+
              "</div> </div> </div>  </div> <br />";

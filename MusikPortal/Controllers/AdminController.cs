@@ -175,7 +175,7 @@ namespace MusikPortal.Controllers
             return View("Styles");
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
+      [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditArtist(ArtistDTO s, IFormFile? p)
         {
             if (ModelState.IsValid)
@@ -314,8 +314,7 @@ namespace MusikPortal.Controllers
                 return NotFound();
             }
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost]     
         public async Task<IActionResult> EditSong(AddSong s, IFormFile? p)
         {
             try
@@ -358,28 +357,31 @@ namespace MusikPortal.Controllers
                     song.file = s.file;
                     song.text = s.text;
                     await songService.UpdateSong(song);
-               
-                    return RedirectToAction("Index", "Home");
+                        return Json(true);
+                   // return RedirectToAction("Index", "Home");
                     }
                     catch
                     {
-                        await putStyles();
-                        await putArtists();
-                        return View("EditSong", s);
+                        // await putStyles();
+                        //  await putArtists();
+                        //return PartialView("EditSong", s);
+                        return Json(false);
                     }
                 }
                 else
                 {
-                    await putStyles();
-                    await putArtists();
-                    return View("EditSong", s);
+                    //await putStyles();
+                    //  await putArtists();
+                    // return PartialView("EditSong", s);
+                    return Json(false);
                 }
             }
             catch
             {
-                await putStyles();
-                await putArtists();
-                return View("EditSong", s);
+                // await putStyles();
+                // await putArtists();
+                // return PartialView("EditSong", s);
+                return Json(false);
             }
         }
     }
