@@ -182,7 +182,7 @@
                     .appendTo("body")
                     .load(this.href)
                     .dialog({
-                        title: $(this).attr("data-dialog-title"),
+                        title: "Editing the song",
                         close: function () { $(this).remove() },
                         width: 330,
                         modal: true,
@@ -270,6 +270,129 @@
                     });
             });
 
+        });
+
+        $("body").on("click", "#artists", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load("/Admin/Artists")
+                .dialog({
+                    title: "Artists",
+                    close: function () { $(this).remove() },
+                    width: 600,
+                    modal: true,
+                    buttons: {
+                        "Add an Artist": function () {
+                            let formData = new FormData();
+                            var fileInput = $("#FileInput")[0].files[0];
+                            formData.append("p", fileInput);
+                            formData.append("Name", $('#Name').val());
+                            $.ajax({
+                                url: "@Url.Action("CreateArtist", "Admin")",
+                                type: "POST",
+                                contentType: false,
+                                processData: false,
+                                data: formData,
+                                success: function (result) {
+                                    if (result) {
+                                        alert("successfuly added!");
+                                        $("#dialogContent").remove()
+                                        getAllSongs();
+                                    }
+                                    else
+                                        alert("error of addition artist!")
+                                }
+                            });
+                        },
+                        "Delete the Artist": function () {
+                            let i = $('#Id').val();
+                            $("#dialogContent").remove();
+                            $("<div id='dialogContent1'></div>")
+                                .addClass("dialog")
+                                .appendTo("body")
+                                .load("/Admin/DeleteArtist/?id=" + i )
+                                .dialog({
+                                    width: 330,
+                                    title: "Confirm deleting the artist",
+                                    close: function () { $(this).remove() },
+                                    modal: true,                                  
+                                    buttons: {
+                                        "Confirm delete": function () {
+                                            let formData = new FormData();
+                                            formData.append("id", $('#Id').val());
+                                            $.ajax({
+                                                url: "@Url.Action("ConfirmDeleteArtist", "Admin")",
+                                                type: "POST",
+                                                contentType: false,
+                                                processData: false,
+                                                data: formData,
+                                                success: function (result1) {
+                                                    if (result1) {
+                                                        alert("successful deleting!");
+                                                        $("#dialogContent1").remove();
+                                                        getAllSongs();
+                                                    }
+                                                    else {
+                                                        alert("error of deleting the artist!")
+                                                    }
+                                                }
+                                            });
+                                        },
+                                        "Cancel": function () {
+                                            $("#dialogContent1").remove();
+                                        }
+                                    }
+                                });
+                           
+                        },
+                        "Edit the Artist": function () {
+                            let i = $('#Id').val();
+                            $("#dialogContent").remove();
+                            $("<div id='dialogContent1'></div>")
+                                .addClass("dialog")
+                                .appendTo("body")
+                                .load("/Admin/DeleteArtist/?id=" + i)
+                                .dialog({
+                                    width: 330,
+                                    title: "Confirm deleting the artist",
+                                    close: function () { $(this).remove() },
+                                    modal: true,
+                                    buttons: {
+                                        "Confirm delete": function () {
+                                            let formData = new FormData();
+                                            formData.append("id", $('#Id').val());
+                                            $.ajax({
+                                                url: "@Url.Action("ConfirmDeleteArtist", "Admin")",
+                                                type: "POST",
+                                                contentType: false,
+                                                processData: false,
+                                                data: formData,
+                                                success: function (result1) {
+                                                    if (result1) {
+                                                        alert("successful deleting!");
+                                                        $("#dialogContent1").remove();
+                                                        getAllSongs();
+                                                    }
+                                                    else {
+                                                        alert("error of deleting the artist!")
+                                                    }
+                                                }
+                                            });
+                                        },
+                                        "Cancel": function () {
+                                            $("#dialogContent1").remove();
+                                        }
+                                    }
+                                });
+
+                        },
+                        "Cancel": function () {
+                            $("#dialogContent").remove();
+                        }
+                    }
+                });
         });
 
         $("body").on("click", ".btn-delete", function (e) {

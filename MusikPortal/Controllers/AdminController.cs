@@ -38,12 +38,12 @@ namespace MusikPortal.Controllers
         {
             IEnumerable<ArtistDTO> a = await artistService.GetAllArtists();
             ViewData["ArtistId"] = new SelectList(a, "Id", "Name");
-            return View("Artists");
+            return PartialView("Artists");
         }
         public async Task<IActionResult> EditArtist(int id)
         {
             ArtistDTO a = await artistService.GetArtist(id);
-            return View("EditArtist",a);
+            return PartialView("EditArtist",a);
         }       
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -69,8 +69,7 @@ namespace MusikPortal.Controllers
             return View("Styles", s);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> CreateArtist(ArtistDTO s, IFormFile p)
+        public async Task<IActionResult> CreateArtist(string Name, IFormFile p)
         {
             if (p != null)
             {
@@ -84,23 +83,23 @@ namespace MusikPortal.Controllers
                     await p.CopyToAsync(fileStream); // копируем файл в поток
                 }
                 ArtistDTO art = new ArtistDTO();
-                art.Name = s.Name;
+                art.Name = Name;
                 art.photo = path;
                
                     try
                     {
                         await artistService.AddArtist(art);                    
-                        return RedirectToAction("Index", "Home");
+                        return Json(true);
                     }
                     catch
                     {
                         await putArtists();
-                        return View("Artists", s);
-                    }               
+                    return Json(false);
+                }               
             }
             ModelState.AddModelError("", "enter the photo");
             await putArtists();
-            return View("Artists", s);
+            return Json(false);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -117,34 +116,31 @@ namespace MusikPortal.Controllers
                 return View("Styles");
                 }           
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteArtist(ArtistDTO s)
+        [HttpGet]
+        public async Task<IActionResult> DeleteArtist(int id)
         {
             try
             {
-                ArtistDTO a = await artistService.GetArtist(s.Id);
-                return View(a);
+                ArtistDTO a = await artistService.GetArtist(id);
+                return PartialView(a);
             }
             catch
             {
                 await putArtists();
-                return View("Artists");
+                return Json(false);
             }
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ConfirmDeleteArtist(ArtistDTO s)
+        [HttpPost]      
+        public async Task<IActionResult> ConfirmDeleteArtist(int id)
         {
             try
             {
-                await artistService.DeleteArtist(s.Id);
-                return RedirectToAction("Index", "Home");
+                await artistService.DeleteArtist(id);
+                return Json(true);
             }
             catch
-            {
-                await putArtists();
-                return View("Artists");
+            {            
+                return Json(false);
             }
         }
         [HttpPost]

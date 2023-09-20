@@ -48,7 +48,8 @@
                         @using (Html.BeginForm("Artists", "Admin", FormMethod.Get))
                         {
                             <div >
-                                <input type="submit" id="artists" class="non" value="Artists" />&nbsp;
+                            @*<input type="submit" id="artists" class="non" value="Artists" />&nbsp;*@
+                            <a href="javascript:void(0)" class="card2 non" id="artists">Artists</a>&nbsp;
                             </div>
                         }                     
                         @using (Html.BeginForm("Users", "Admin", FormMethod.Get))
