@@ -353,30 +353,34 @@
                             $("<div id='dialogContent1'></div>")
                                 .addClass("dialog")
                                 .appendTo("body")
-                                .load("/Admin/DeleteArtist/?id=" + i)
+                                .load("/Admin/EditArtist/?id=" + i)
                                 .dialog({
                                     width: 330,
-                                    title: "Confirm deleting the artist",
+                                    title: "Confirm edition the artist",
                                     close: function () { $(this).remove() },
                                     modal: true,
                                     buttons: {
-                                        "Confirm delete": function () {
+                                        "Confirm edit": function () {
                                             let formData = new FormData();
-                                            formData.append("id", $('#Id').val());
+                                            var fileInput = $("#FileInput")[0].files[0];
+                                            formData.append("p", fileInput);
+                                            formData.append("Id", $('#Id').val());
+                                            formData.append("Name", $('#Name').val());
+                                            formData.append("photo", $('#fileNameField').val());
                                             $.ajax({
-                                                url: "@Url.Action("ConfirmDeleteArtist", "Admin")",
+                                                url: "@Url.Action("EditArtist", "Admin")",
                                                 type: "POST",
                                                 contentType: false,
                                                 processData: false,
                                                 data: formData,
                                                 success: function (result1) {
                                                     if (result1) {
-                                                        alert("successful deleting!");
+                                                        alert("successful editing!");
                                                         $("#dialogContent1").remove();
                                                         getAllSongs();
                                                     }
                                                     else {
-                                                        alert("error of deleting the artist!")
+                                                        alert("error of editing the artist!")
                                                     }
                                                 }
                                             });

@@ -1,8 +1,7 @@
 ﻿@model MusicPortal.BLL.DTO.ArtistDTO
 
-<h4 class=" b1 b3 c20 center">Edit Artist</h4>
-<div class="center">
-<div class=" card c7">
+
+<div class=" card c7a">
     <form asp-controller="Admin" method="post" enctype="multipart/form-data">
        
         <div class="form-group ">
@@ -18,17 +17,12 @@
             </div>
             <span>Photo</span><br />
                 <input asp-for="photo" class="form-control card _c7" id="fileNameField" readonly="readonly" />
-                <input type="file" name="p" accept=".jpg, .jpeg" id="fileInput" onchange="previewImage()" /><br /><br />
-                <div class="form-group">                   
-                    <input type="submit" formaction="EditArtist" value="Edit Artist" class="btn btn-primary c2 " />
-                </div><br />
-                <div class="form-group">
-                    <input type="submit" formaction="CancelDeleteArtist" value="Cancel" class="btn btn-primary c2" />
-                </div>
-                </div>
+                <input type="file" name="p" accept=".jpg, .jpeg" id="FileInput" onchange="previewImage()" /><br /><br />
+                
+        </div>
     </form>
 </div>
-</div>
+
 <script>
     document.getElementById('fileInput').addEventListener('change', function () {
         var fileInput = document.getElementById('fileInput');

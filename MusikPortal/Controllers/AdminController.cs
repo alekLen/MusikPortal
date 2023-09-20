@@ -172,7 +172,6 @@ namespace MusikPortal.Controllers
             return View("Styles");
         }
         [HttpPost]
-      [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditArtist(ArtistDTO s, IFormFile? p)
         {
             if (ModelState.IsValid)
@@ -191,20 +190,19 @@ namespace MusikPortal.Controllers
                             await p.CopyToAsync(fileStream); // копируем файл в поток
                         }
                         await artistService.UpdateArtist(s.Id, s.Name, path);
+                        return Json(true);
                     }
                     else
-                        await artistService.UpdateArtist(s.Id, s.Name,s.photo);                  
-                    return RedirectToAction("Index", "Home");
+                        await artistService.UpdateArtist(s.Id, s.Name,s.photo);
+                    return Json(true);
                 }
                 catch
                 {
-                    await putArtists();
-                    return View("EditArtist");
+                    return Json(false);
                 }
 
             }
-            await putArtists();
-            return View("Artists");
+            return Json(false);
         }
         public async Task putStyles()
         {
