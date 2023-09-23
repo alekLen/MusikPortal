@@ -1,7 +1,6 @@
 ﻿@model MusicPortal.BLL.DTO.StyleDTO
 
-<h4 class=" b1 b3 c20 center"> Genre</h4>
-<div class="center">
+
 <div class=" card c7">
 <form  asp-controller="Admin" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -10,17 +9,16 @@
             <input asp-for="Name" class="form-control card _c7" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div><br />
-        <div class="form-group">
+        @*<div class="form-group">
             <input type="submit" formaction="CreateStyle" value="Add Genre" class="btn btn-primary c2" />
-        </div> <hr />
+            </div> *@<hr />
         <div class="form-group ">
     <label >List of Genres</label>
     <select asp-for="Id" class="form-control card _c7" asp-items="ViewBag.StyleId"></select>    
 </div>
     <br />
-    <div class="form-group">
+   @* <div class="form-group">
         <input type="submit" formaction="DeleteStyle" value="Delete Genre" class="btn btn-primary c2" />
-    </div>               
-    </form>
-</div>
+            </div> *@
+        </form>
 </div>

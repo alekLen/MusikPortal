@@ -314,7 +314,7 @@
                 .dialog({
                     title: "Artists",
                     close: function () { $(this).remove() },
-                    width: 600,
+                    width: 500,
                     modal: true,
                     buttons: {
                         "Add an Artist": function () {
@@ -414,6 +414,127 @@
                                                     }
                                                     else {
                                                         alert("error of editing the artist!")
+                                                    }
+                                                }
+                                            });
+                                        },
+                                        "Cancel": function () {
+                                            $("#dialogContent1").remove();
+                                        }
+                                    }
+                                });
+
+                        },
+                        "Cancel": function () {
+                            $("#dialogContent").remove();
+                        }
+                    }
+                });
+        });
+        $("body").on("click", "#genres", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load("/Admin/Styles")
+                .dialog({
+                    title: "Genres",
+                    close: function () { $(this).remove() },
+                    width: 400,
+                    modal: true,
+                    buttons: {
+                        "Add a Genre": function () {
+                            let formData = new FormData();                          
+                            formData.append("Name", $('#Name').val());
+                            $.ajax({
+                                url: "@Url.Action("CreateStyle", "Admin")",
+                                type: "POST",
+                                contentType: false,
+                                processData: false,
+                                data: formData,
+                                success: function (result) {
+                                    if (result) {
+                                        alert("successfuly added!");
+                                        $("#dialogContent").remove()                                      
+                                    }
+                                    else
+                                        alert("error of addition style!")
+                                }
+                            });
+                        },
+                        "Delete the Genre": function () {
+                            let i = $('#Id').val();
+                            alert(i);
+                            $("#dialogContent").remove();
+                            $("<div id='dialogContent1'></div>")
+                                .addClass("dialog")
+                                .appendTo("body")
+                                .load("/Admin/DeleteStyle/?id=" + i)
+                                .dialog({
+                                    width: 330,
+                                    title: "Confirm deleting the style",
+                                    close: function () { $(this).remove() },
+                                    modal: true,
+                                    buttons: {
+                                        "Confirm delete": function () {
+                                            let formData = new FormData();
+                                            formData.append("id", $('#Id').val());
+                                            $.ajax({
+                                                url: "@Url.Action("ConfirmDeleteStyle", "Admin")",
+                                                type: "POST",
+                                                contentType: false,
+                                                processData: false,
+                                                data: formData,
+                                                success: function (result1) {
+                                                    if (result1) {
+                                                        alert("successful deleting!");
+                                                        $("#dialogContent1").remove();
+                                                        getAllSongs();
+                                                    }
+                                                    else {
+                                                        alert("error of deleting the artist!")
+                                                    }
+                                                }
+                                            });
+                                        },
+                                        "Cancel": function () {
+                                            $("#dialogContent1").remove();
+                                        }
+                                    }
+                                });
+
+                        },
+                        "Edit the Style": function () {
+                            let i = $('#Id').val();
+                            $("#dialogContent").remove();
+                            $("<div id='dialogContent1'></div>")
+                                .addClass("dialog")
+                                .appendTo("body")
+                                .load("/Admin/EditStyle/?id=" + i)
+                                .dialog({
+                                    width: 330,
+                                    title: "Confirm edition the style",
+                                    close: function () { $(this).remove() },
+                                    modal: true,
+                                    buttons: {
+                                        "Confirm edit": function () {
+                                            let formData = new FormData();
+                                            formData.append("Id", $('#Id').val());
+                                            formData.append("Name", $('#Name').val());
+                                            $.ajax({
+                                                url: "@Url.Action("EditStyle", "Admin")",
+                                                type: "POST",
+                                                contentType: false,
+                                                processData: false,
+                                                data: formData,
+                                                success: function (result1) {
+                                                    if (result1) {
+                                                        alert("successful editing!");
+                                                        $("#dialogContent1").remove();
+                                                        getAllSongs();
+                                                    }
+                                                    else {
+                                                        alert("error of editing the style!")
                                                     }
                                                 }
                                             });

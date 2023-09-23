@@ -32,7 +32,7 @@ namespace MusikPortal.Controllers
         {
             IEnumerable<StyleDTO> s = await styleService.GetAllStyles();
             ViewData["StyleId"] = new SelectList(s, "Id", "Name");
-            return View("Styles");
+            return PartialView("Styles");
         }
         public async Task<IActionResult> Artists()
         {
@@ -44,9 +44,14 @@ namespace MusikPortal.Controllers
         {
             ArtistDTO a = await artistService.GetArtist(id);
             return PartialView("EditArtist",a);
-        }       
+        }
+        public async Task<IActionResult> EditStyle(int id)
+        {
+            StyleDTO a = await styleService.GetStyle(id);
+            return PartialView("EditStyle", a);
+        }
         [HttpPost]
-        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<IActionResult> CreateStyle(StyleDTO s)
         {
             StyleDTO style = new StyleDTO();
@@ -101,20 +106,22 @@ namespace MusikPortal.Controllers
             await putArtists();
             return Json(false);
         }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteStyle(StyleDTO s)
+        [HttpGet]
+        //[ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteStyle(int id)
         {                  
                 try
                 {
-                    await styleService.DeleteStyle(s.Id);
-                    return RedirectToAction("Index", "Home");
-                }
+                /* await styleService.DeleteStyle(s.Id);
+                 return RedirectToAction("Index", "Home");*/
+                StyleDTO a = await styleService.GetStyle(id);
+                return PartialView(a);
+            }
                 catch
                 {
-                await putStyles(); 
-                return View("Styles");
-                }           
+                await putStyles();              
+                return Json(false);
+            }           
         }
         [HttpGet]
         public async Task<IActionResult> DeleteArtist(int id)
@@ -144,6 +151,19 @@ namespace MusikPortal.Controllers
             }
         }
         [HttpPost]
+        public async Task<IActionResult> ConfirmDeleteStyle(int id)
+        {
+            try
+            {
+                await styleService.DeleteStyle(id);
+                return Json(true);
+            }
+            catch
+            {
+                return Json(false);
+            }
+        }
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> CancelDeleteArtist()
         {
@@ -151,25 +171,27 @@ namespace MusikPortal.Controllers
             return View("Artists");
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
+      //  [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditStyle(StyleDTO s)
         {
                 if (ModelState.IsValid)
                 {
                     try
                     {
-                        await styleService.UpdateStyle(s.Id,s.Name);
-                        return RedirectToAction("Index", "Home");
-                    }
+                     await styleService.UpdateStyle(s.Id,s.Name);
+                     return Json(true);
+
+                }
                     catch
                     {
                         await putStyles();
-                        return View("Styles");
-                    }
+                    // return View("Styles");
+                    return Json(false);
+                }
 
                 }
-            await putStyles();
-            return View("Styles");
+            await putStyles();       
+            return Json(false);
         }
         [HttpPost]
         public async Task<IActionResult> EditArtist(ArtistDTO s, IFormFile? p)
