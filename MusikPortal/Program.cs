@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using MusicPortal.BLL.Interfaces;
 using MusicPortal.BLL.Services;
 using MusicPortal.BLL.Infrastructure;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,20 @@ builder.Services.AddTransient<IStyleService, StyleService>();
 builder.Services.AddTransient<ISongService, SongService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ISaltService, SaltService>();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Минимальная длина пароля
+    options.Password.RequiredLength = 8;
+    // Требование хотя бы одной прописной буквы (A-Z)
+    options.Password.RequireUppercase = true;
+    // Требование хотя бы одной строчной буквы (a-z)
+    options.Password.RequireLowercase = true;
+    // Требование хотя бы одной цифры (0-9)
+    options.Password.RequireDigit = true;
+    // Требование хотя бы одного специального символа
+    options.Password.RequireNonAlphanumeric = true;
+});
 
 // добавляем сервис для динамического создания вьюшек
 //builder.Services.AddRazorPages().AddRazorRuntimeCompilation();

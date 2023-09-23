@@ -2,8 +2,7 @@
 @model MusikPortal.Models.RegisterModel
 @section Scripts{
     <script>
-        $(document).ready(function () {
-            registrNone();
+        $(document).ready(function () {           
             getAllSongs();
 
             $("body").on("click", ".btn-music", function () {
@@ -17,6 +16,12 @@
             $("body").on("click", ".btn-Login", function () {
                 registrNone();
                 login();
+            });
+            $("body").on("click", "#btn-cancel-registration", function () {
+                registrNone();               
+            });
+            $("body").on("click", "#btn-cancel-log", function () {
+                loginNone();
             });
             $("body").on("click", ".btn-Logout", function () {
                 $.ajax({
@@ -76,6 +81,7 @@
                     let l = document.getElementById("error-RegPass");
                     l.style.display = "inline";
                 }
+                else if ($("#password-strength").html()!="") { }
                else {
                    let formData1 = new FormData();
                    formData1.append("Login", $("#Login").val());
@@ -274,8 +280,6 @@
                         buttons: {
                             "Add the song": function () {
                                let formData = new FormData();
-                                //formData.append("forma", $('#form').serialize());
-                                //let formData1 = new FormData();
                                 var fileInput = $("#fileInput")[0].files[0];
                                 formData.append("file", fileInput);
                                 formData.append("Name", $('#Name').val());
@@ -289,9 +293,7 @@
                                     type: "POST",
                                     contentType: false,
                                     processData: false,
-                                   // data: $('#form').serialize(),
                                    data: formData,
-                                  // datatype: "json",
                                     success: function (result) {
                                         alert("successful addition!");
                                         $("#dialogContent").remove();
@@ -309,6 +311,13 @@
                     });
             });
 
+            $("#Password").on("input", function () {
+               
+                var password = $("#Password").val();
+                var strength = checkPasswordStrength(password);
+                $("#password-strength").html(strength);
+            });
+
         });
 
         $("body").on("click", "#artists", function (e) {
@@ -320,7 +329,7 @@
                 .dialog({
                     title: "Artists",
                     close: function () { $(this).remove() },
-                    width: 400,
+                    width: 390,
                     modal: true,
                     buttons: {
                         "Add an Artist": function () {
@@ -459,7 +468,7 @@
                 .dialog({
                     title: "Genres",
                     close: function () { $(this).remove() },
-                    width: 400,
+                    width: 390,
                     modal: true,
                     buttons: {
                         "Add a Genre": function () {
@@ -491,7 +500,6 @@
                         },
                         "Delete the Genre": function () {
                             let i = $('#Id').val();
-                            alert(i);
                             $("#dialogContent").remove();
                             $("<div id='dialogContent1'></div>")
                                 .addClass("dialog")
@@ -687,6 +695,11 @@
                         }
                     }
                 });
+
+            //var passwordInput = document.getElementById("Password");
+            //var strengthMessage = document.getElementById("password-strength");
+
+          
         });
 
         let checkUserLevel = function () {
@@ -855,7 +868,32 @@
             $("#log").val("");
             $("#pass").val("");
         };
+        function checkPasswordStrength(password) {
+        // Проверяем минимальную длину пароля
+        if (password.length < 8) {
+                return "at least 8 characters.";
+        }
+        // Проверяем наличие хотя бы одной прописной буквы (A-Z)
+        if (!/[A-Z]/.test(password)) {
+            return "at least one (A-Z).";
+        }
+        // Проверяем наличие хотя бы одной строчной буквы (a-z)
+        if (!/[a-z]/.test(password)) {
+                return "at least one (a-z).";
+        }
+        // Проверяем наличие хотя бы одной цифры (0-9)
+        if (!/\d/.test(password)) {
+                return "at least one (0-9).";
+        }
+        // Проверяем наличие хотя бы одного специального символа
+        if (!/[!#\$%^&*()_+{}\[\]:;<>,.?~\\-]/.test(password)) {
+                return "at least one special symbol.";
+        }
+        // Если пароль прошел все проверки, считаем его надежным
+        return "";
+    }
 
+   
 
     </script>
     @{
@@ -881,12 +919,13 @@
     <div>        
         <div>
             <a href="javascript:void(0)" class="nav-link text-dark card2 but" id="btn-log">Enter</a>
+                <a href="javascript:void(0)" class="nav-link text-dark card2 but" id="btn-cancel-log">Cancel</a>
         </div>
     </div>
 </div>
 </div>
 <div class="center">
-    <form id="registrationForm" action="Registration" method="post">
+    <form id="registrationForm" class="non" action="Registration" method="post">
         
         @Html.AntiForgeryToken()
         <div class="card c22">
@@ -904,6 +943,7 @@
 
             <div>
                 @Html.DisplayNameFor(model => model.Password)
+                <span id="password-strength" style="color:red;"></span>
                 <div>
                     @Html.PasswordFor(model => model.Password, new { id = "Password" })
                     <span asp-validation-for="Password" class="text-danger"></span>
@@ -937,6 +977,7 @@
                 <br />
                 <div>
                     <a href="javascript:void(0)" class="nav-link text-dark card2 but" id="btn-registration">Confirm</a>
+                    <a href="javascript:void(0)" class="nav-link text-dark card2 but" id="btn-cancel-registration">Cancel</a>
                 </div>
             </div>
         </div>
