@@ -244,31 +244,50 @@ namespace MusikPortal.Controllers
         public async Task<IActionResult> Users()
         {
             IEnumerable<UserDTO> s = await userService.GetUsers(HttpContext.Session.GetString("login"));
-            ViewBag.Users = s;
-            return View();
+            return PartialView(s);
         }
-        public async Task<IActionResult> EditUser(UserDTO u)
-        {            
-                try
-                {
-                IEnumerable<UserDTO> s = await userService.GetUsers(HttpContext.Session.GetString("login"));
-                ViewBag.Users = s;
-                await userService.UpdateUser(u.Id, u.Level.Value);
-
-                IEnumerable<UserDTO> s1 = await userService.GetUsers(HttpContext.Session.GetString("login"));
-                ViewBag.Users = s1;
-                await putUsers();
-                return View("Users");
-            }
-                catch
-                {
-                IEnumerable<UserDTO> s = await userService.GetUsers(HttpContext.Session.GetString("login"));
-                ViewBag.Users = s;
-                await putUsers();
-                    return View("Users");
-                }
+        [HttpPost]
+        public async Task<IActionResult> EditUser( int id,int level)//[Bind("Id,Name,email,Age,Level")]  UserDTO u)  //UserDTO u)
+        {
            
+            try
+            {
+                UserDTO u = await userService.GetUser(id);
+                if (u != null)
+                {
+                    await userService.UpdateUser(id, level);
+                    IEnumerable<UserDTO> s1 = await userService.GetUsers(HttpContext.Session.GetString("login"));
+                    return Json(true);
+                }
+                else
+                    return Json(false);
+            }
+            catch
+            {               
+                return Json(false);
+            }
+
         }
+        [HttpGet]
+        public async Task<IActionResult> GetUser(int id)
+        {
+            try
+            {
+                UserDTO u= await userService.GetUser(id);
+                if (u != null)
+                {
+                    return PartialView("ChangeUser", u);
+                }
+                else
+                    return Json(false);
+            }
+            catch
+            {
+                return Json(false);
+            }
+        }
+
+           
         public async Task<IActionResult> DeleteSong(int id)
         {
             if (id == null)

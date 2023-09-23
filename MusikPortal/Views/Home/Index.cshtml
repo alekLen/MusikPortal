@@ -248,6 +248,9 @@
                                         }
                                         else
                                         alert("error of edition song!")
+                                    },
+                                    error: function (x, y, z) {
+                                        alert(x + '\n' + y + '\n' + z);
                                     }
                                 });
                             },
@@ -293,6 +296,9 @@
                                         alert("successful addition!");
                                         $("#dialogContent").remove();
                                         getAllSongs();
+                                    },
+                                    error: function (x, y, z) {
+                                        alert(x + '\n' + y + '\n' + z);
                                     }
                                 });
                             },
@@ -314,30 +320,37 @@
                 .dialog({
                     title: "Artists",
                     close: function () { $(this).remove() },
-                    width: 500,
+                    width: 400,
                     modal: true,
                     buttons: {
                         "Add an Artist": function () {
-                            let formData = new FormData();
-                            var fileInput = $("#FileInput")[0].files[0];
-                            formData.append("p", fileInput);
-                            formData.append("Name", $('#Name').val());
-                            $.ajax({
-                                url: "@Url.Action("CreateArtist", "Admin")",
-                                type: "POST",
-                                contentType: false,
-                                processData: false,
-                                data: formData,
-                                success: function (result) {
-                                    if (result) {
-                                        alert("successfuly added!");
-                                        $("#dialogContent").remove()
-                                        getAllSongs();
+                            if ($("#FileInput")[0].files[0] == null || $('#Name').val() == "")
+                                alert("enter the artist's name and the photo!")
+                            else {
+                                let formData = new FormData();
+                                var fileInput = $("#FileInput")[0].files[0];
+                                formData.append("p", fileInput);
+                                formData.append("Name", $('#Name').val());
+                                $.ajax({
+                                    url: "@Url.Action("CreateArtist", "Admin")",
+                                    type: "POST",
+                                    contentType: false,
+                                    processData: false,
+                                    data: formData,
+                                    success: function (result) {
+                                        if (result) {
+                                            alert("successfuly added!");
+                                            $("#dialogContent").remove()
+                                            getAllSongs();
+                                        }
+                                        else
+                                            alert("error of addition artist!")
+                                    },
+                                    error: function (x, y, z) {
+                                        alert(x + '\n' + y + '\n' + z);
                                     }
-                                    else
-                                        alert("error of addition artist!")
-                                }
-                            });
+                                });
+                            }
                         },
                         "Delete the Artist": function () {
                             let i = $('#Id').val();
@@ -370,6 +383,9 @@
                                                     else {
                                                         alert("error of deleting the artist!")
                                                     }
+                                                },
+                                                error: function (x, y, z) {
+                                                    alert(x + '\n' + y + '\n' + z);
                                                 }
                                             });
                                         },
@@ -415,6 +431,9 @@
                                                     else {
                                                         alert("error of editing the artist!")
                                                     }
+                                                },
+                                                error: function (x, y, z) {
+                                                    alert(x + '\n' + y + '\n' + z);
                                                 }
                                             });
                                         },
@@ -444,23 +463,31 @@
                     modal: true,
                     buttons: {
                         "Add a Genre": function () {
-                            let formData = new FormData();                          
-                            formData.append("Name", $('#Name').val());
-                            $.ajax({
-                                url: "@Url.Action("CreateStyle", "Admin")",
-                                type: "POST",
-                                contentType: false,
-                                processData: false,
-                                data: formData,
-                                success: function (result) {
-                                    if (result) {
-                                        alert("successfuly added!");
-                                        $("#dialogContent").remove()                                      
+                            if ($('#Name').val() != "") {
+                                let formData = new FormData();
+                                formData.append("Name", $('#Name').val());
+                                $.ajax({
+                                    url: "@Url.Action("CreateStyle", "Admin")",
+                                    type: "POST",
+                                    contentType: false,
+                                    processData: false,
+                                    data: formData,
+                                    success: function (result) {
+                                        if (result) {
+                                            alert("successfuly added!");
+                                            $("#dialogContent").remove()
+                                        }
+                                        else
+                                            alert("error of addition style!")
+                                    },
+                                    error: function (x, y, z) {
+                                        alert(x + '\n' + y + '\n' + z);
                                     }
-                                    else
-                                        alert("error of addition style!")
-                                }
-                            });
+                                });
+                            }
+                            else{
+                                alert("enter the name of geenre!")
+                            }
                         },
                         "Delete the Genre": function () {
                             let i = $('#Id').val();
@@ -494,6 +521,9 @@
                                                     else {
                                                         alert("error of deleting the artist!")
                                                     }
+                                                },
+                                                error: function (x, y, z) {
+                                                    alert(x + '\n' + y + '\n' + z);
                                                 }
                                             });
                                         },
@@ -536,6 +566,9 @@
                                                     else {
                                                         alert("error of editing the style!")
                                                     }
+                                                },
+                                                error: function (x, y, z) {
+                                                    alert(x + '\n' + y + '\n' + z);
                                                 }
                                             });
                                         },
@@ -552,7 +585,71 @@
                     }
                 });
         });
-       
+        $("body").on("click", "#users", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load("/Admin/Users")
+                .dialog({
+                    title: "All Users",
+                    close: function () { $(this).remove() },
+                    width: 830,
+                    modal: true                                   
+                });
+        });
+        $("body").on("click", ".userConfirm", function (e) {
+            e.preventDefault();
+            $("<div id='dialogContent1'></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .load(this.href)
+                .dialog({
+                    title: "Change user level",
+                    close: function () { $(this).remove() },
+                    width: 300,
+                    modal: true,
+                    buttons: {
+                        "Confirm changes": function () {
+                            let formData = new FormData();
+                            formData.append("level", $('#NewLevel').val());
+                            formData.append("id", $('#user_id').val());
+                            $.ajax({
+                                url: "@Url.Action("EditUser", "Admin")",
+                                type: "POST",
+                                contentType: false,
+                                processData: false,
+                                data: formData,
+                                success: function (result) {
+                                    if (result) {                                      
+                                        $("#dialogContent1").remove()
+                                        $("#dialogContent").remove();
+                                        $("<div id='dialogContent'></div>")
+                                            .addClass("dialog")
+                                            .appendTo("body")
+                                            .load("/Admin/Users")
+                                            .dialog({
+                                                title: "All Users",
+                                                close: function () { $(this).remove() },
+                                                width: 800,
+                                                modal: true
+                                            });
+                                    }
+                                    else
+                                        alert("error of changing level!")
+                                },
+                                error: function (x, y, z) {
+                                    alert(x + '\n' + y + '\n' + z);
+                                }
+                            });
+                        },
+                        "Cancel": function () {
+                            $("#dialogContent1").remove()
+                        }
+                    }
+                 });
+      
+        });
         $("body").on("click", ".btn-delete", function (e) {
             e.preventDefault();
             $("<div id='dialogContent'></div>")
@@ -765,6 +862,7 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
 <div class="end">
 <div id="login" class="card c22 non">
     <label>Login</label>

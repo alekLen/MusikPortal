@@ -1,51 +1,76 @@
 ﻿@using Microsoft.AspNetCore.Http
-@model MusicPortal.BLL.DTO.UserDTO
-
-
-<div class="c20"> <h4>New users</h4></div>
-    <div class="c3">
-    <table>
-            <tr class="c20"><th>Name</th><th style="width:60px">Age</th><th>Email</th><th style="width:80px">Level</th><th></th></tr>
-        @foreach (var s in ViewBag.Users)
-      {
+@model IEnumerable<MusicPortal.BLL.DTO.UserDTO>
+<h3>New users</h3>
+<table class="table card us">
+    
+        <tr>
+            <th>
+               Name
+            </th>
+            <th style="width:70px">
+                Age
+            </th>
+            <th>
+               Email
+            </th>
+            <th style="width:70px">
+               Level
+            </th>
+            <th></th>
+        </tr>
         
-            @if (@s.Level == 0)
-            {
-                <form asp-action="EditUser"  asp-controller="Admin" method="post">
-                    <input asp-for="Id" type="hidden" value=@s.Id>
-               <tr>
-                <td>   <input asp-for="Name" class="form-control" value=@s.Name readonly="readonly" /></td>
-                <td>   <input asp-for="Age" class="form-control" value=@s.Age readonly="readonly"  /></td>
-                <td>   <input asp-for="email" class="form-control" value=@s.email readonly="readonly" /></td>
-                    <td> <input asp-for="Level" class="form-control" type="number" min="0" max="2" value=@s.Level  /></td>
-                <td>&nbsp;&nbsp;&nbsp;<input type="submit" value="confirm registration" /></td>
-               </tr>
-               </form>
-            }
-        }
-    </table></div>
-        <hr />
-        <hr />
-<div class="c20"> <h4>Confirmd users</h4></div>
-    <div class="c3">
-    <table>
-        <tr class="c20"><th>Name</th><th style="width:60px">Age</th><th>Email</th><th style="width:80px">Level</th><th></th></tr>
-      @foreach (var s in ViewBag.Users)
-      {
-            @if (@s.Level > 0)
+        @foreach (var item in Model)
+        {
+            @if (item.Level == 0)
             {
                 <form asp-action="EditUser" asp-controller="Admin" method="post">
-                    <input asp-for="Id" type="hidden" value=@s.Id>
-                <tr>
-                    <td>   <input asp-for="Name" class="form-control" value=@s.Name readonly="readonly" /></td>
-                    <td>   <input asp-for="Age" class="form-control" value=@s.Age readonly="readonly" /></td>
-                    <td>   <input asp-for="email" class="form-control" value=@s.email readonly="readonly" /></td>
-                    <td> <input asp-for="Level" class="form-control" type="number" min="1" max="2" value=@s.Level /></td>
-                    <td>&nbsp;&nbsp;&nbsp;<input type="submit" value="change level" /></td>
-                </tr>
-                </form>
+                    <input name="Id" type="hidden" value=@item.Id>
+            <tr>
+                <td>   <input type="text" name="Name" value=@item.Name readonly="readonly" /></td>
+                <td>   <input style="width:50px" type="text" name="Age" value=@item.Age readonly="readonly" /></td>
+                <td>   <input type="text" name="email" value=@item.email readonly="readonly" /></td>
+                <td> <input style="width:50px" name="Level" type="text" readonly="readonly" value=@item.Level /></td>
+                    <td>&nbsp;&nbsp;&nbsp;<a style="width:150px" asp-action="GetUser" asp-route-id="@item.Id" class="userConfirm">Confirm registration</a></td>
+            </tr>
+            </form>
             }
-      }
-    </table>
-</div>
+        }
+    
+</table>
+<h3>Confirmd users</h3>
+<table class="table card us">
 
+    <tr>
+        <th>
+            Name
+        </th>
+        <th style="width:70px">
+            Age
+        </th>
+        <th>
+            Email
+        </th>
+        <th style="width:70px">
+            Level
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        @if (item.Level > 0)
+        {
+            <form asp-action="EditUser" asp-controller="Admin" method="post">
+                <input name="Id" type="hidden" value=@item.Id>
+            <tr>
+                <td>   <input type="text" name="Name" value=@item.Name readonly="readonly" /></td>
+                <td>   <input style="width:50px" type="text" name="Age" value=@item.Age readonly="readonly" /></td>
+                <td>   <input type="text" name="email" value=@item.email readonly="readonly" /></td>
+                <td> <input style="width:50px" name="Level" type="text" readonly="readonly" value=@item.Level /></td>
+                <td>&nbsp;&nbsp;&nbsp;<a style="width:150px" asp-action="GetUser" asp-route-id="@item.Id" class="userConfirm">Change level</a></td>
+            </tr>
+            </form>
+        }
+    }
+
+</table>
