@@ -79,6 +79,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to возраст.
+        /// </summary>
+        public static string age {
+            get {
+                return ResourceManager.GetString("age", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to *введите возраст.
+        /// </summary>
+        public static string AgeRequired {
+            get {
+                return ResourceManager.GetString("AgeRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Все песни.
         /// </summary>
         public static string AllSongs {
@@ -327,6 +345,15 @@ namespace Resources {
         public static string unage {
             get {
                 return ResourceManager.GetString("unage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to *не корректный email.
+        /// </summary>
+        public static string unemail {
+            get {
+                return ResourceManager.GetString("unemail", resourceCulture);
             }
         }
         

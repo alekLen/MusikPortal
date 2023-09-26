@@ -123,6 +123,12 @@
   <data name="AddSong" xml:space="preserve">
     <value>Add Song</value>
   </data>
+  <data name="age" xml:space="preserve">
+    <value>age</value>
+  </data>
+  <data name="AgeRequired" xml:space="preserve">
+    <value>*age is required</value>
+  </data>
   <data name="AllSongs" xml:space="preserve">
     <value>All songs</value>
   </data>
@@ -206,6 +212,9 @@
   </data>
   <data name="unage" xml:space="preserve">
     <value>*uncorrectly age</value>
+  </data>
+  <data name="unemail" xml:space="preserve">
+    <value>*uncorrectly email</value>
   </data>
   <data name="unlogpass" xml:space="preserve">
     <value>*uncorrectly login or password</value>

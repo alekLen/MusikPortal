@@ -20,7 +20,8 @@ namespace MusikPortal.Controllers
             userService = u;           
         }      
 
-        [HttpPost]    
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Registration(RegisterModel user)
         {
             try
@@ -122,7 +123,18 @@ namespace MusikPortal.Controllers
                 isUnique = false;
             return Json(!isUnique);
         }
-
+        [AcceptVerbs("Get", "Post")]
+        public IActionResult CheckAge(string age)
+        {
+            try
+            {
+                if (Convert.ToInt32(age) < 0 || Convert.ToInt32(age) > 99)
+                    return Json(true);
+                else
+                    return Json(false);
+            }
+            catch { return Json(true); }
+        }
         public ActionResult Logout()
         {
             HttpContext.Session.Clear(); // очищается сессия

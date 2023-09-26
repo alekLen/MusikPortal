@@ -223,7 +223,7 @@
                     .dialog({
                         title: "Editing the song",
                         close: function () { $(this).remove() },
-                        width: 500,
+                        width: 390,
                         modal: true,
                         buttons: {
                             "Confirm Edition": function () {
@@ -667,7 +667,7 @@
                 .dialog({
                     title: "Deleting the song",
                     close: function () { $(this).remove() },
-                    width: 500,
+                    width: 370,
                     modal: true,
                     buttons: {
                         "Confirm deletion": function () {
@@ -763,7 +763,9 @@
 
         let loginNone = function () {
             let l = document.getElementById("login");
+            l.reset();
             l.style.display = "none";
+            ClearLogin();
         };
 
         // создание строки вывода песни
@@ -859,7 +861,9 @@
         };
         let registrNone = function () {
             let l = document.getElementById("registrationForm");
+            l.reset();
             l.style.display = "none";
+            ClearRegistr();
             let l1 = document.getElementById("ss");
             l1.style.display = "block";
         };
@@ -906,7 +910,7 @@
 }
 
 <div class="end">
-<div id="login" class="card c22 non">
+<form id="login" class="card c22 non">
         <label>@Resources.Resource.loginN</label>
         <span id="error-login" style="color:red;display:none;">@Resources.Resource.unlogpass</span>
     <div >
@@ -926,7 +930,7 @@
                 <a href="javascript:void(0)" class="nav-link text-dark card2 but" id="btn-cancel-log">@Resources.Resource.Cancel</a>
         </div>
     </div>
-</div>
+</form>
 </div>
 <div class="center">
     <form id="registrationForm" class="non" action="Registration" method="post">

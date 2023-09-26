@@ -2,7 +2,7 @@
 
 @*<h1 class=" b1 b3 center c20">Edit the Song</h1>
 <div class="center">*@
-<div class="card c7a">
+<div class="card c7">
     <form asp-action="EditSong" asp-controller="Admin" method="post" enctype="multipart/form-data">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <input asp-for="SongId" id="SongId1" type="hidden" />
@@ -31,7 +31,7 @@
         </div>
         <div class="form-group">
             <span>Text of the Song(optionaly)</span><br />
-            <textarea asp-for="text" id="text1" class="c17"></textarea>
+            <textarea asp-for="text" id="text1" class="_c7"></textarea>
             <span asp-validation-for="text" class="text-danger"></span>
         </div>
         <span>File</span><br />

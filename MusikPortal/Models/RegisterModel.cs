@@ -7,7 +7,8 @@ namespace MusikPortal.Models
     {
         [Required(ErrorMessageResourceType = typeof(Resources.Resource), ErrorMessageResourceName = "LogRequired")]
         [Display(Name = "loginN", ResourceType = typeof(Resources.Resource))]
-        [Remote("IsLoginIn", "Login", ErrorMessage = "login is used")]
+        [Remote("IsLoginIn", "Login", ErrorMessageResourceType = typeof(Resources.Resource),
+                ErrorMessageResourceName = "loginused")]
         public string? Login { get; set; }
 
         [Required(ErrorMessageResourceType = typeof(Resources.Resource),
@@ -25,12 +26,17 @@ namespace MusikPortal.Models
         public string? PasswordConfirm { get; set; }
         [Required(ErrorMessageResourceType = typeof(Resources.Resource),
                 ErrorMessageResourceName = "EmailRequired")]
-        [EmailAddress(ErrorMessage = "uncorrectly email ")]
+        [EmailAddress(ErrorMessageResourceType = typeof(Resources.Resource),
+                ErrorMessageResourceName = "unemail")]
         [Display(Name = "email ")]
-        [Remote("IsEmailIn", "Login", ErrorMessage = "email is used")]
+        [Remote("IsEmailIn", "Login", ErrorMessageResourceType = typeof(Resources.Resource),
+                ErrorMessageResourceName = "emailused")]
         public string? email { get; set; }
-        [Required]
-        [Display(Name = "age ")]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource),
+                ErrorMessageResourceName = "AgeRequired")]
+        [Display(Name = "age", ResourceType = typeof(Resources.Resource))]
+        [Remote("CheckAge", "Login", ErrorMessageResourceType = typeof(Resources.Resource),
+                ErrorMessageResourceName = "unage")]
         public string? age { get; set; }
     }
 }

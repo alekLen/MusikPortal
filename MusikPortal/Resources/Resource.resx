@@ -123,6 +123,12 @@
   <data name="AddSong" xml:space="preserve">
     <value>Добавить песню</value>
   </data>
+  <data name="age" xml:space="preserve">
+    <value>возраст</value>
+  </data>
+  <data name="AgeRequired" xml:space="preserve">
+    <value>*введите возраст</value>
+  </data>
   <data name="AllSongs" xml:space="preserve">
     <value>Все песни</value>
   </data>
@@ -206,6 +212,9 @@
   </data>
   <data name="unage" xml:space="preserve">
     <value>*не корректный возраст</value>
+  </data>
+  <data name="unemail" xml:space="preserve">
+    <value>*не корректный email</value>
   </data>
   <data name="unlogpass" xml:space="preserve">
     <value>*не верный логин или пароль</value>
