@@ -154,7 +154,7 @@ body {
     color:white;
 }
 .c21 {
-    width: 400px;
+    width: 600px;
 }
 .c22{
     width:250px
@@ -195,4 +195,16 @@ body {
 }
 .us{
     width:790px;
+}
+.m{
+    margin:0;
+}
+.m1{
+    width:150px;
+}
+.m2{
+    margin-left:400px;
+}
+.i{
+    display:inline;
 }

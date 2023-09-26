@@ -15,10 +15,26 @@
 </head>
 <body>
     <header >
+        <div class="center">
+            <h1 class="c20">Music Portal </h1> 
+            @using (Html.BeginForm("ChangeCulture", "Home"))
+            {
+                <div class="m2"> 
+                <select name="lang" class="form-control i">
+                    <option value="ru">Русский</option>
+                    <option value="en">English</option>
+                    <option value="uk">Українська</option>
+                    <option value="de">Deutsch</option>
+                    <option value="fr">Français</option>
+                </select>
+                    <input type="submit" name="submit" value="@Resources.Resource.ChooseLang" class="btn btn-default c20">
+                </div>
+            }
+        </div>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-1" >
             <div class="container-fluid" style="background-color:brown">
                 
-                <a href="javascript:void(0)" class="navbar-brand card2 c23 btn-music">MusicPortal</a>
+                <a href="javascript:void(0)" class="navbar-brand card2 c23 btn-music">@Resources.Resource.AllSongs</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -27,7 +43,7 @@
                 {
                     <div style="display:flex">
                         <input type="text" id="str" name="str" />
-                        <a href="javascript:void(0)" class="card2 btn-find">Find</a>&nbsp;
+                        <a href="javascript:void(0)" class="card2 btn-find">@Resources.Resource.Find</a>&nbsp;
                     </div>
                 }
                 
@@ -35,27 +51,27 @@
                                            
                     <div class="navbar-collapse collapse d-sm-inline-flex c c21">
                             
-                                <div>
-                            <a asp-action="Create" id="addSong" asp-controller="Song"  class="card2 non createSong" data_dialog_title="Addition Song">Add Song</a>&nbsp;&nbsp;&nbsp;
+                                <div class=" m1">
+                        <a asp-action="Create" id="addSong" asp-controller="Song" class="card2 non m createSong" data_dialog_title="Addition Song">@Resources.Resource.AddSong</a>&nbsp;&nbsp;&nbsp;
                                 </div>
                             
                         @using (Html.BeginForm("Styles", "Admin", FormMethod.Get))
                         {
-                                <div >
-                            <a href="javascript:void(0)" class="card2 non" id="genres">Genres</a>&nbsp;
+                        <div >
+                            <a href="javascript:void(0)" class="card2 non" id="genres">@Resources.Resource.Genres</a>&nbsp;
                              </div>
                         }
                         @using (Html.BeginForm("Artists", "Admin", FormMethod.Get))
                         {
-                            <div >
+                        <div class=" m1">
                             @*<input type="submit" id="artists" class="non" value="Artists" />&nbsp;*@
-                            <a href="javascript:void(0)" class="card2 non" id="artists">Artists</a>&nbsp;
+                            <a href="javascript:void(0)" class="card2 non" id="artists">@Resources.Resource.Artists</a>&nbsp;
                             </div>
                         }                     
                         @using (Html.BeginForm("Users", "Admin", FormMethod.Get))
                         {
-                            <div >                             
-                            <a href="javascript:void(0)" class="card2 non" id="users">Users</a>&nbsp;
+                        <div >
+                            <a href="javascript:void(0)" class="card2 non" id="users">@Resources.Resource.Users</a>&nbsp;
                             </div>
                         }
                     </div>
@@ -73,17 +89,17 @@
                            </div>                       
                         </div>
                  }
-                <a href="javascript:void(0)" class="nav-link text-dark card2 btn-Logout non" id="logout" >LogOut</a>
+                <a href="javascript:void(0)" class="nav-link text-dark card2 btn-Logout non" id="logout">@Resources.Resource.LogOut</a>
                 <ul class="navbar-nav flex-grow-1 c c1 " id="enter">
-                        <li class="nav-item">                           
-                                <a href="javascript:void(0)" class="nav-link text-dark card2 btn-Login">Login</a>
+                        <li class="nav-item">
+                        <a href="javascript:void(0)" class="nav-link text-dark card2 btn-Login">@Resources.Resource.Login</a>
                         </li>
                         <li class="nav-item">
-                                <a href="javascript:void(0)" class="nav-link text-dark card2 btn-Reg">Registration</a>
+                        <a href="javascript:void(0)" class="nav-link text-dark card2 btn-Reg">@Resources.Resource.Registration</a>
                         </li>
                     </ul>
-                   
                
+
             </div>
         </nav>
     </header>

@@ -5,22 +5,26 @@ namespace MusikPortal.Models
 {
     public class RegisterModel
     {
-        [Required]
-        [Display(Name = "login ")]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource), ErrorMessageResourceName = "LogRequired")]
+        [Display(Name = "loginN", ResourceType = typeof(Resources.Resource))]
         [Remote("IsLoginIn", "Login", ErrorMessage = "login is used")]
         public string? Login { get; set; }
 
-        [Required]
-        [Display(Name = "password ")]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource),
+                ErrorMessageResourceName = "PassRequired")]
+        [Display(Name = "password", ResourceType = typeof(Resources.Resource))]
         [DataType(DataType.Password)]
         public string? Password { get; set; }
 
-        [Required]
-        [Display(Name = "confirm password ")]
-        [Compare("Password", ErrorMessage = "passwords do not mutch")]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource),
+                ErrorMessageResourceName = "PassConRequired")]
+        [Display(Name = "passwordConf", ResourceType = typeof(Resources.Resource))]
+        [Compare("Password", ErrorMessageResourceType = typeof(Resources.Resource),
+                ErrorMessageResourceName = "passnoteq")]
         [DataType(DataType.Password)]
         public string? PasswordConfirm { get; set; }
-        [Required(ErrorMessage = "Email is required")]
+        [Required(ErrorMessageResourceType = typeof(Resources.Resource),
+                ErrorMessageResourceName = "EmailRequired")]
         [EmailAddress(ErrorMessage = "uncorrectly email ")]
         [Display(Name = "email ")]
         [Remote("IsEmailIn", "Login", ErrorMessage = "email is used")]

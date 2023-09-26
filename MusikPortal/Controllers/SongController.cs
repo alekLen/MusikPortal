@@ -6,10 +6,12 @@ using System.Diagnostics;
 using MusicPortal.BLL.Interfaces;
 using MusicPortal.BLL.DTO;
 using MusicPortal.BLL.Services;
+using MusicPortal.Filters;
 
 
 namespace MusikPortal.Controllers
 {
+    [Culture]
     public class SongController : Controller
     {
         IWebHostEnvironment _appEnvironment;

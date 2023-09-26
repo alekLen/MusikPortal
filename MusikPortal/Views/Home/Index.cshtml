@@ -223,7 +223,7 @@
                     .dialog({
                         title: "Editing the song",
                         close: function () { $(this).remove() },
-                        width: 330,
+                        width: 500,
                         modal: true,
                         buttons: {
                             "Confirm Edition": function () {
@@ -667,7 +667,7 @@
                 .dialog({
                     title: "Deleting the song",
                     close: function () { $(this).remove() },
-                    width: 330,
+                    width: 500,
                     modal: true,
                     buttons: {
                         "Confirm deletion": function () {
@@ -792,7 +792,7 @@
                         "<div class='c6 c10'>Text</div>"+
                     "<textarea readonly rows='5' style='resize:none'>"+song.text+"</textarea>"+
                 "</div></dv><div class='c9'> <br /> <br /><div class='card c18 c19 text-center'>"+
-                "<a href="+song.file+" download>download</a>"+
+                "<a href="+song.file+" download >Download</a>"+
                 "</div><div class='admin' style='display:none;'> <br /><br />"+
               "<div class='card c18 c19 text-center '>"+
                 "<a href='/Admin/EditSong/?id=" + song.Id + "' class='btn-edit' >Edit Song</a>" +
@@ -907,14 +907,14 @@
 
 <div class="end">
 <div id="login" class="card c22 non">
-    <label>Login</label>
-    <span id="error-login" style="color:red;display:none;">*uncorrectly login or password</span>
+        <label>@Resources.Resource.loginN</label>
+        <span id="error-login" style="color:red;display:none;">@Resources.Resource.unlogpass</span>
     <div >
         <input type="text" class="form-control" id="log" required>
     </div>
 
     <div>
-        <label>Password</label>
+            <label>@Resources.Resource.password</label>
         <div>
             <input type="password" class="form-control" id="pass" required>
         </div>
@@ -922,8 +922,8 @@
 
     <div>        
         <div>
-            <a href="javascript:void(0)" class="nav-link text-dark card2 but" id="btn-log">Enter</a>
-                <a href="javascript:void(0)" class="nav-link text-dark card2 but" id="btn-cancel-log">Cancel</a>
+                <a href="javascript:void(0)" class="nav-link text-dark card2 but" id="btn-log">@Resources.Resource.Enter</a>
+                <a href="javascript:void(0)" class="nav-link text-dark card2 but" id="btn-cancel-log">@Resources.Resource.Cancel</a>
         </div>
     </div>
 </div>
@@ -934,13 +934,13 @@
         @Html.AntiForgeryToken()
         <div class="card c22">
             @Html.ValidationSummary(true, "")
-            <span id="error-Reg" style="color:red;display:none;">*enter all fields</span>
-            <span id="error-RegPass" style="color:red;display:none;">*passwords are not equal</span>
+            <span id="error-Reg" style="color:red;display:none;">@Resources.Resource.fields</span>
+            <span id="error-RegPass" style="color:red;display:none;">@Resources.Resource.passnoteq</span>
             <div>
                 @Html.DisplayNameFor(model => model.Login)
                 <div>
                     @Html.EditorFor(model => model.Login, new { id = "login" })
-                    <span id="error-log" style="color:red; display:none">Login is used</span>
+                    <span id="error-log" style="color:red; display:none">@Resources.Resource.loginused</span>
                     <span asp-validation-for="Login" class="text-danger"></span>
                 </div>
             </div>
@@ -965,14 +965,14 @@
             <div>
                 @Html.DisplayNameFor(model => model.email)
                 <div>
-                    <span id="error-email" style="color:red; display:none">Login is used</span>
+                    <span id="error-email" style="color:red; display:none">@Resources.Resource.emailused</span>
                     @Html.EditorFor(model => model.email, new { id = "emailInput" })
                     <span asp-validation-for="email" id="emailStatus" class="text-danger"></span>
                 </div>
             </div>  <div>
                 @Html.DisplayNameFor(model => model.age)
                 <div>
-                    <span id="error-age" style="color:red; display:none">Login is used</span>
+                    <span id="error-age" style="color:red; display:none">@Resources.Resource.unage</span>
                     @Html.EditorFor(model => model.age)
                     <span asp-validation-for="age" class="text-danger"></span>
                 </div>
@@ -980,8 +980,8 @@
             <div>
                 <br />
                 <div>
-                    <a href="javascript:void(0)" class="nav-link text-dark card2 but" id="btn-registration">Confirm</a>
-                    <a href="javascript:void(0)" class="nav-link text-dark card2 but" id="btn-cancel-registration">Cancel</a>
+                    <a href="javascript:void(0)" class="nav-link text-dark card2 but" id="btn-registration">@Resources.Resource.Confirm</a>
+                    <a href="javascript:void(0)" class="nav-link text-dark card2 but" id="btn-cancel-registration">@Resources.Resource.Cancel</a>
                 </div>
             </div>
         </div>

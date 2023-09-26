@@ -8,9 +8,11 @@ using MusicPortal.BLL.Infrastructure;
 using System.IO;
 using MusicPortal.BLL.Services;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using MusicPortal.Filters;
 
 namespace MusikPortal.Controllers
 {
+    [Culture]
     public class AdminController : Controller
     {
         IWebHostEnvironment _appEnvironment;

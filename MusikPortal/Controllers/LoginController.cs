@@ -7,9 +7,11 @@ using MusicPortal.BLL.Interfaces;
 using MusicPortal.BLL.DTO;
 using Azure;
 using MusicPortal.DAL.Entities;
+using MusicPortal.Filters;
 
 namespace MusikPortal.Controllers
 {
+    [Culture]
     public class LoginController : Controller
     {
         private readonly IUserService userService;
