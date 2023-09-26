@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MusicPortal</title>
+    <title>@ViewData["Title"] - "@Resources.Resource.MusicPortal</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/MusicPortal.styles.css" asp-append-version="true" />
@@ -14,9 +14,9 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-    <header >
-        <div class="center">
-            <h1 class="c20">Music Portal </h1> 
+    <header>
+        <div style=" background-color:saddlebrown;" class="center">
+            <h1 class="c20">@Resources.Resource.MusicPortal </h1>
             @using (Html.BeginForm("ChangeCulture", "Home"))
             {
                 <div class="m2"> 

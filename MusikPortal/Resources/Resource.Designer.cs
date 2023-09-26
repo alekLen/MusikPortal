@@ -250,6 +250,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Музыкальный портал.
+        /// </summary>
+        public static string MusicPortal {
+            get {
+                return ResourceManager.GetString("MusicPortal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to *подтвержение пароля обязательно.
         /// </summary>
         public static string PassConRequired {

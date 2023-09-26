@@ -180,6 +180,9 @@
   <data name="LogRequired" xml:space="preserve">
     <value>*login is required</value>
   </data>
+  <data name="MusicPortal" xml:space="preserve">
+    <value>Music Portal</value>
+  </data>
   <data name="PassConRequired" xml:space="preserve">
     <value>*confirm password is required</value>
   </data>
