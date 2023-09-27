@@ -118,162 +118,162 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Addition" xml:space="preserve">
-    <value>Addition</value>
+    <value>Додавання</value>
   </data>
   <data name="AddSong" xml:space="preserve">
-    <value>Add Song</value>
+    <value>Додати пісню</value>
   </data>
   <data name="age" xml:space="preserve">
-    <value>age</value>
+    <value>Вік</value>
   </data>
   <data name="AgeRequired" xml:space="preserve">
-    <value>*age is required</value>
+    <value>*введіть вік</value>
   </data>
   <data name="Album" xml:space="preserve">
-    <value>Album</value>
+    <value>Альбом</value>
   </data>
   <data name="AllSongs" xml:space="preserve">
-    <value>All songs</value>
+    <value>Усі пісні</value>
   </data>
   <data name="Artist" xml:space="preserve">
-    <value>Artist</value>
+    <value>Виконавець</value>
   </data>
   <data name="Artists" xml:space="preserve">
-    <value>Artists</value>
+    <value>Виконавці</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Відміна</value>
   </data>
   <data name="Changelevel" xml:space="preserve">
-    <value>Change level</value>
+    <value>Змінити рівень доступу</value>
   </data>
   <data name="ChooseLang" xml:space="preserve">
-    <value>Choose the Language</value>
+    <value>Вибрати мову</value>
   </data>
   <data name="Confirm" xml:space="preserve">
-    <value>Confirm</value>
+    <value>Підтвердити</value>
   </data>
   <data name="Confirmdusers" xml:space="preserve">
-    <value>Confirmd users</value>
+    <value>Підтверджені користувачі</value>
   </data>
   <data name="Confirmregistration" xml:space="preserve">
-    <value>Confirm registration</value>
+    <value>Підтвердити реєстрацію</value>
   </data>
   <data name="Editing" xml:space="preserve">
-    <value>Editing</value>
+    <value>Редагування</value>
   </data>
   <data name="email" xml:space="preserve">
-    <value>email</value>
+    <value>Електронна пошта</value>
   </data>
   <data name="EmailRequired" xml:space="preserve">
-    <value>*email required</value>
+    <value>*обов'язкове поле</value>
   </data>
   <data name="emailused" xml:space="preserve">
-    <value>*email is used</value>
+    <value>*пошта вже зареєстрована</value>
   </data>
   <data name="Enter" xml:space="preserve">
-    <value>Enter</value>
+    <value>Увійти</value>
   </data>
   <data name="enterArt" xml:space="preserve">
-    <value>Enter the Name</value>
+    <value>Введіть ім'я</value>
   </data>
   <data name="enterName" xml:space="preserve">
-    <value>Enter the name</value>
+    <value>Введіть назву</value>
   </data>
   <data name="fields" xml:space="preserve">
-    <value>*enter all fields</value>
+    <value>*заповніть всі поля</value>
   </data>
   <data name="File" xml:space="preserve">
-    <value>File</value>
+    <value>Файл</value>
   </data>
   <data name="Find" xml:space="preserve">
-    <value>Find</value>
+    <value>Знайти</value>
   </data>
   <data name="Genres" xml:space="preserve">
-    <value>Genres</value>
+    <value>Жанри</value>
   </data>
   <data name="Level" xml:space="preserve">
-    <value>Level</value>
+    <value>Рівень доступу</value>
   </data>
   <data name="Listofartists" xml:space="preserve">
-    <value>Choose an artist from the list</value>
+    <value>Виберіть автора зі списку</value>
   </data>
   <data name="Listofstyles" xml:space="preserve">
-    <value>Choose a genre from the list</value>
+    <value>Виберіть жанр зі списку</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Login</value>
+    <value>Увійти</value>
   </data>
   <data name="loginN" xml:space="preserve">
-    <value>login</value>
+    <value>логін</value>
   </data>
   <data name="loginused" xml:space="preserve">
-    <value>*login is used</value>
+    <value>*логін вже зареєстрований</value>
   </data>
   <data name="LogOut" xml:space="preserve">
-    <value>LogOut</value>
+    <value>Вийти</value>
   </data>
   <data name="LogRequired" xml:space="preserve">
-    <value>*login is required</value>
+    <value>*логін обов'язкове поле</value>
   </data>
   <data name="MusicPortal" xml:space="preserve">
-    <value>Music Portal</value>
+    <value>Музичний портал</value>
   </data>
   <data name="nameArt" xml:space="preserve">
-    <value>Name</value>
+    <value>Ім'я</value>
   </data>
   <data name="Newusers" xml:space="preserve">
-    <value>New users</value>
+    <value>Нові користувачі</value>
   </data>
   <data name="PassConRequired" xml:space="preserve">
-    <value>*confirm password is required</value>
+    <value>*підтвердження пароля обов'язково</value>
   </data>
   <data name="passnoteq" xml:space="preserve">
-    <value>*passwords are not equal</value>
+    <value>*Паролі не співпадають</value>
   </data>
   <data name="PassRequired" xml:space="preserve">
-    <value>*password is required</value>
+    <value>*пароль обов'язкове поле</value>
   </data>
   <data name="password" xml:space="preserve">
-    <value>password</value>
+    <value>пароль</value>
   </data>
   <data name="passwordConf" xml:space="preserve">
-    <value>confirm password</value>
+    <value>Підтвердіть пароль</value>
   </data>
   <data name="Photo" xml:space="preserve">
-    <value>Photo</value>
+    <value>Завантажте фото</value>
   </data>
   <data name="Registration" xml:space="preserve">
-    <value>Registgration</value>
+    <value>Зареєструватися</value>
   </data>
   <data name="Songname" xml:space="preserve">
-    <value>Song's name</value>
+    <value>Назва пісні</value>
   </data>
   <data name="Style" xml:space="preserve">
-    <value>Genre</value>
+    <value>Жанр</value>
   </data>
   <data name="Text" xml:space="preserve">
-    <value>Text</value>
+    <value>Текст</value>
   </data>
   <data name="unage" xml:space="preserve">
-    <value>*uncorrectly age</value>
+    <value>*некоректний вік</value>
   </data>
   <data name="unemail" xml:space="preserve">
-    <value>*uncorrectly email</value>
+    <value>*некоректна пошта</value>
   </data>
   <data name="unlogpass" xml:space="preserve">
-    <value>*uncorrectly login or password</value>
+    <value>*Невірний логін або пароль</value>
   </data>
   <data name="username" xml:space="preserve">
-    <value>user name</value>
+    <value>користувач</value>
   </data>
   <data name="Users" xml:space="preserve">
-    <value>Users</value>
+    <value>Користувачі</value>
   </data>
   <data name="Welcome" xml:space="preserve">
-    <value>Welcome</value>
+    <value>Ласкаво просимо</value>
   </data>
   <data name="Year" xml:space="preserve">
-    <value>Year</value>
+    <value>Рік</value>
   </data>
 </root>

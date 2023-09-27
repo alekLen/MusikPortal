@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Http
 @model MusicPortal.BLL.DTO.UserDTO
-<div>user name:&nbsp;&nbsp;<span style="font-weight:bold; font-size:x-large">@Model.Name</span></div>
+<div>@Resources.Resource.username &nbsp;&nbsp;<span style="font-weight:bold; font-size:x-large">@Model.Name</span></div>
 <input type="hidden" id="user_id"   value=@Model.Id />
-<label>Level</label><br />
+<label>@Resources.Resource.Level</label>
+<br />
 <input type="number" min="1" max="2" id="NewLevel" value="@Model.Level"/>

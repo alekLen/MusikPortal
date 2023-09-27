@@ -124,13 +124,19 @@
     <value>Добавить песню</value>
   </data>
   <data name="age" xml:space="preserve">
-    <value>возраст</value>
+    <value>Возраст</value>
   </data>
   <data name="AgeRequired" xml:space="preserve">
     <value>*введите возраст</value>
   </data>
+  <data name="Album" xml:space="preserve">
+    <value>Альбом</value>
+  </data>
   <data name="AllSongs" xml:space="preserve">
     <value>Все песни</value>
+  </data>
+  <data name="Artist" xml:space="preserve">
+    <value>Исполнитель</value>
   </data>
   <data name="Artists" xml:space="preserve">
     <value>Исполнители</value>
@@ -138,20 +144,32 @@
   <data name="Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
+  <data name="Changelevel" xml:space="preserve">
+    <value>Изменить уровень доступа</value>
+  </data>
   <data name="ChooseLang" xml:space="preserve">
     <value>Выбрать язык</value>
   </data>
   <data name="Confirm" xml:space="preserve">
     <value>Подтвердить</value>
   </data>
+  <data name="Confirmdusers" xml:space="preserve">
+    <value>Подтвержденные пользователи</value>
+  </data>
+  <data name="Confirmregistration" xml:space="preserve">
+    <value>Подтвердить регистрацию</value>
+  </data>
   <data name="Editing" xml:space="preserve">
     <value>Редактирование</value>
   </data>
+  <data name="email" xml:space="preserve">
+    <value>Электронная почта </value>
+  </data>
   <data name="EmailRequired" xml:space="preserve">
-    <value>*email обязательное поле</value>
+    <value>*почта обязательное поле</value>
   </data>
   <data name="emailused" xml:space="preserve">
-    <value>*email уже зарегестрирован</value>
+    <value>*почта уже зарегестрирована</value>
   </data>
   <data name="Enter" xml:space="preserve">
     <value>Войти</value>
@@ -159,8 +177,14 @@
   <data name="enterArt" xml:space="preserve">
     <value>Введите имя</value>
   </data>
+  <data name="enterName" xml:space="preserve">
+    <value>Введите название</value>
+  </data>
   <data name="fields" xml:space="preserve">
     <value>*заполните все поля</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>Файл</value>
   </data>
   <data name="Find" xml:space="preserve">
     <value>Найти</value>
@@ -168,8 +192,14 @@
   <data name="Genres" xml:space="preserve">
     <value>Жанры</value>
   </data>
-  <data name="ListArt" xml:space="preserve">
-    <value>Список испонителей</value>
+  <data name="Level" xml:space="preserve">
+    <value>Уровень доступа</value>
+  </data>
+  <data name="Listofartists" xml:space="preserve">
+    <value>Выберите испонителя из списка</value>
+  </data>
+  <data name="Listofstyles" xml:space="preserve">
+    <value>Выберите жанр из списка</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Войти</value>
@@ -189,8 +219,14 @@
   <data name="MusicPortal" xml:space="preserve">
     <value>Музыкальный портал</value>
   </data>
+  <data name="nameArt" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Newusers" xml:space="preserve">
+    <value>Новые пользователи</value>
+  </data>
   <data name="PassConRequired" xml:space="preserve">
-    <value>*подтвержение пароля обязательно</value>
+    <value>*подтверждение пароля обязательно</value>
   </data>
   <data name="passnoteq" xml:space="preserve">
     <value>*пароли не совпадают</value>
@@ -210,16 +246,34 @@
   <data name="Registration" xml:space="preserve">
     <value>Зарегестрироваться</value>
   </data>
+  <data name="Songname" xml:space="preserve">
+    <value>Название песни</value>
+  </data>
+  <data name="Style" xml:space="preserve">
+    <value>Жанр</value>
+  </data>
+  <data name="Text" xml:space="preserve">
+    <value>Текст</value>
+  </data>
   <data name="unage" xml:space="preserve">
-    <value>*не корректный возраст</value>
+    <value>*некорректный возраст</value>
   </data>
   <data name="unemail" xml:space="preserve">
-    <value>*не корректный email</value>
+    <value>*некорректная почта</value>
   </data>
   <data name="unlogpass" xml:space="preserve">
-    <value>*не верный логин или пароль</value>
+    <value>*неверный логин или пароль</value>
+  </data>
+  <data name="username" xml:space="preserve">
+    <value>пользователь</value>
   </data>
   <data name="Users" xml:space="preserve">
     <value>Пользователи</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Добро пожаловать</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Год</value>
   </data>
 </root>

@@ -118,162 +118,162 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Addition" xml:space="preserve">
-    <value>Addition</value>
+    <value>Ajout</value>
   </data>
   <data name="AddSong" xml:space="preserve">
-    <value>Add Song</value>
+    <value>Ajouter une chanson</value>
   </data>
   <data name="age" xml:space="preserve">
-    <value>age</value>
+    <value>âge</value>
   </data>
   <data name="AgeRequired" xml:space="preserve">
-    <value>*age is required</value>
+    <value>*entrez l'âge</value>
   </data>
   <data name="Album" xml:space="preserve">
     <value>Album</value>
   </data>
   <data name="AllSongs" xml:space="preserve">
-    <value>All songs</value>
+    <value>Toutes les chansons</value>
   </data>
   <data name="Artist" xml:space="preserve">
-    <value>Artist</value>
+    <value>Сhanteur</value>
   </data>
   <data name="Artists" xml:space="preserve">
-    <value>Artists</value>
+    <value>Сhanteurs</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Annuler</value>
   </data>
   <data name="Changelevel" xml:space="preserve">
-    <value>Change level</value>
+    <value>Changer le niveau d'accès</value>
   </data>
   <data name="ChooseLang" xml:space="preserve">
-    <value>Choose the Language</value>
+    <value>Choisir la langue</value>
   </data>
   <data name="Confirm" xml:space="preserve">
-    <value>Confirm</value>
+    <value>Confirmer</value>
   </data>
   <data name="Confirmdusers" xml:space="preserve">
-    <value>Confirmd users</value>
+    <value>Utilisateurs vérifiés</value>
   </data>
   <data name="Confirmregistration" xml:space="preserve">
-    <value>Confirm registration</value>
+    <value>Confirmer l'inscription</value>
   </data>
   <data name="Editing" xml:space="preserve">
-    <value>Editing</value>
+    <value>Édition</value>
   </data>
   <data name="email" xml:space="preserve">
     <value>email</value>
   </data>
   <data name="EmailRequired" xml:space="preserve">
-    <value>*email required</value>
+    <value>champ obligatoire pour l'adresse e-mail</value>
   </data>
   <data name="emailused" xml:space="preserve">
-    <value>*email is used</value>
+    <value>*l'adresse e-mail est déjà utilisée</value>
   </data>
   <data name="Enter" xml:space="preserve">
-    <value>Enter</value>
+    <value>Entrer</value>
   </data>
   <data name="enterArt" xml:space="preserve">
-    <value>Enter the Name</value>
+    <value>Entrez votre nom</value>
   </data>
   <data name="enterName" xml:space="preserve">
-    <value>Enter the name</value>
+    <value>Entrez le titre</value>
   </data>
   <data name="fields" xml:space="preserve">
-    <value>*enter all fields</value>
+    <value>*Remplissez tous les champs</value>
   </data>
   <data name="File" xml:space="preserve">
-    <value>File</value>
+    <value>Déposer</value>
   </data>
   <data name="Find" xml:space="preserve">
-    <value>Find</value>
+    <value>Trouver</value>
   </data>
   <data name="Genres" xml:space="preserve">
-    <value>Genres</value>
+    <value>Genre</value>
   </data>
   <data name="Level" xml:space="preserve">
-    <value>Level</value>
+    <value>Niveau d'accès</value>
   </data>
   <data name="Listofartists" xml:space="preserve">
-    <value>Choose an artist from the list</value>
+    <value>Sélectionnez un artiste dans la liste</value>
   </data>
   <data name="Listofstyles" xml:space="preserve">
-    <value>Choose a genre from the list</value>
+    <value>Sélectionnez un genre dans la liste</value>
   </data>
   <data name="Login" xml:space="preserve">
-    <value>Login</value>
+    <value>Se connecter</value>
   </data>
   <data name="loginN" xml:space="preserve">
-    <value>login</value>
+    <value>se connecter</value>
   </data>
   <data name="loginused" xml:space="preserve">
-    <value>*login is used</value>
+    <value>*la connexion a déjà été enregistrée</value>
   </data>
   <data name="LogOut" xml:space="preserve">
-    <value>LogOut</value>
+    <value>Sortir</value>
   </data>
   <data name="LogRequired" xml:space="preserve">
-    <value>*login is required</value>
+    <value>*la connexion est un champ obligatoire</value>
   </data>
   <data name="MusicPortal" xml:space="preserve">
-    <value>Music Portal</value>
+    <value>Portail musical</value>
   </data>
   <data name="nameArt" xml:space="preserve">
-    <value>Name</value>
+    <value>Nom</value>
   </data>
   <data name="Newusers" xml:space="preserve">
-    <value>New users</value>
+    <value>Nouveaux utilisateurs</value>
   </data>
   <data name="PassConRequired" xml:space="preserve">
-    <value>*confirm password is required</value>
+    <value>*une confirmation du mot de passe est requise</value>
   </data>
   <data name="passnoteq" xml:space="preserve">
-    <value>*passwords are not equal</value>
+    <value>*Non concordance des mots de passe</value>
   </data>
   <data name="PassRequired" xml:space="preserve">
-    <value>*password is required</value>
+    <value>*Mot de passe est un champ obligatoire</value>
   </data>
   <data name="password" xml:space="preserve">
-    <value>password</value>
+    <value>mot de passe</value>
   </data>
   <data name="passwordConf" xml:space="preserve">
-    <value>confirm password</value>
+    <value>Confirmez le mot de passe</value>
   </data>
   <data name="Photo" xml:space="preserve">
-    <value>Photo</value>
+    <value>Télécharger une photo</value>
   </data>
   <data name="Registration" xml:space="preserve">
-    <value>Registgration</value>
+    <value>Registre</value>
   </data>
   <data name="Songname" xml:space="preserve">
-    <value>Song's name</value>
+    <value>Titre de la chanson</value>
   </data>
   <data name="Style" xml:space="preserve">
     <value>Genre</value>
   </data>
   <data name="Text" xml:space="preserve">
-    <value>Text</value>
+    <value>Texte</value>
   </data>
   <data name="unage" xml:space="preserve">
-    <value>*uncorrectly age</value>
+    <value>*âge incorrect</value>
   </data>
   <data name="unemail" xml:space="preserve">
-    <value>*uncorrectly email</value>
+    <value>*Adresse Email incorrecte</value>
   </data>
   <data name="unlogpass" xml:space="preserve">
-    <value>*uncorrectly login or password</value>
+    <value>*Identifiant ou mot de passe incorrect</value>
   </data>
   <data name="username" xml:space="preserve">
-    <value>user name</value>
+    <value>utilisateur</value>
   </data>
   <data name="Users" xml:space="preserve">
-    <value>Users</value>
+    <value>Utilisateurs</value>
   </data>
   <data name="Welcome" xml:space="preserve">
-    <value>Welcome</value>
+    <value>Accueillir</value>
   </data>
   <data name="Year" xml:space="preserve">
-    <value>Year</value>
+    <value>Année</value>
   </data>
 </root>

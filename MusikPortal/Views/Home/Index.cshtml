@@ -24,6 +24,7 @@
                 loginNone();
             });
             $("body").on("click", ".btn-Logout", function () {
+                clearDialog();
                 $.ajax({
                     url: '@Url.Action("Logout", "Login")',
                     type: 'GET',
@@ -267,7 +268,8 @@
                     });
             });
             $(".createSong").on("click", function (e) {
-                e.preventDefault();               
+                e.preventDefault();
+                clearDialog();
                 $("<div id='dialogContent'></div>")
                     .addClass("dialog")
                     .appendTo("body")
@@ -322,6 +324,7 @@
 
         $("body").on("click", "#artists", function (e) {
             e.preventDefault();
+            clearDialog();
             $("<div id='dialogContent'></div>")
                 .addClass("dialog")
                 .appendTo("body")
@@ -369,7 +372,7 @@
                                 .appendTo("body")
                                 .load("/Admin/DeleteArtist/?id=" + i )
                                 .dialog({
-                                    width: 330,
+                                    width: 370,
                                     title: "Confirm deleting the artist",
                                     close: function () { $(this).remove() },
                                     modal: true,                                  
@@ -413,7 +416,7 @@
                                 .appendTo("body")
                                 .load("/Admin/EditArtist/?id=" + i)
                                 .dialog({
-                                    width: 330,
+                                    width: 370,
                                     title: "Confirm edition the artist",
                                     close: function () { $(this).remove() },
                                     modal: true,
@@ -461,6 +464,7 @@
         });
         $("body").on("click", "#genres", function (e) {
             e.preventDefault();
+            clearDialog();
             $("<div id='dialogContent'></div>")
                 .addClass("dialog")
                 .appendTo("body")
@@ -506,7 +510,7 @@
                                 .appendTo("body")
                                 .load("/Admin/DeleteStyle/?id=" + i)
                                 .dialog({
-                                    width: 330,
+                                    width: 370,
                                     title: "Confirm deleting the style",
                                     close: function () { $(this).remove() },
                                     modal: true,
@@ -550,7 +554,7 @@
                                 .appendTo("body")
                                 .load("/Admin/EditStyle/?id=" + i)
                                 .dialog({
-                                    width: 330,
+                                    width: 370,
                                     title: "Confirm edition the style",
                                     close: function () { $(this).remove() },
                                     modal: true,
@@ -595,6 +599,7 @@
         });
         $("body").on("click", "#users", function (e) {
             e.preventDefault();
+            clearDialog();
             $("<div id='dialogContent'></div>")
                 .addClass("dialog")
                 .appendTo("body")
@@ -602,8 +607,13 @@
                 .dialog({
                     title: "All Users",
                     close: function () { $(this).remove() },
-                    width: 830,
-                    modal: true                                   
+                    width: 900,
+                    modal: true,
+                    buttons: {
+                        "Cancel": function () {
+                            $("#dialogContent").remove();
+                        }
+                    }
                 });
         });
         $("body").on("click", ".userConfirm", function (e) {
@@ -804,9 +814,17 @@
              
              return so;
         };
-
+        function clearDialog() {
+            let d = $("#dialogContent");
+            if (d != null)
+                d.remove();
+            let d1 = $("#dialogContent1");
+            if (d1 != null)
+                d1.remove();
+        }
         // Получение всех песен
         function getAllSongs() {
+            clearDialog();
             $("#str").val("");
             $("#ss").html("");
             $.ajax({
@@ -830,6 +848,7 @@
             });            
         }
         function FindSongs() {
+            clearDialog();
             let formData = new FormData();
             formData.append("str", $("#str").val());
             $.ajax({                

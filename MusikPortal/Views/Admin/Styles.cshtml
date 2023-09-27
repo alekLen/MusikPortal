@@ -5,7 +5,8 @@
 <form  asp-controller="Admin" method="post">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <span>Enter the genre  </span><br />
+            <h4> @Resources.Resource.Addition</h4>
+            <span>@Resources.Resource.enterName </span><br />
             <input asp-for="Name" class="form-control card _c7" />
             <span asp-validation-for="Name" class="text-danger"></span>
         </div><br />
@@ -13,7 +14,8 @@
             <input type="submit" formaction="CreateStyle" value="Add Genre" class="btn btn-primary c2" />
             </div> *@<hr />
         <div class="form-group ">
-    <label >List of Genres</label>
+            <h4> @Resources.Resource.Editing</h4>
+            <label>@Resources.Resource.Listofstyles</label>
     <select asp-for="Id" class="form-control card _c7" asp-items="ViewBag.StyleId"></select>    
 </div>
     <br />

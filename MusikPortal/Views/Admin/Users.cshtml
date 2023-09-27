@@ -1,20 +1,20 @@
 ﻿@using Microsoft.AspNetCore.Http
 @model IEnumerable<MusicPortal.BLL.DTO.UserDTO>
-<h3>New users</h3>
+<h3>@Resources.Resource.Newusers</h3>
 <table class="table card us">
     
         <tr>
             <th>
-               Name
+            @Resources.Resource.nameArt
             </th>
             <th style="width:70px">
-                Age
+            @Resources.Resource.age
             </th>
             <th>
-               Email
+            @Resources.Resource.email
             </th>
             <th style="width:70px">
-               Level
+            @Resources.Resource.Level
             </th>
             <th></th>
         </tr>
@@ -30,28 +30,28 @@
                 <td>   <input style="width:50px" type="text" name="Age" value=@item.Age readonly="readonly" /></td>
                 <td>   <input type="text" name="email" value=@item.email readonly="readonly" /></td>
                 <td> <input style="width:50px" name="Level" type="text" readonly="readonly" value=@item.Level /></td>
-                    <td>&nbsp;&nbsp;&nbsp;<a style="width:150px" asp-action="GetUser" asp-route-id="@item.Id" class="userConfirm">Confirm registration</a></td>
+                <td>&nbsp;&nbsp;&nbsp;<a style="width:150px" asp-action="GetUser" asp-route-id="@item.Id" class="userConfirm"> @Resources.Resource.Confirmregistration</a></td>
             </tr>
             </form>
             }
         }
     
 </table>
-<h3>Confirmd users</h3>
+<h3>@Resources.Resource.Confirmdusers</h3>
 <table class="table card us">
 
     <tr>
         <th>
-            Name
+            @Resources.Resource.nameArt
         </th>
         <th style="width:70px">
-            Age
+            @Resources.Resource.age
         </th>
         <th>
-            Email
+            @Resources.Resource.email
         </th>
         <th style="width:70px">
-            Level
+            @Resources.Resource.Level
         </th>
         <th></th>
     </tr>
@@ -67,7 +67,7 @@
                 <td>   <input style="width:50px" type="text" name="Age" value=@item.Age readonly="readonly" /></td>
                 <td>   <input type="text" name="email" value=@item.email readonly="readonly" /></td>
                 <td> <input style="width:50px" name="Level" type="text" readonly="readonly" value=@item.Level /></td>
-                <td>&nbsp;&nbsp;&nbsp;<a style="width:150px" asp-action="GetUser" asp-route-id="@item.Id" class="userConfirm">Change level</a></td>
+                <td>&nbsp;&nbsp;&nbsp;<a style="width:150px" asp-action="GetUser" asp-route-id="@item.Id" class="userConfirm">  @Resources.Resource.Changelevel</a></td>
             </tr>
             </form>
         }

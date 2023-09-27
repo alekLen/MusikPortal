@@ -8,16 +8,16 @@
             <input type="hidden" asp-for="Id" />
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div>
-                    <img src=@Url.Content(@Model.photo) class="im" id="image"></img>
+                    <img src=@Url.Content(@Model.photo) class="im" id="image"/>
                 </div>
             <div class="form-group">
-                <span>Enter the name </span><br />
-                <input asp-for="Name" class="form-control card _c7" />
+                <span>@Resources.Resource.enterArt </span><br />
+                <input asp-for="Name" class="form-control card _c7b" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <span>Photo</span><br />
-                <input asp-for="photo" class="form-control card _c7" id="fileNameField" readonly="readonly" />
-                <input type="file" name="p" accept=".jpg, .jpeg" id="FileInput" onchange="previewImage()" /><br /><br />
+            <span>@Resources.Resource.Photo</span><br />
+                <input asp-for="photo" class="form-control card _c7b" id="fileNameField" readonly="readonly" />
+            <input type="file" name="p" accept=".jpg, .jpeg" id="FileInput" onchange="previewImage()" /><br /><br />
                 
         </div>
     </form>

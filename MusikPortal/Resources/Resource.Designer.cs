@@ -79,7 +79,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to возраст.
+        ///   Looks up a localized string similar to Возраст.
         /// </summary>
         public static string age {
             get {
@@ -97,11 +97,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Альбом.
+        /// </summary>
+        public static string Album {
+            get {
+                return ResourceManager.GetString("Album", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Все песни.
         /// </summary>
         public static string AllSongs {
             get {
                 return ResourceManager.GetString("AllSongs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Исполнитель.
+        /// </summary>
+        public static string Artist {
+            get {
+                return ResourceManager.GetString("Artist", resourceCulture);
             }
         }
         
@@ -124,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Изменить уровень доступа.
+        /// </summary>
+        public static string Changelevel {
+            get {
+                return ResourceManager.GetString("Changelevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Выбрать язык.
         /// </summary>
         public static string ChooseLang {
@@ -142,6 +169,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Подтвержденные пользователи.
+        /// </summary>
+        public static string Confirmdusers {
+            get {
+                return ResourceManager.GetString("Confirmdusers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Подтвердить регистрацию.
+        /// </summary>
+        public static string Confirmregistration {
+            get {
+                return ResourceManager.GetString("Confirmregistration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Редактирование.
         /// </summary>
         public static string Editing {
@@ -151,7 +196,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *email обязательное поле.
+        ///   Looks up a localized string similar to Электронная почта .
+        /// </summary>
+        public static string email {
+            get {
+                return ResourceManager.GetString("email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to *почта обязательное поле.
         /// </summary>
         public static string EmailRequired {
             get {
@@ -160,7 +214,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *email уже зарегестрирован.
+        ///   Looks up a localized string similar to *почта уже зарегестрирована.
         /// </summary>
         public static string emailused {
             get {
@@ -187,11 +241,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Введите название.
+        /// </summary>
+        public static string enterName {
+            get {
+                return ResourceManager.GetString("enterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to *заполните все поля.
         /// </summary>
         public static string fields {
             get {
                 return ResourceManager.GetString("fields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Файл.
+        /// </summary>
+        public static string File {
+            get {
+                return ResourceManager.GetString("File", resourceCulture);
             }
         }
         
@@ -214,11 +286,29 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Список испонителей.
+        ///   Looks up a localized string similar to Уровень доступа.
         /// </summary>
-        public static string ListArt {
+        public static string Level {
             get {
-                return ResourceManager.GetString("ListArt", resourceCulture);
+                return ResourceManager.GetString("Level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выберите испонителя из списка.
+        /// </summary>
+        public static string Listofartists {
+            get {
+                return ResourceManager.GetString("Listofartists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выберите жанр из списка.
+        /// </summary>
+        public static string Listofstyles {
+            get {
+                return ResourceManager.GetString("Listofstyles", resourceCulture);
             }
         }
         
@@ -277,7 +367,25 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *подтвержение пароля обязательно.
+        ///   Looks up a localized string similar to Имя.
+        /// </summary>
+        public static string nameArt {
+            get {
+                return ResourceManager.GetString("nameArt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Новые пользователи.
+        /// </summary>
+        public static string Newusers {
+            get {
+                return ResourceManager.GetString("Newusers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to *подтверждение пароля обязательно.
         /// </summary>
         public static string PassConRequired {
             get {
@@ -340,7 +448,34 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *не корректный возраст.
+        ///   Looks up a localized string similar to Название песни.
+        /// </summary>
+        public static string Songname {
+            get {
+                return ResourceManager.GetString("Songname", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Жанр.
+        /// </summary>
+        public static string Style {
+            get {
+                return ResourceManager.GetString("Style", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Текст.
+        /// </summary>
+        public static string Text {
+            get {
+                return ResourceManager.GetString("Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to *некорректный возраст.
         /// </summary>
         public static string unage {
             get {
@@ -349,7 +484,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *не корректный email.
+        ///   Looks up a localized string similar to *некорректная почта.
         /// </summary>
         public static string unemail {
             get {
@@ -358,11 +493,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to *не верный логин или пароль.
+        ///   Looks up a localized string similar to *неверный логин или пароль.
         /// </summary>
         public static string unlogpass {
             get {
                 return ResourceManager.GetString("unlogpass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to пользователь.
+        /// </summary>
+        public static string username {
+            get {
+                return ResourceManager.GetString("username", resourceCulture);
             }
         }
         
@@ -372,6 +516,24 @@ namespace Resources {
         public static string Users {
             get {
                 return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добро пожаловать.
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Год.
+        /// </summary>
+        public static string Year {
+            get {
+                return ResourceManager.GetString("Year", resourceCulture);
             }
         }
     }
